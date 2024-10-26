@@ -6,8 +6,8 @@
  * This files contains a structure that represents a button.
  */
 
-#ifndef NEON_BUTTON_H
-#define NEON_BUTTON_H
+#ifndef BLOK_BUTTON_H
+#define BLOK_BUTTON_H
 
 #define STRICT 1
 #include <Windows.h>
@@ -16,12 +16,12 @@
 /**
  * \brief Models a button.
  */
-typedef struct __NeonButtonControl
+typedef struct __BlokButtonControl
 {
     wchar_t text[60]; ///< Button text
     size_t max;       ///< Maximum text size
     COORD alignment;  ///< Text position
     RECT area;        ///< Control area
-} NeonButtonControl;
+} BlokButtonControl;
 
 #endif

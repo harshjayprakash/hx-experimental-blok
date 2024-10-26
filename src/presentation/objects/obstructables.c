@@ -14,15 +14,15 @@
 #include "block.h"
 #include <wingdi.h>
 
-static NeonVector mObstructableSquares = {0};
+static BlokVector mObstructableSquares = {0};
 
-void NeonInitObstructables(void)
+void BlokInitObstructables(void)
 {
-    mObstructableSquares = NeonCreateVector(2);
+    mObstructableSquares = BlokCreateVector(2);
 
     for (int index = 0; index < mObstructableSquares.max; index++)
     {
-        NeonNode *nodePtr = NeonGetNodeAsPointer(&mObstructableSquares, index);
+        BlokNode *nodePtr = BlokGetNodeAsPointer(&mObstructableSquares, index);
 
         if (!nodePtr)
         {
@@ -30,19 +30,19 @@ void NeonInitObstructables(void)
         }
 
         nodePtr->indexed = 0;
-        NeonCopyPosition(&(nodePtr->position), NeonCreatePosition(-1, -1));
+        BlokCopyPosition(&(nodePtr->position), BlokCreatePosition(-1, -1));
     }
 
-    NeonLog(NeonInformation, NeonCreateResult(NeonNone, L"Initialised Obstructables."));
+    BlokLog(BlokInformation, BlokCreateResult(BlokNone, L"Initialised Obstructables."));
 }
 
-void NeonRenderObstructables(HDC displayContext)
+void BlokRenderObstructables(HDC displayContext)
 {
-    NeonSize squareSize = NeonGetBlockSize();
+    BlokSize squareSize = BlokGetBlockSize();
 
     for (int index = 0; index < mObstructableSquares.max; index++)
     {
-        NeonNode *nodePtr = NeonGetNodeAsPointer(&mObstructableSquares, index);
+        BlokNode *nodePtr = BlokGetNodeAsPointer(&mObstructableSquares, index);
 
         if (!nodePtr)
         {
@@ -59,14 +59,14 @@ void NeonRenderObstructables(HDC displayContext)
                            nodePtr->position.x + squareSize.width,
                            nodePtr->position.y + squareSize.height};
 
-        (void)FillRect(displayContext, &nodeAsRect, NeonGetForegroundBrush());
+        (void)FillRect(displayContext, &nodeAsRect, BlokGetForegroundBrush());
     }
 }
 
-void NeonAddObstrutable(const NeonPosition position)
+void BlokAddObstrutable(const BlokPosition position)
 {
-    NeonNode node = {position, 1};
-    NeonSize nodeSize = NeonGetBlockSize();
+    BlokNode node = {position, 1};
+    BlokSize nodeSize = BlokGetBlockSize();
     RECT nodeAsRect = {
         position.x,
         position.y,
@@ -74,49 +74,49 @@ void NeonAddObstrutable(const NeonPosition position)
         position.y + nodeSize.height
     };
 
-    (void)NeonPushNode(&mObstructableSquares, node);
+    (void)BlokPushNode(&mObstructableSquares, node);
 
-    (void)InvalidateRect(NeonGetWindowHandle(), &nodeAsRect, TRUE);
-    NeonInvalidateProgressBarArea();
+    (void)InvalidateRect(BlokGetWindowHandle(), &nodeAsRect, TRUE);
+    BlokInvalidateProgressBarArea();
 }
 
-void NeonClearObstrutables(void)
+void BlokClearObstrutables(void)
 {
-    (void)NeonClearVector(&mObstructableSquares);
+    (void)BlokClearVector(&mObstructableSquares);
 }
 
-int NeonGetObstrutableCount(void)
+int BlokGetObstrutableCount(void)
 {
     return mObstructableSquares.size;
 }
 
-float NeonGetVectorMemoryPercentage(void)
+float BlokGetVectorMemoryPercentage(void)
 {
     return ((mObstructableSquares.size * 1.0) / (mObstructableSquares.max * 1.0));
 }
 
-int NeonObstrutableExistsAtPosition(const int x, const int y)
+int BlokObstrutableExistsAtPosition(const int x, const int y)
 {
-    return NeonNodeExists(&mObstructableSquares, (NeonNode){{x, y}, 1});
+    return BlokNodeExists(&mObstructableSquares, (BlokNode){{x, y}, 1});
 }
 
-NeonPosition NeonGetObstructableAtIndex(int index)
+BlokPosition BlokGetObstructableAtIndex(int index)
 {
-    NeonPosition result = {-1, -1};
-    NeonNode *nodePtr = NeonGetNodeAsPointer(&mObstructableSquares, index);
+    BlokPosition result = {-1, -1};
+    BlokNode *nodePtr = BlokGetNodeAsPointer(&mObstructableSquares, index);
 
     if (!nodePtr)
     {
         return result;
     }
 
-    NeonCopyPosition(&result, nodePtr->position);
+    BlokCopyPosition(&result, nodePtr->position);
     return result;
 }
 
-void NeonFreeObstructables(void)
+void BlokFreeObstructables(void)
 {
-    NeonDestroyVector(&mObstructableSquares);
-    NeonLog(NeonInformation,
-            NeonCreateResult(NeonNone, L"Cleaned Up Obstructable Resources."));
+    BlokDestroyVector(&mObstructableSquares);
+    BlokLog(BlokInformation,
+            BlokCreateResult(BlokNone, L"Cleaned Up Obstructable Resources."));
 }

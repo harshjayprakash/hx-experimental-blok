@@ -7,8 +7,8 @@
  * arguments.
  */
 
-#ifndef NEON_ARGS_H
-#define NEON_ARGS_H
+#ifndef BLOK_ARGS_H
+#define BLOK_ARGS_H
 
 #include "result.h"
 
@@ -17,13 +17,13 @@
  *
  * \return Result containing if the operation was successful.
  */
-NeonResult NeonProcessArguments(void);
+BlokResult BlokProcessArguments(void);
 
 /**
  * \brief Gets the block scaling.
  *
  * \return The block size scale.
  */
-int NeonGetBlockScale(void);
+int BlokGetBlockScale(void);
 
 #endif

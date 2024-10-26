@@ -10,22 +10,22 @@
 #include <stdio.h>
 #include <time.h>
 
-static NeonLogTechnique mLogTechnique = NeonConsole;
+static BlokLogTechnique mLogTechnique = BlokConsole;
 static FILE *logFile = NULL;
 static time_t mTime;
 static struct tm mTm;
 
-void NeonInitLogger(const NeonLogTechnique technique)
+void BlokInitLogger(const BlokLogTechnique technique)
 {
     mLogTechnique = technique;
 
-    if (mLogTechnique == NeonFile)
+    if (mLogTechnique == BlokFile)
     {
         logFile = fopen("log.txt", "w");
     }
 }
 
-void NeonLog(const NeonLogLevel level, const NeonResult information)
+void BlokLog(const BlokLogLevel level, const BlokResult information)
 {
     wchar_t *levelsAsString[] = {
         L"Unknown",
@@ -39,14 +39,14 @@ void NeonLog(const NeonLogLevel level, const NeonResult information)
     mTime = time(NULL);
     mTm = *localtime(&mTime);
 
-    if (mLogTechnique == NeonFile)
+    if (mLogTechnique == BlokFile)
     {
         if (!logFile)
         {
             return;
         }
 
-        (void)fwprintf(logFile, L"Neon | %d/%d/%d %d:%d:%d | %ls | %ls\n",
+        (void)fwprintf(logFile, L"Blok | %d/%d/%d %d:%d:%d | %ls | %ls\n",
                        mTm.tm_year + 1900, mTm.tm_mon, mTm.tm_mday, mTm.tm_hour,
                        mTm.tm_min, mTm.tm_sec, levelsAsString[levelAsIndex],
                        information.message);
@@ -54,18 +54,18 @@ void NeonLog(const NeonLogLevel level, const NeonResult information)
         return;
     }
 
-    (void)fwprintf(stderr, L"Neon | %d/%d/%d %d:%d:%d | %ls | %ls\n", mTm.tm_year + 1900,
+    (void)fwprintf(stderr, L"Blok | %d/%d/%d %d:%d:%d | %ls | %ls\n", mTm.tm_year + 1900,
                    mTm.tm_mon, mTm.tm_mday, mTm.tm_hour, mTm.tm_min, mTm.tm_sec,
                    levelsAsString[levelAsIndex], information.message);
 }
 
-NeonResult NeonLogAndReturn(const NeonLogLevel level, const NeonResult information)
+BlokResult BlokLogAndReturn(const BlokLogLevel level, const BlokResult information)
 {
-    NeonLog(level, information);
+    BlokLog(level, information);
     return information;
 }
 
-void NeonFreeLogger(void)
+void BlokFreeLogger(void)
 {
     if (logFile)
     {

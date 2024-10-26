@@ -26,7 +26,7 @@ OBJECT_FILES = $(BUILD_DIR)/main.o \
 	$(BUILD_DIR)/presentation.objects.obstructables.o \
 	$(BUILD_DIR)/presentation.window.o
 
-EXECUTABLE = neon-blok.exe
+EXECUTABLE = blok.exe
 
 build: $(OUTPUT_DIR)/$(EXECUTABLE)
 

@@ -18,12 +18,12 @@ static HINSTANCE mInstanceHandle = {0};
 static int mShowflag = 0;
 static int mInitialised = 0;
 
-NeonResult NeonInit(HINSTANCE instanceHandle, int showFlags)
+BlokResult BlokInit(HINSTANCE instanceHandle, int showFlags)
 {
     if (mInitialised)
     {
-        return NeonLogAndReturn(
-            NeonWarning, NeonCreateResult(NeonCannotReInit,
+        return BlokLogAndReturn(
+            BlokWarning, BlokCreateResult(BlokCannotReInit,
                                           L"Cannot Re-Initialise Program: Skipping."));
     }
 
@@ -31,37 +31,37 @@ NeonResult NeonInit(HINSTANCE instanceHandle, int showFlags)
     mShowflag = showFlags;
     mInitialised = 1;
 
-    return NeonCreateResult(NeonSuccess, L"Program Initialised.");
+    return BlokCreateResult(BlokSuccess, L"Program Initialised.");
 }
 
-int NeonIsInit(void)
+int BlokIsInit(void)
 {
     return mInitialised;
 }
 
-NeonResult NeonStart(void)
+BlokResult BlokStart(void)
 {
-    NeonInitDrawingTools();
-    (void)NeonInitWindow();
-    (void)NeonFreeWindow();
-    NeonFreeDrawingTools();
-    return NeonLogAndReturn(
-        NeonInformation,
-        NeonCreateResult(NeonSuccess, L"Quit Message Recieved: Closing."));
+    BlokInitDrawingTools();
+    (void)BlokInitWindow();
+    (void)BlokFreeWindow();
+    BlokFreeDrawingTools();
+    return BlokLogAndReturn(
+        BlokInformation,
+        BlokCreateResult(BlokSuccess, L"Quit Message Recieved: Closing."));
 }
 
-HINSTANCE NeonGetHandle(void)
+HINSTANCE BlokGetHandle(void)
 {
     return mInstanceHandle;
 }
 
-int NeonGetShowFlag(void)
+int BlokGetShowFlag(void)
 {
     return mShowflag;
 }
 
-NeonResult NeonFree(void)
+BlokResult BlokFree(void)
 {
-    return NeonLogAndReturn(
-        NeonInformation, NeonCreateResult(NeonSuccess, L"Cleaned Up Program Resources."));
+    return BlokLogAndReturn(
+        BlokInformation, BlokCreateResult(BlokSuccess, L"Cleaned Up Program Resources."));
 }

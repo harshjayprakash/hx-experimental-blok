@@ -16,13 +16,13 @@
 
 static int mBlockScale = 15;
 
-NeonResult NeonProcessArguments(void)
+BlokResult BlokProcessArguments(void)
 {
-    if (!NeonIsInit())
+    if (!BlokIsInit())
     {
-        return NeonLogAndReturn(
-            NeonError,
-            NeonCreateResult(NeonNotInit,
+        return BlokLogAndReturn(
+            BlokError,
+            BlokCreateResult(BlokNotInit,
                              L"Argument Processing Failed: Program Not Initialised."));
     }
 
@@ -31,9 +31,9 @@ NeonResult NeonProcessArguments(void)
 
     if (!arguments)
     {
-        return NeonLogAndReturn(
-            NeonError,
-            NeonCreateResult(NeonNotInit, L"Arguments Processing Failed: Cannot Get."));
+        return BlokLogAndReturn(
+            BlokError,
+            BlokCreateResult(BlokNotInit, L"Arguments Processing Failed: Cannot Get."));
     }
 
     int scaleMode = 0;
@@ -43,21 +43,21 @@ NeonResult NeonProcessArguments(void)
 
         if (wcsncmp(arguments[index], L"--dark-mode", 12 * sizeof(unsigned short)) == 0)
         {
-            NeonLog(NeonInformation,
-                    NeonCreateResult(NeonNone, L"Theme Changed to Dark Mode."));
-            NeonSetTheme(NeonDarkTheme);
+            BlokLog(BlokInformation,
+                    BlokCreateResult(BlokNone, L"Theme Changed to Dark Mode."));
+            BlokSetTheme(BlokDarkTheme);
         }
         if (wcsncmp(arguments[index], L"--light-mode", 13 * sizeof(unsigned short)) == 0)
         {
-            NeonLog(NeonInformation,
-                    NeonCreateResult(NeonNone, L"Theme Changed to Light Mode."));
-            NeonSetTheme(NeonLightTheme);
+            BlokLog(BlokInformation,
+                    BlokCreateResult(BlokNone, L"Theme Changed to Light Mode."));
+            BlokSetTheme(BlokLightTheme);
         }
         if (wcsncmp(arguments[index], L"--scale", 13 * sizeof(unsigned short)))
         {
             scaleMode = 1;
-            NeonLog(NeonInformation,
-                    NeonCreateResult(NeonNone, L"Updating Block Scale."));
+            BlokLog(BlokInformation,
+                    BlokCreateResult(BlokNone, L"Updating Block Scale."));
         }
         if (scaleMode)
         {
@@ -72,14 +72,14 @@ NeonResult NeonProcessArguments(void)
         }
     }
 
-    NeonUpdateColours();
+    BlokUpdateColours();
 
     (void)LocalFree(arguments);
 
-    return NeonCreateResult(NeonSuccess, L"Arguments Processed.");
+    return BlokCreateResult(BlokSuccess, L"Arguments Processed.");
 }
 
-int NeonGetBlockScale(void)
+int BlokGetBlockScale(void)
 {
     return mBlockScale;
 }

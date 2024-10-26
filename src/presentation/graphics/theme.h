@@ -7,8 +7,8 @@
  * to set and get the colours within the theme.
  */
 
-#ifndef NEON_THEME_H
-#define NEON_THEME_H
+#ifndef BLOK_THEME_H
+#define BLOK_THEME_H
 
 #define STRICT 1
 #include <Windows.h>
@@ -18,47 +18,47 @@
 /**
  * \brief The chosen theme.
  */
-typedef enum __NeonTheme
+typedef enum __BlokTheme
 {
-    NeonUnsetTheme = 0x000001, ///< Unset Theme
-    NeonLightTheme = 0x000002, ///< Light Mode
-    NeonDarkTheme = 0x000003,  ///< Dark Mode
-    NeonCustomTheme = 0x000004 ///< Custom Theme
-} NeonTheme;
+    BlokUnsetTheme = 0x000001, ///< Unset Theme
+    BlokLightTheme = 0x000002, ///< Light Mode
+    BlokDarkTheme = 0x000003,  ///< Dark Mode
+    BlokCustomTheme = 0x000004 ///< Custom Theme
+} BlokTheme;
 
 /**
  * \brief Update the colours based on the chosen theme.
  *
  * \warning This function must be called to initialise the colours.
  */
-void NeonUpdateColours(void);
+void BlokUpdateColours(void);
 
 /**
  * \brief Set the theme.
  *
  * \param theme The theme.
  */
-void NeonSetTheme(const NeonTheme theme);
+void BlokSetTheme(const BlokTheme theme);
 
 /**
  * \brief Gets the background colour.
  *
  * \return The background colour.
  */
-unsigned long NeonGetBackgroundColour(void);
+unsigned long BlokGetBackgroundColour(void);
 
 /**
  * \brief Gets the foreground colour.
  *
  * \return The foreground colour.
  */
-unsigned long NeonGetForegroundColour(void);
+unsigned long BlokGetForegroundColour(void);
 
 /**
  * \brief Gets the accent colour.
  *
  * \return The accent colour.
  */
-unsigned long NeonGetAccentColour(void);
+unsigned long BlokGetAccentColour(void);
 
 #endif

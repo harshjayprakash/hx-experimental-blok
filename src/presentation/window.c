@@ -25,14 +25,14 @@
 static HWND mWindow = {0};
 static MSG mMessage = {0};
 static WNDCLASSEXW mClass = {0};
-static wchar_t mName[] = L"__NeonBlockWindowClass";
-static wchar_t mCaption[] = L"Blok 24Q3.01";
+static wchar_t mName[] = L"__BlokWindowClass";
+static wchar_t mCaption[] = L"Blok H2 '24";
 static RECT mWindowArea = {0};
 static int mWindowHeight = 0;
 static int mWindowWidth = 0;
 static int mRunning = 0;
 
-static long long __NeonProcedure(HWND windowHandle, UINT message, WPARAM wordParam,
+static long long __BlokProcedure(HWND windowHandle, UINT message, WPARAM wordParam,
                                  LPARAM longParam)
 {
     PAINTSTRUCT paint;
@@ -53,8 +53,8 @@ static long long __NeonProcedure(HWND windowHandle, UINT message, WPARAM wordPar
         HBITMAP bitmapMemory =
             CreateCompatibleBitmap(displayContext, mWindowWidth, mWindowHeight);
         (void)SelectObject(bufferedContext, bitmapMemory);
-        (void)FillRect(bufferedContext, &mWindowArea, NeonGetBackgroundBrush());
-        NeonHandleWindowPaintEvent(bufferedContext);
+        (void)FillRect(bufferedContext, &mWindowArea, BlokGetBackgroundBrush());
+        BlokHandleWindowPaintEvent(bufferedContext);
         (void)BitBlt(displayContext, 0, 0, mWindowWidth, mWindowHeight, bufferedContext,
                      0, 0, SRCCOPY);
         (void)DeleteObject(bitmapMemory);
@@ -66,21 +66,21 @@ static long long __NeonProcedure(HWND windowHandle, UINT message, WPARAM wordPar
         (void)GetClientRect(windowHandle, &mWindowArea);
         mWindowWidth = mWindowArea.right;
         mWindowHeight = mWindowArea.bottom;
-        NeonSetBlockBoundary(NeonCreateSize(mWindowWidth, mWindowHeight));
-        NeonUpdatePanelSize();
+        BlokSetBlockBoundary(BlokCreateSize(mWindowWidth, mWindowHeight));
+        BlokUpdatePanelSize();
         return 0;
     case WM_LBUTTONDOWN:
-        NeonHandleWindowLeftMouseDown(longParam);
+        BlokHandleWindowLeftMouseDown(longParam);
         return 0;
     case WM_KEYDOWN:
-        NeonHandleWindowKeyDownEvent(wordParam);
+        BlokHandleWindowKeyDownEvent(wordParam);
         return 0;
     default:
         return DefWindowProcW(windowHandle, message, wordParam, longParam);
     }
 }
 
-static int __NeonMessageLoop(void)
+static int __BlokMessageLoop(void)
 {
     while (GetMessageW(&mMessage, NULL, 0, 0))
     {
@@ -91,34 +91,34 @@ static int __NeonMessageLoop(void)
     return (int)mMessage.wParam;
 }
 
-static NeonResult __NeonCreateWindow(void)
+static BlokResult __BlokCreateWindow(void)
 {
     mWindow = CreateWindowExW(WS_EX_OVERLAPPEDWINDOW, mName, mCaption,
                               WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 800, 600,
-                              NULL, NULL, NeonGetHandle(), NULL);
+                              NULL, NULL, BlokGetHandle(), NULL);
 
     if (!mWindow)
     {
-        return NeonLogAndReturn(NeonError,
-                                NeonCreateResult(NeonFail, L"Window Creation Failed."));
+        return BlokLogAndReturn(BlokError,
+                                BlokCreateResult(BlokFail, L"Window Creation Failed."));
     }
 
-    return NeonLogAndReturn(NeonInformation,
-                            NeonCreateResult(NeonSuccess, L"Created Window."));
+    return BlokLogAndReturn(BlokInformation,
+                            BlokCreateResult(BlokSuccess, L"Created Window."));
 }
 
-static NeonResult __NeonRegisterWindow(void)
+static BlokResult __BlokRegisterWindow(void)
 {
     mClass.cbSize = sizeof(WNDCLASSEXW);
     mClass.style = CS_HREDRAW | CS_VREDRAW;
-    mClass.lpfnWndProc = __NeonProcedure;
+    mClass.lpfnWndProc = __BlokProcedure;
     mClass.cbClsExtra = 0;
     mClass.cbWndExtra = 0;
-    mClass.hInstance = NeonGetHandle();
+    mClass.hInstance = BlokGetHandle();
     mClass.hCursor = LoadCursorW(NULL, IDC_ARROW);
-    mClass.hIcon = LoadIconW(NeonGetHandle(), IDI_APPLICATION);
-    mClass.hIconSm = LoadIconW(NeonGetHandle(), IDI_APPLICATION);
-    mClass.hbrBackground = CreateSolidBrush(NeonGetBackgroundColour());
+    mClass.hIcon = LoadIconW(BlokGetHandle(), IDI_APPLICATION);
+    mClass.hIconSm = LoadIconW(BlokGetHandle(), IDI_APPLICATION);
+    mClass.hbrBackground = CreateSolidBrush(BlokGetBackgroundColour());
     mClass.lpszMenuName = NULL;
     mClass.lpszClassName = mName;
 
@@ -126,60 +126,60 @@ static NeonResult __NeonRegisterWindow(void)
 
     if (!success)
     {
-        return NeonLogAndReturn(NeonError,
-                                NeonCreateResult(NeonFail, L"Failed to Register Class."));
+        return BlokLogAndReturn(BlokError,
+                                BlokCreateResult(BlokFail, L"Failed to Register Class."));
     }
 
-    return NeonLogAndReturn(NeonInformation,
-                            NeonCreateResult(NeonSuccess, L"Registered Window."));
+    return BlokLogAndReturn(BlokInformation,
+                            BlokCreateResult(BlokSuccess, L"Registered Window."));
 }
 
-NeonResult NeonInitWindow(void)
+BlokResult BlokInitWindow(void)
 {
-    NeonResult registerResult = __NeonRegisterWindow();
-    if (registerResult.code == NeonFail)
+    BlokResult registerResult = __BlokRegisterWindow();
+    if (registerResult.code == BlokFail)
     {
-        (void)NeonFreeWindow();
-        return NeonLogAndReturn(
-            NeonError, NeonCreateResult(NeonFail, L"Window Initialisation Failed."));
+        (void)BlokFreeWindow();
+        return BlokLogAndReturn(
+            BlokError, BlokCreateResult(BlokFail, L"Window Initialisation Failed."));
     }
 
-    NeonResult createResult = __NeonCreateWindow();
-    if (createResult.code == NeonFail)
+    BlokResult createResult = __BlokCreateWindow();
+    if (createResult.code == BlokFail)
     {
-        (void)NeonFreeWindow();
-        return NeonLogAndReturn(
-            NeonError, NeonCreateResult(NeonFail, L"Window Initialisation Failed."));
+        (void)BlokFreeWindow();
+        return BlokLogAndReturn(
+            BlokError, BlokCreateResult(BlokFail, L"Window Initialisation Failed."));
     }
 
     mRunning = 1;
 
-    NeonInitPanelComponent();
-    NeonInitCanvasComponent();
+    BlokInitPanelComponent();
+    BlokInitCanvasComponent();
 
-    (void)ShowWindow(mWindow, NeonGetShowFlag());
+    (void)ShowWindow(mWindow, BlokGetShowFlag());
     (void)UpdateWindow(mWindow);
-    (void)__NeonMessageLoop();
+    (void)__BlokMessageLoop();
 
-    return NeonCreateResult(NeonSuccess, L"Window Initialised.");
+    return BlokCreateResult(BlokSuccess, L"Window Initialised.");
 }
 
-RECT NeonGetWindowArea(void)
+RECT BlokGetWindowArea(void)
 {
     return mWindowArea;
 }
 
-HWND NeonGetWindowHandle(void)
+HWND BlokGetWindowHandle(void)
 {
     return mWindow;
 }
 
-NeonResult NeonFreeWindow(void)
+BlokResult BlokFreeWindow(void)
 {
-    NeonFreePanelComponent();
-    NeonFreeCanvasComponent();
+    BlokFreePanelComponent();
+    BlokFreeCanvasComponent();
 
-    (void)UnregisterClassW(mName, NeonGetHandle());
+    (void)UnregisterClassW(mName, BlokGetHandle());
 
     if (mClass.hIcon)
     {
@@ -206,6 +206,6 @@ NeonResult NeonFreeWindow(void)
         (void)DestroyWindow(mWindow);
     }
 
-    return NeonLogAndReturn(
-        NeonInformation, NeonCreateResult(NeonSuccess, L"Cleaned Up Window Resources."));
+    return BlokLogAndReturn(
+        BlokInformation, BlokCreateResult(BlokSuccess, L"Cleaned Up Window Resources."));
 }

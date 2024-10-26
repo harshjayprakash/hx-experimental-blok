@@ -7,8 +7,8 @@
  * required to create and copy the square object.
  */
 
-#ifndef NEON_SQUARE_H
-#define NEON_SQUARE_H
+#ifndef BLOK_SQUARE_H
+#define BLOK_SQUARE_H
 
 #include "../utility/position.h"
 #include "../utility/size.h"
@@ -16,11 +16,11 @@
 /**
  * \brief Structure that represents a square.
  */
-typedef struct __NeonSquare
+typedef struct __BlokSquare
 {
-    NeonPosition position;
-    NeonSize size;
-} NeonSquare;
+    BlokPosition position;
+    BlokSize size;
+} BlokSquare;
 
 /**
  * \brief Creates a new square.
@@ -29,7 +29,7 @@ typedef struct __NeonSquare
  * \param size The size of the square.
  * \return The new stack allocated square object.
  */
-NeonSquare NeonCreateSquare(const NeonPosition position, const NeonSize size);
+BlokSquare BlokCreateSquare(const BlokPosition position, const BlokSize size);
 
 /**
  * \brief Copies the square object.
@@ -37,6 +37,6 @@ NeonSquare NeonCreateSquare(const NeonPosition position, const NeonSize size);
  * \param dest The instance to be copied to.
  * \param src The instance to be copied from.
  */
-void NeonCopySquare(NeonSquare *dest, const NeonSquare src);
+void BlokCopySquare(BlokSquare *dest, const BlokSquare src);
 
 #endif

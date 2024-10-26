@@ -8,8 +8,8 @@
  * to conduct operations on the vector.
  */
 
-#ifndef NEON_VECTOR_H
-#define NEON_VECTOR_H
+#ifndef BLOK_VECTOR_H
+#define BLOK_VECTOR_H
 
 #include "../../core/log.h"
 #include "../../core/result.h"
@@ -19,22 +19,22 @@
 /**
  * \brief Models a node in the vector.
  */
-typedef struct __NeonNode
+typedef struct __BlokNode
 {
-    NeonPosition position; ///< Stored Position
+    BlokPosition position; ///< Stored Position
     int indexed;           ///< Indexed Position
-} NeonNode;
+} BlokNode;
 
 /**
  * \brief Models a vector (linked list).
  */
-typedef struct __NeonVector
+typedef struct __BlokVector
 {
-    NeonNode *array; ///< The Linked List
+    BlokNode *array; ///< The Linked List
     size_t max;      ///< The Maximum Size
     size_t size;     ///< The Current Size
     long long head;  ///< The Pointer Position
-} NeonVector;
+} BlokVector;
 
 /**
  * \brief Creates a new vector.
@@ -43,9 +43,9 @@ typedef struct __NeonVector
  * \return A new stack allocated vector.
  *
  * \warning Though stack allocated, the array has been heap allocated memory and must be
- *          freed through the `NeonDestroyVector` function when exiting the program.
+ *          freed through the `BlokDestroyVector` function when exiting the program.
  */
-NeonVector NeonCreateVector(size_t size);
+BlokVector BlokCreateVector(size_t size);
 
 /**
  * \brief Generates a new size based on the input.
@@ -53,7 +53,7 @@ NeonVector NeonCreateVector(size_t size);
  * \param size The current size.
  * \return The new recommended size.
  */
-size_t NeonGenerateNewVectorSize(size_t size);
+size_t BlokGenerateNewVectorSize(size_t size);
 
 /**
  * \brief Re-sizes the vector array.
@@ -62,7 +62,7 @@ size_t NeonGenerateNewVectorSize(size_t size);
  * \param newSize The new size.
  * \return A result object denoting if the operation was successful.
  */
-NeonResult NeonReSizeVector(NeonVector *vector, size_t newSize);
+BlokResult BlokReSizeVector(BlokVector *vector, size_t newSize);
 
 /**
  * \brief Checks if the vector is full.
@@ -74,7 +74,7 @@ NeonResult NeonReSizeVector(NeonVector *vector, size_t newSize);
  * \retval 1: Full.
  * \retval -1: Error Occured.
  */
-int NeonIsVectorFull(const NeonVector *vector);
+int BlokIsVectorFull(const BlokVector *vector);
 
 /**
  * \brief Checks if the vector is empty.
@@ -86,7 +86,7 @@ int NeonIsVectorFull(const NeonVector *vector);
  * \retval 1: Empty.
  * \retval -1: Error Occured.
  */
-int NeonIsVectorEmpty(const NeonVector *vector);
+int BlokIsVectorEmpty(const BlokVector *vector);
 
 /**
  * \brief Add a node to the vector.
@@ -95,7 +95,7 @@ int NeonIsVectorEmpty(const NeonVector *vector);
  * \param node The node to be added.
  * \return A result object denoting if the operation was successful.
  */
-NeonResult NeonPushNode(NeonVector *vector, const NeonNode node);
+BlokResult BlokPushNode(BlokVector *vector, const BlokNode node);
 
 /**
  * \brief Get the node as a pointer.
@@ -106,7 +106,7 @@ NeonResult NeonPushNode(NeonVector *vector, const NeonNode node);
  *
  * \warning You must not free the memory returned.
  */
-NeonNode *NeonGetNodeAsPointer(const NeonVector *vector, const int index);
+BlokNode *BlokGetNodeAsPointer(const BlokVector *vector, const int index);
 
 /**
  * \brief Clears all the nodes in the vector.
@@ -114,7 +114,7 @@ NeonNode *NeonGetNodeAsPointer(const NeonVector *vector, const int index);
  * \param vector The vector to be cleared
  * \return A result denoting if the operation was successful.
  */
-NeonResult NeonClearVector(NeonVector *vector);
+BlokResult BlokClearVector(BlokVector *vector);
 
 /**
  * \brief Checks if the node provided exists.
@@ -126,14 +126,14 @@ NeonResult NeonClearVector(NeonVector *vector);
  * \retval 0: Does Not Exist or Error Occured.
  * \retval 1: Node Exists.
  */
-int NeonNodeExists(const NeonVector *vector, const NeonNode node);
+int BlokNodeExists(const BlokVector *vector, const BlokNode node);
 
 /**
  * \brief Prints the vector to the console.
  *
  * \param vector The vector to the printed.
  */
-void NeonPrintVector(const NeonVector *vector);
+void BlokPrintVector(const BlokVector *vector);
 
 /**
  * \brief Cleans up resources used by the vector.
@@ -142,6 +142,6 @@ void NeonPrintVector(const NeonVector *vector);
  *
  * \warning This must be used to free the memory allocated for the array.
  */
-void NeonDestroyVector(NeonVector *vector);
+void BlokDestroyVector(BlokVector *vector);
 
 #endif

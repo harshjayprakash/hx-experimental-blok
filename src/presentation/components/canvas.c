@@ -13,30 +13,30 @@
 
 static int mLocked = 0;
 
-void NeonInitCanvasComponent(void)
+void BlokInitCanvasComponent(void)
 {
-    NeonInitBlockObject();
-    NeonInitObstructables();
+    BlokInitBlockObject();
+    BlokInitObstructables();
 }
 
-void NeonRenderCanvasComponent(HDC displayContext)
+void BlokRenderCanvasComponent(HDC displayContext)
 {
-    NeonRenderObstructables(displayContext);
-    NeonRenderBlock(displayContext);
+    BlokRenderObstructables(displayContext);
+    BlokRenderBlock(displayContext);
 }
 
-int NeonIsCanvasLocked(void)
+int BlokIsCanvasLocked(void)
 {
     return mLocked;
 }
 
-void NeonToggleCanvasLock(void)
+void BlokToggleCanvasLock(void)
 {
     mLocked = (mLocked == 0) ? 1 : 0;
 }
 
-void NeonFreeCanvasComponent(void)
+void BlokFreeCanvasComponent(void)
 {
-    NeonFreeBlockObject();
-    NeonFreeObstructables();
+    BlokFreeBlockObject();
+    BlokFreeObstructables();
 }

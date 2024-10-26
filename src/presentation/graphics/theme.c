@@ -8,7 +8,7 @@
 
 #include "theme.h"
 
-static NeonTheme mTheme = NeonUnsetTheme;
+static BlokTheme mTheme = BlokUnsetTheme;
 
 static unsigned long mBlackColour = RGB(0, 0, 0);
 static unsigned long mWhiteColour = RGB(255, 255, 255);
@@ -19,17 +19,17 @@ static unsigned long mBackgroundColour = 0UL;
 static unsigned long mForegroundColour = 0UL;
 static unsigned long mAccentColour = 0UL;
 
-void NeonUpdateColours(void)
+void BlokUpdateColours(void)
 {
     switch (mTheme)
     {
-    case NeonLightTheme:
+    case BlokLightTheme:
         mBackgroundColour = mWhiteColour;
         mForegroundColour = mBlackColour;
         mAccentColour = mBlueColour;
         return;
-    case NeonUnsetTheme:
-    case NeonDarkTheme:
+    case BlokUnsetTheme:
+    case BlokDarkTheme:
     default:
         mBackgroundColour = mBlackColour;
         mForegroundColour = mWhiteColour;
@@ -38,22 +38,22 @@ void NeonUpdateColours(void)
     }
 }
 
-void NeonSetTheme(const NeonTheme theme)
+void BlokSetTheme(const BlokTheme theme)
 {
     mTheme = theme;
 }
 
-unsigned long NeonGetBackgroundColour(void)
+unsigned long BlokGetBackgroundColour(void)
 {
     return mBackgroundColour;
 }
 
-unsigned long NeonGetForegroundColour(void)
+unsigned long BlokGetForegroundColour(void)
 {
     return mForegroundColour;
 }
 
-unsigned long NeonGetAccentColour(void)
+unsigned long BlokGetAccentColour(void)
 {
     return mAccentColour;
 }

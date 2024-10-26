@@ -10,64 +10,64 @@
 #include "size.h"
 #include "../../core/log.h"
 
-NeonSize NeonCreateSize(const int width, const int height)
+BlokSize BlokCreateSize(const int width, const int height)
 {
-    return (NeonSize){width, height};
+    return (BlokSize){width, height};
 }
 
-NeonSize NeonCreateSizeFromSelf(const NeonSize size)
+BlokSize BlokCreateSizeFromSelf(const BlokSize size)
 {
-    return NeonCreateSize(size.width, size.height);
+    return BlokCreateSize(size.width, size.height);
 }
 
-void NeonSetSize(NeonSize *size, const int width, const int height)
+void BlokSetSize(BlokSize *size, const int width, const int height)
 {
     if (!size)
     {
-        NeonLog(
-            NeonWarning,
-            NeonCreateResult(NeonNullPtr, L"Size Update Failed: Null Pointer Error."));
+        BlokLog(
+            BlokWarning,
+            BlokCreateResult(BlokNullPtr, L"Size Update Failed: Null Pointer Error."));
         return;
     }
 
-    NeonSetWidth(size, width);
-    NeonSetHeight(size, height);
+    BlokSetWidth(size, width);
+    BlokSetHeight(size, height);
 }
 
-void NeonSetWidth(NeonSize *size, const int width)
+void BlokSetWidth(BlokSize *size, const int width)
 {
     if (!size)
     {
-        NeonLog(
-            NeonWarning,
-            NeonCreateResult(NeonNullPtr, L"Width Updated Failed: Null Pointer Error."));
+        BlokLog(
+            BlokWarning,
+            BlokCreateResult(BlokNullPtr, L"Width Updated Failed: Null Pointer Error."));
         return;
     }
 
     size->width = width;
 }
 
-void NeonSetHeight(NeonSize *size, const int height)
+void BlokSetHeight(BlokSize *size, const int height)
 {
     if (!size)
     {
-        NeonLog(
-            NeonWarning,
-            NeonCreateResult(NeonNullPtr, L"Height Updated Failed: Null Pointer Error."));
+        BlokLog(
+            BlokWarning,
+            BlokCreateResult(BlokNullPtr, L"Height Updated Failed: Null Pointer Error."));
         return;
     }
 
     size->height = height;
 }
 
-void NeonCopySize(NeonSize *dest, const NeonSize src)
+void BlokCopySize(BlokSize *dest, const BlokSize src)
 {
     if (!dest)
     {
-        NeonLog(NeonWarning,
-                NeonCreateResult(NeonNullPtr, L"Size Copy Failed: Null Pointer Error."));
+        BlokLog(BlokWarning,
+                BlokCreateResult(BlokNullPtr, L"Size Copy Failed: Null Pointer Error."));
         return;
     }
 
-    NeonSetSize(dest, src.width, src.height);
+    BlokSetSize(dest, src.width, src.height);
 }

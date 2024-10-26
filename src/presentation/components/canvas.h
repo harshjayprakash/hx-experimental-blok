@@ -7,8 +7,8 @@
  * rendering and releasing resources.
  */
 
-#ifndef NEON_CANVAS_H
-#define NEON_CANVAS_H
+#ifndef BLOK_CANVAS_H
+#define BLOK_CANVAS_H
 
 #define STRICT 1
 #include <Windows.h>
@@ -16,30 +16,30 @@
 /**
  * \brief Initialises the canvas component.
  */
-void NeonInitCanvasComponent(void);
+void BlokInitCanvasComponent(void);
 
 /**
  * \brief Renders the canvas components.
  *
  * \param displayContext The display context handle.
  */
-void NeonRenderCanvasComponent(HDC displayContext);
+void BlokRenderCanvasComponent(HDC displayContext);
 
 /**
  * \brief Returns if the canvas has been locked.
  *
  * \return If the canvas has been locked.
  */
-int NeonIsCanvasLocked(void);
+int BlokIsCanvasLocked(void);
 
 /**
  * \brief Toggles the lock for the canvas component.
  */
-void NeonToggleCanvasLock(void);
+void BlokToggleCanvasLock(void);
 
 /**
  * \brief Frees the canvas component.
  */
-void NeonFreeCanvasComponent(void);
+void BlokFreeCanvasComponent(void);
 
 #endif
