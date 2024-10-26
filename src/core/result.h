@@ -8,34 +8,34 @@
  * a result.
  */
 
-#ifndef NEON_RESULT_H
-#define NEON_RESULT_H
+#ifndef BLOK_RESULT_H
+#define BLOK_RESULT_H
 
 #include <wchar.h>
 
 /**
  * \brief Result codes to dictate specific successes and failures.
  */
-typedef enum __NeonResultCode
+typedef enum __BlokResultCode
 {
-    NeonSuccess = 0x000000,      ///< Operation was successful
-    NeonNone = 0x000001,         ///< Operation does not require a result
-    NeonFail = 0x000001,         ///< Operation failed
-    NeonCannotReInit = 0x000010, ///< Cannot Re-Initialise Error
-    NeonNotInit = 0x000011,      ///< Not Initialised Error
-    NeonNullPtr = 0x000012,      ///< Null Pointer Error
-    NeonNotImpl = 0x000100,      ///< Not Implementated Error
-    NeonOutOfRange = 0x000400,   ///< Out of Range Error
-} NeonResultCode;
+    BlokSuccess = 0x000000,      ///< Operation was successful
+    BlokNone = 0x000001,         ///< Operation does not require a result
+    BlokFail = 0x000001,         ///< Operation failed
+    BlokCannotReInit = 0x000010, ///< Cannot Re-Initialise Error
+    BlokNotInit = 0x000011,      ///< Not Initialised Error
+    BlokNullPtr = 0x000012,      ///< Null Pointer Error
+    BlokNotImpl = 0x000100,      ///< Not Implementated Error
+    BlokOutOfRange = 0x000400,   ///< Out of Range Error
+} BlokResultCode;
 
 /**
  * \brief Represents a result or exception with a message.
  */
-typedef struct __NeonResult
+typedef struct __BlokResult
 {
-    NeonResultCode code;  ///< Result Code
+    BlokResultCode code;  ///< Result Code
     wchar_t message[260]; ///< Additional Result Message
-} NeonResult;
+} BlokResult;
 
 /**
  * \brief Creates a result
@@ -44,6 +44,6 @@ typedef struct __NeonResult
  * \param pMessage The additional message.
  * \return A new stack allocated result.
  */
-NeonResult NeonCreateResult(NeonResultCode code, wchar_t *pMessage);
+BlokResult BlokCreateResult(BlokResultCode code, wchar_t *pMessage);
 
 #endif

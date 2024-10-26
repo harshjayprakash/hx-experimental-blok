@@ -9,9 +9,9 @@
 #include "result.h"
 #include <wchar.h>
 
-NeonResult NeonCreateResult(NeonResultCode code, wchar_t *pMessage)
+BlokResult BlokCreateResult(BlokResultCode code, wchar_t *pMessage)
 {
-    NeonResult result = {0};
+    BlokResult result = {0};
     result.code = code;
 
     if (pMessage)

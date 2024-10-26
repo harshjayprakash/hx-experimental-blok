@@ -10,22 +10,22 @@
 #include "square.h"
 #include "../../core/log.h"
 
-NeonSquare NeonCreateSquare(const NeonPosition position, const NeonSize size)
+BlokSquare BlokCreateSquare(const BlokPosition position, const BlokSize size)
 {
-    return (NeonSquare){NeonCreatePositionFromSelf(position),
-                        NeonCreateSizeFromSelf(size)};
+    return (BlokSquare){BlokCreatePositionFromSelf(position),
+                        BlokCreateSizeFromSelf(size)};
 }
 
-void NeonCopySquare(NeonSquare *dest, const NeonSquare src)
+void BlokCopySquare(BlokSquare *dest, const BlokSquare src)
 {
     if (!dest)
     {
-        NeonLog(
-            NeonWarning,
-            NeonCreateResult(NeonNullPtr, L"Copying Square Failed: Null Pointer Error."));
+        BlokLog(
+            BlokWarning,
+            BlokCreateResult(BlokNullPtr, L"Copying Square Failed: Null Pointer Error."));
         return;
     }
 
-    NeonCopySize(&(dest->size), src.size);
-    NeonCopyPosition(&(dest->position), src.position);
+    BlokCopySize(&(dest->size), src.size);
+    BlokCopyPosition(&(dest->position), src.position);
 }

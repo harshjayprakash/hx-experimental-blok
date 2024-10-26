@@ -6,8 +6,8 @@
  * This file contains a structure for information required for rendering text.
  */
 
-#ifndef NEON_TEXT_H
-#define NEON_TEXT_H
+#ifndef BLOK_TEXT_H
+#define BLOK_TEXT_H
 
 #define STRICT 1
 #include <Windows.h>
@@ -16,12 +16,12 @@
 /**
  * \brief Represents a text control.
  */
-typedef struct __NeonTextControl
+typedef struct __BlokTextControl
 {
     wchar_t text[60]; ///< Text
     size_t max;       ///< Maximum text size
     COORD position;   ///< Text position
     RECT area;        ///< Control area
-} NeonTextControl;
+} BlokTextControl;
 
 #endif

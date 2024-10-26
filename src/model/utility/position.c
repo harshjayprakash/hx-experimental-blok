@@ -11,36 +11,36 @@
 #include "../../core/log.h"
 #include "../../core/result.h"
 
-NeonPosition NeonCreatePosition(const int x, const int y)
+BlokPosition BlokCreatePosition(const int x, const int y)
 {
-    return (NeonPosition){x, y};
+    return (BlokPosition){x, y};
 }
 
-NeonPosition NeonCreatePositionFromSelf(const NeonPosition position)
+BlokPosition BlokCreatePositionFromSelf(const BlokPosition position)
 {
-    return NeonCreatePosition(position.x, position.y);
+    return BlokCreatePosition(position.x, position.y);
 }
 
-void NeonSetPosition(NeonPosition *position, const int x, const int y)
+void BlokSetPosition(BlokPosition *position, const int x, const int y)
 {
     if (!position)
     {
-        NeonLog(NeonWarning,
-                NeonCreateResult(NeonNullPtr,
+        BlokLog(BlokWarning,
+                BlokCreateResult(BlokNullPtr,
                                  L"Update Position Failed: Null Pointer Error."));
         return;
     }
 
-    NeonSetXPosition(position, x);
-    NeonSetYPosition(position, y);
+    BlokSetXPosition(position, x);
+    BlokSetYPosition(position, y);
 }
 
-void NeonSetXPosition(NeonPosition *position, const int x)
+void BlokSetXPosition(BlokPosition *position, const int x)
 {
     if (!position)
     {
-        NeonLog(NeonWarning,
-                NeonCreateResult(NeonNullPtr,
+        BlokLog(BlokWarning,
+                BlokCreateResult(BlokNullPtr,
                                  L"X Position Update Failed: Null Pointer Error."));
         return;
     }
@@ -48,12 +48,12 @@ void NeonSetXPosition(NeonPosition *position, const int x)
     position->x = x;
 }
 
-void NeonSetYPosition(NeonPosition *position, const int y)
+void BlokSetYPosition(BlokPosition *position, const int y)
 {
     if (!position)
     {
-        NeonLog(NeonWarning,
-                NeonCreateResult(NeonNullPtr,
+        BlokLog(BlokWarning,
+                BlokCreateResult(BlokNullPtr,
                                  L"Y Position Update Failed: Null Pointer Error."));
         return;
     }
@@ -61,15 +61,15 @@ void NeonSetYPosition(NeonPosition *position, const int y)
     position->y = y;
 }
 
-void NeonCopyPosition(NeonPosition *dest, const NeonPosition src)
+void BlokCopyPosition(BlokPosition *dest, const BlokPosition src)
 {
     if (!dest)
     {
-        NeonLog(
-            NeonWarning,
-            NeonCreateResult(NeonNullPtr, L"Position Copy Failed: Null Pointer Error."));
+        BlokLog(
+            BlokWarning,
+            BlokCreateResult(BlokNullPtr, L"Position Copy Failed: Null Pointer Error."));
         return;
     }
 
-    NeonSetPosition(dest, src.x, src.y);
+    BlokSetPosition(dest, src.x, src.y);
 }

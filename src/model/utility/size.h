@@ -6,17 +6,17 @@
  * This file contains the structure to model size and the required function definitions.
  */
 
-#ifndef NEON_SIZE_H
-#define NEON_SIZE_H
+#ifndef BLOK_SIZE_H
+#define BLOK_SIZE_H
 
 /**
  * \brief Models the size.
  */
-typedef struct __NeonSize
+typedef struct __BlokSize
 {
     int width;  ///< The Width of an Object.
     int height; ///< The Height of an Object.
-} NeonSize;
+} BlokSize;
 
 /**
  * \brief Creates a new size object.
@@ -25,7 +25,7 @@ typedef struct __NeonSize
  * \param height The represented height.
  * \return A new stack allocated size object.
  */
-NeonSize NeonCreateSize(const int width, const int height);
+BlokSize BlokCreateSize(const int width, const int height);
 
 /**
  * \brief Creates a new size object from an existing size object.
@@ -33,7 +33,7 @@ NeonSize NeonCreateSize(const int width, const int height);
  * \param size The existing size object.
  * \return A new stack allocated size object.
  */
-NeonSize NeonCreateSizeFromSelf(const NeonSize size);
+BlokSize BlokCreateSizeFromSelf(const BlokSize size);
 
 /**
  * \brief Sets the size.
@@ -42,7 +42,7 @@ NeonSize NeonCreateSizeFromSelf(const NeonSize size);
  * \param width The new width.
  * \param height The new height.
  */
-void NeonSetSize(NeonSize *size, const int width, const int height);
+void BlokSetSize(BlokSize *size, const int width, const int height);
 
 /**
  * \brief Sets the width.
@@ -50,7 +50,7 @@ void NeonSetSize(NeonSize *size, const int width, const int height);
  * \param size The size instance to be updated.
  * \param width The new width.
  */
-void NeonSetWidth(NeonSize *size, const int width);
+void BlokSetWidth(BlokSize *size, const int width);
 
 /**
  * \brief Sets the height.
@@ -58,7 +58,7 @@ void NeonSetWidth(NeonSize *size, const int width);
  * \param size The size instance to be updated.
  * \param height The new height.
  */
-void NeonSetHeight(NeonSize *size, const int height);
+void BlokSetHeight(BlokSize *size, const int height);
 
 /**
  * @brief Copy the size instance.
@@ -66,6 +66,6 @@ void NeonSetHeight(NeonSize *size, const int height);
  * @param dest The size to be copied to.
  * @param src The size to be copied from.
  */
-void NeonCopySize(NeonSize *dest, const NeonSize src);
+void BlokCopySize(BlokSize *dest, const BlokSize src);
 
 #endif

@@ -16,44 +16,44 @@ static HBRUSH mForegroundBrush = {0};
 static HBRUSH mAccentBrush = {0};
 static HPEN mForegroundPen = {0};
 
-void NeonInitDrawingTools(void)
+void BlokInitDrawingTools(void)
 {
-    mBackgroundBrush = CreateSolidBrush(NeonGetBackgroundColour());
-    mForegroundBrush = CreateSolidBrush(NeonGetForegroundColour());
-    mAccentBrush = CreateSolidBrush(NeonGetAccentColour());
-    mForegroundPen = CreatePen(PS_SOLID, 2, NeonGetForegroundColour());
+    mBackgroundBrush = CreateSolidBrush(BlokGetBackgroundColour());
+    mForegroundBrush = CreateSolidBrush(BlokGetForegroundColour());
+    mAccentBrush = CreateSolidBrush(BlokGetAccentColour());
+    mForegroundPen = CreatePen(PS_SOLID, 2, BlokGetForegroundColour());
 
-    NeonLog(NeonInformation,
-            NeonCreateResult(NeonNone, L"Initialied GDI Drawing Tools."));
+    BlokLog(BlokInformation,
+            BlokCreateResult(BlokNone, L"Initialied GDI Drawing Tools."));
 }
 
-HBRUSH NeonGetBackgroundBrush(void)
+HBRUSH BlokGetBackgroundBrush(void)
 {
     return mBackgroundBrush;
 }
 
-HBRUSH NeonGetForegroundBrush(void)
+HBRUSH BlokGetForegroundBrush(void)
 {
     return mForegroundBrush;
 }
 
-HBRUSH NeonGetAccentBrush(void)
+HBRUSH BlokGetAccentBrush(void)
 {
     return mAccentBrush;
 }
 
-HPEN NeonGetForegroundPen(void)
+HPEN BlokGetForegroundPen(void)
 {
     return mForegroundPen;
 }
 
-void NeonFreeDrawingTools(void)
+void BlokFreeDrawingTools(void)
 {
     (void)DeleteObject(mBackgroundBrush);
     (void)DeleteObject(mForegroundBrush);
     (void)DeleteObject(mAccentBrush);
     (void)DeleteObject(mForegroundPen);
 
-    NeonLog(NeonInformation,
-            NeonCreateResult(NeonNone, L"Cleaned Up GDI Drawing Tools."));
+    BlokLog(BlokInformation,
+            BlokCreateResult(BlokNone, L"Cleaned Up GDI Drawing Tools."));
 }

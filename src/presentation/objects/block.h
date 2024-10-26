@@ -8,8 +8,8 @@
  * boundaries.
  */
 
-#ifndef NEON_BLOCK_H
-#define NEON_BLOCK_H
+#ifndef BLOK_BLOCK_H
+#define BLOK_BLOCK_H
 
 #define STRICT 1
 #include <Windows.h>
@@ -20,53 +20,53 @@
 /**
  * \brief Initialises the block object.
  */
-void NeonInitBlockObject(void);
+void BlokInitBlockObject(void);
 
 /**
  * \brief Renders the block object.
  *
  * \param displayContext The display context handle.
  */
-void NeonRenderBlock(HDC displayContext);
+void BlokRenderBlock(HDC displayContext);
 
 /**
  * \brief Moves the block in the specified direction.
  *
  * \param direction The direction to be moved.
  */
-void NeonMoveBlock(NeonDirection direction);
+void BlokMoveBlock(BlokDirection direction);
 
 /**
  * \brief Sets the boundary the block must stay in.
  *
  * \param size The size of the boundary.
  */
-void NeonSetBlockBoundary(const NeonSize size);
+void BlokSetBlockBoundary(const BlokSize size);
 
 /**
  * \brief Gets the position of the block.
  * 
  * \return Stack allocated position of the block.
  */
-NeonPosition NeonGetBlockPosition(void);
+BlokPosition BlokGetBlockPosition(void);
 
 /**
  * \brief Gets the size of the block.
  * 
  * \return Stack allocated size of the block.
  */
-NeonSize NeonGetBlockSize(void);
+BlokSize BlokGetBlockSize(void);
 
 /**
  * \brief Gets the block as a winapi rectangle.
  *
  * \return The block as the rect type.
  */
-RECT NeonGetBlockAsRect(void);
+RECT BlokGetBlockAsRect(void);
 
 /**
  * \brief Cleans up the resources used by the block object.
  */
-void NeonFreeBlockObject(void);
+void BlokFreeBlockObject(void);
 
 #endif

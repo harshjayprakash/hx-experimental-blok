@@ -7,8 +7,8 @@
  * bar.
  */
 
-#ifndef NEON_PROGRESS_BAR_H
-#define NEON_PROGRESS_BAR_H
+#ifndef BLOK_PROGRESS_BAR_H
+#define BLOK_PROGRESS_BAR_H
 
 #define STRICT 1
 #include <Windows.h>
@@ -17,7 +17,7 @@
 /**
  * \brief Represents a progress bar.
  */
-typedef struct __NeonProgressBarControl
+typedef struct __BlokProgressBarControl
 {
     wchar_t text[60];   ///< Text alongside bar
     size_t maxTextSize; ///< Maximum text size
@@ -28,6 +28,6 @@ typedef struct __NeonProgressBarControl
     int barMin;         ///< Minimum bar point
     int barMax;         ///< Maximum bar point
     int barSpan;        ///< Bar span length
-} NeonProgressBarControl;
+} BlokProgressBarControl;
 
 #endif

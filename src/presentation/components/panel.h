@@ -7,8 +7,8 @@
  * panel component
  */
 
-#ifndef NEON_PANEL_H
-#define NEON_PANEL_H
+#ifndef BLOK_PANEL_H
+#define BLOK_PANEL_H
 
 #define STRICT 1
 #include <Windows.h>
@@ -16,29 +16,29 @@
 /**
  * \brief Initialise the panel component.
  */
-void NeonInitPanelComponent(void);
+void BlokInitPanelComponent(void);
 
 /**
  * \brief Render the panel component.
  *
  * \param displayContext The display context handle.
  */
-void NeonRenderPanelComponent(HDC displayContext);
+void BlokRenderPanelComponent(HDC displayContext);
 
 /**
  * \brief Update the coordinates text based on block position.
  */
-void NeonUpdateCoordinatesText(void);
+void BlokUpdateCoordinatesText(void);
 
 /**
  * \brief Update the panel size based on window size.
  */
-void NeonUpdatePanelSize(void);
+void BlokUpdatePanelSize(void);
 
 /**
  * \brief Update the vector's memory bar.
  */
-void NeonUpdateVectorMemoryBar(void);
+void BlokUpdateVectorMemoryBar(void);
 
 /**
  * \brief Checks if position is within the panel component area.
@@ -50,7 +50,7 @@ void NeonUpdateVectorMemoryBar(void);
  * \retval 0: Outside Area.
  * \retval 1: Inside Area.
  */
-int NeonIsInPanelArea(const int x, const int y);
+int BlokIsInPanelArea(const int x, const int y);
 
 /**
  * \brief Check if position is within Clear Button area.
@@ -62,7 +62,7 @@ int NeonIsInPanelArea(const int x, const int y);
  * \retval 0: Outside Area.
  * \retval 1: Inside Area.
  */
-int NeonIsInClearButtonArea(const int x, const int y);
+int BlokIsInClearButtonArea(const int x, const int y);
 
 /**
  * \brief Checks if position is within the lock toggle button area.
@@ -74,7 +74,7 @@ int NeonIsInClearButtonArea(const int x, const int y);
  * \retval 0: Outside Area.
  * \retval 1: Inside Area.
  */
-int NeonIsInLockToggleArea(const int x, const int y);
+int BlokIsInLockToggleArea(const int x, const int y);
 
 /**
  * \brief Checks if position is within the generate button area.
@@ -86,41 +86,41 @@ int NeonIsInLockToggleArea(const int x, const int y);
  * \retval 0: Outside Area.
  * \retval 1: Inside Area.
  */
-int NeonIsInGenerateButtonArea(const int x, const int y);
+int BlokIsInGenerateButtonArea(const int x, const int y);
 
 /**
  * \brief Invalidates the coordinate text area.
  */
-void NeonInvalidateCoordinateTextArea(void);
+void BlokInvalidateCoordinateTextArea(void);
 
 /**
  * \brief Invalidates the clear all button area.
  */
-void NeonInvalidateClearAllButtonArea(void);
+void BlokInvalidateClearAllButtonArea(void);
 
 /**
  * \brief Invalidates the locked toggle button area.
  */
-void NeonInvalidateLockedToggleArea(void);
+void BlokInvalidateLockedToggleArea(void);
 
 /**
  * \brief Invalidates the progress bar area.
  */
-void NeonInvalidateProgressBarArea(void);
+void BlokInvalidateProgressBarArea(void);
 
 /**
  * \brief Invalidates the random button area.
  */
-void NeonInvalidateRandomButtonArea(void);
+void BlokInvalidateRandomButtonArea(void);
 
 /**
  * \brief Handles the locked toggle button click operation.
  */
-void NeonHandleLockToggleButtonClick(void);
+void BlokHandleLockToggleButtonClick(void);
 
 /**
  * \brief Frees any resources used by the panel component.
  */
-void NeonFreePanelComponent(void);
+void BlokFreePanelComponent(void);
 
 #endif

@@ -28,14 +28,14 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
     (void)hPrevInstance;
     (void)lpCmdLine;
 
-    NeonInitLogger(NeonConsole);
+    BlokInitLogger(BlokConsole);
 
-    (void)NeonInit(hInstance, nShowCmd);
-    (void)NeonProcessArguments();
-    (void)NeonStart();
-    (void)NeonFree();
+    (void)BlokInit(hInstance, nShowCmd);
+    (void)BlokProcessArguments();
+    (void)BlokStart();
+    (void)BlokFree();
 
-    NeonFreeLogger(); 
+    BlokFreeLogger(); 
 
-    return (int)NeonSuccess;
+    return (int)BlokSuccess;
 }

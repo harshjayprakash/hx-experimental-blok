@@ -6,37 +6,37 @@
  * This file contains the functions and types for logging functionality.
  */
 
-#ifndef NEON_LOG_H
-#define NEON_LOG_H
+#ifndef BLOK_LOG_H
+#define BLOK_LOG_H
 
 #include "result.h"
 
 /**
  * \brief Enumeration to indicate a log level.
  */
-typedef enum __NeonLogLevel
+typedef enum __BlokLogLevel
 {
-    NeonInformation = 0x0000001, ///< Informative Log Level
-    NeonWarning = 0x0000002,     ///< Warning Log Level
-    NeonError = 0x0000003,       ///< Error Log Level
-    NeonUnknown = 0x0000000,     ///< Unknown Log Level
-} NeonLogLevel;
+    BlokInformation = 0x0000001, ///< Informative Log Level
+    BlokWarning = 0x0000002,     ///< Warning Log Level
+    BlokError = 0x0000003,       ///< Error Log Level
+    BlokUnknown = 0x0000000,     ///< Unknown Log Level
+} BlokLogLevel;
 
 /**
  * \brief Enumeration of the method of logging.
  */
-typedef enum __NeonLogTechnique
+typedef enum __BlokLogTechnique
 {
-    NeonFile = 0x0000001,    ///< Logging to a file
-    NeonConsole = 0x0000010, ///< Logging to the console
-} NeonLogTechnique;
+    BlokFile = 0x0000001,    ///< Logging to a file
+    BlokConsole = 0x0000010, ///< Logging to the console
+} BlokLogTechnique;
 
 /**
  * \brief Initialises the logger.
  *
  * \param technique The method of logging.
  */
-void NeonInitLogger(const NeonLogTechnique technique);
+void BlokInitLogger(const BlokLogTechnique technique);
 
 /**
  * \brief Log a message.
@@ -44,7 +44,7 @@ void NeonInitLogger(const NeonLogTechnique technique);
  * \param level The log level.
  * \param information The result containing the message.
  */
-void NeonLog(const NeonLogLevel level, const NeonResult information);
+void BlokLog(const BlokLogLevel level, const BlokResult information);
 
 /**
  * \brief Log a message then return the result.
@@ -53,11 +53,11 @@ void NeonLog(const NeonLogLevel level, const NeonResult information);
  * \param information The result containing the message.
  * \return The result containing the message.
  */
-NeonResult NeonLogAndReturn(const NeonLogLevel level, const NeonResult information);
+BlokResult BlokLogAndReturn(const BlokLogLevel level, const BlokResult information);
 
 /**
  * \brief Cleans up resources used by the logger.
  */
-void NeonFreeLogger(void);
+void BlokFreeLogger(void);
 
 #endif

@@ -23,21 +23,21 @@
 #include <wingdi.h>
 
 static RECT mPanelArea = {0};
-static NeonTextControl mCoordinateText = {0};
-static NeonButtonControl mClearAllButton = {0};
-static NeonToggleButtonControl mLockedToggle = {0};
-static NeonProgressBarControl mVectorMemory = {0};
-static NeonButtonControl mRandomGeneration = {0};
+static BlokTextControl mCoordinateText = {0};
+static BlokButtonControl mClearAllButton = {0};
+static BlokToggleButtonControl mLockedToggle = {0};
+static BlokProgressBarControl mVectorMemory = {0};
+static BlokButtonControl mRandomGeneration = {0};
 
-void __NeonUpdatePanelArea(void)
+void __BlokUpdatePanelArea(void)
 {
-    RECT windowArea = NeonGetWindowArea();
+    RECT windowArea = BlokGetWindowArea();
 
     mPanelArea = (RECT){windowArea.left + 2, windowArea.bottom - 40, windowArea.right - 1,
                         windowArea.bottom - 1};
 }
 
-void __NeonUpdateControlPositions(void)
+void __BlokUpdateControlPositions(void)
 {
     mCoordinateText.area.left = 12;
     mCoordinateText.area.top = mPanelArea.top + 10;
@@ -92,23 +92,23 @@ void __NeonUpdateControlPositions(void)
     mRandomGeneration.alignment.Y = mRandomGeneration.area.top + 1;
 }
 
-void NeonInitPanelComponent(void)
+void BlokInitPanelComponent(void)
 {
-    __NeonUpdatePanelArea();
+    __BlokUpdatePanelArea();
 
-    mCoordinateText = (NeonTextControl){L"( X: 0, Y: 0 )", 60, {0, 0}, {0, 0, 0, 0}};
+    mCoordinateText = (BlokTextControl){L"( X: 0, Y: 0 )", 60, {0, 0}, {0, 0, 0, 0}};
 
-    mClearAllButton = (NeonButtonControl){L"Clear All", 60, {0, 0}, {0, 0, 0, 0}};
+    mClearAllButton = (BlokButtonControl){L"Clear All", 60, {0, 0}, {0, 0, 0, 0}};
 
-    mLockedToggle = (NeonToggleButtonControl){
+    mLockedToggle = (BlokToggleButtonControl){
         L"Locked", 60, {0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0};
 
-    mVectorMemory = (NeonProgressBarControl){
+    mVectorMemory = (BlokProgressBarControl){
         L"0", 60, {0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0, 0, 0};
 
-    mRandomGeneration = (NeonButtonControl){L"Generate", 60, {0, 0}, {0, 0, 0, 0}};
+    mRandomGeneration = (BlokButtonControl){L"Generate", 60, {0, 0}, {0, 0, 0, 0}};
 
-    __NeonUpdateControlPositions();
+    __BlokUpdateControlPositions();
 
     mVectorMemory.bar.left = mVectorMemory.barOutline.left + 2;
     mVectorMemory.bar.top = mVectorMemory.barOutline.top + 2;
@@ -119,15 +119,15 @@ void NeonInitPanelComponent(void)
     mVectorMemory.barMax = mVectorMemory.bar.right;
     mVectorMemory.barSpan = mVectorMemory.bar.right - mVectorMemory.bar.left;
 
-    NeonUpdatePanelSize();
+    BlokUpdatePanelSize();
 }
 
-void NeonRenderPanelComponent(HDC displayContext)
+void BlokRenderPanelComponent(HDC displayContext)
 {
-    (void)SelectObject(displayContext, NeonGetBackgroundBrush());
-    (void)SelectObject(displayContext, NeonGetForegroundPen());
-    (void)SetBkColor(displayContext, NeonGetBackgroundColour());
-    (void)SetTextColor(displayContext, NeonGetForegroundColour());
+    (void)SelectObject(displayContext, BlokGetBackgroundBrush());
+    (void)SelectObject(displayContext, BlokGetForegroundPen());
+    (void)SetBkColor(displayContext, BlokGetBackgroundColour());
+    (void)SetTextColor(displayContext, BlokGetForegroundColour());
 
     (void)Rectangle(displayContext, mPanelArea.left, mPanelArea.top, mPanelArea.right,
                     mPanelArea.bottom);
@@ -151,7 +151,7 @@ void NeonRenderPanelComponent(HDC displayContext)
     if (mLockedToggle.selected)
     {
         (void)FillRect(displayContext, &mLockedToggle.selectedArea,
-                       NeonGetForegroundBrush());
+                       BlokGetForegroundBrush());
     }
 
     (void)Rectangle(displayContext, mVectorMemory.area.left, mVectorMemory.area.top,
@@ -159,7 +159,7 @@ void NeonRenderPanelComponent(HDC displayContext)
     (void)Rectangle(displayContext, mVectorMemory.barOutline.left,
                     mVectorMemory.barOutline.top, mVectorMemory.barOutline.right,
                     mVectorMemory.barOutline.bottom);
-    (void)FillRect(displayContext, &mVectorMemory.bar, NeonGetForegroundBrush());
+    (void)FillRect(displayContext, &mVectorMemory.bar, BlokGetForegroundBrush());
     (void)TextOutW(displayContext, mVectorMemory.textPosition.X,
                    mVectorMemory.textPosition.Y, mVectorMemory.text,
                    (int)wcslen(mVectorMemory.text));
@@ -172,92 +172,92 @@ void NeonRenderPanelComponent(HDC displayContext)
                    (int)wcslen(mRandomGeneration.text));
 }
 
-void NeonUpdateCoordinatesText(void)
+void BlokUpdateCoordinatesText(void)
 {
-    NeonPosition squarePosition = NeonGetBlockPosition();
+    BlokPosition squarePosition = BlokGetBlockPosition();
 
     (void)swprintf(mCoordinateText.text, 60, L"( X: %d, Y: %d )", squarePosition.x,
                    squarePosition.y);
 }
 
-void NeonUpdateSquareCountText(void)
+void BlokUpdateSquareCountText(void)
 {
-    (void)swprintf(mVectorMemory.text, 60, L"%d", NeonGetObstrutableCount());
+    (void)swprintf(mVectorMemory.text, 60, L"%d", BlokGetObstrutableCount());
 }
 
-void NeonUpdatePanelSize(void)
+void BlokUpdatePanelSize(void)
 {
-    __NeonUpdatePanelArea();
-    __NeonUpdateControlPositions();
-    NeonUpdateVectorMemoryBar();
+    __BlokUpdatePanelArea();
+    __BlokUpdateControlPositions();
+    BlokUpdateVectorMemoryBar();
 }
 
-void NeonUpdateVectorMemoryBar(void)
+void BlokUpdateVectorMemoryBar(void)
 {
     mVectorMemory.bar.left = mVectorMemory.barOutline.left + 2;
     mVectorMemory.bar.top = mVectorMemory.barOutline.top + 2;
     mVectorMemory.bar.bottom = mVectorMemory.barOutline.bottom - 3;
     mVectorMemory.bar.right = mVectorMemory.barOutline.left + 2 +
-                              (mVectorMemory.barSpan * NeonGetVectorMemoryPercentage());
-    NeonUpdateSquareCountText();
+                              (mVectorMemory.barSpan * BlokGetVectorMemoryPercentage());
+    BlokUpdateSquareCountText();
 }
 
-int NeonIsInClearButtonArea(const int x, const int y)
+int BlokIsInClearButtonArea(const int x, const int y)
 {
     return (x > mClearAllButton.area.left - 1 && x < mClearAllButton.area.right + 1 &&
             y > mClearAllButton.area.top - 1 && y < mClearAllButton.area.bottom + 1);
 }
 
-int NeonIsInLockToggleArea(const int x, const int y)
+int BlokIsInLockToggleArea(const int x, const int y)
 {
     return (
         x > mLockedToggle.buttonArea.left - 1 && x < mLockedToggle.buttonArea.right + 1 &&
         y > mLockedToggle.buttonArea.top - 1 && y < mLockedToggle.buttonArea.bottom + 1);
 }
 
-int NeonIsInGenerateButtonArea(const int x, const int y)
+int BlokIsInGenerateButtonArea(const int x, const int y)
 {
     return (x > mRandomGeneration.area.left - 1 && x < mRandomGeneration.area.right + 1 &&
             y > mRandomGeneration.area.top - 1 && y < mRandomGeneration.area.bottom + 1);
 }
 
-int NeonIsInPanelArea(const int x, const int y)
+int BlokIsInPanelArea(const int x, const int y)
 {
     return (x > mPanelArea.left - 1 && x < mPanelArea.right + 1 &&
             y > mPanelArea.top - 1 && y < mPanelArea.bottom + 1);
 }
 
-void NeonInvalidateCoordinateTextArea(void)
+void BlokInvalidateCoordinateTextArea(void)
 {
-    (void)InvalidateRect(NeonGetWindowHandle(), &mCoordinateText.area, FALSE);
+    (void)InvalidateRect(BlokGetWindowHandle(), &mCoordinateText.area, FALSE);
 }
 
-void NeonInvalidateClearAllButtonArea(void)
+void BlokInvalidateClearAllButtonArea(void)
 {
-    (void)InvalidateRect(NeonGetWindowHandle(), &mClearAllButton.area, FALSE);
+    (void)InvalidateRect(BlokGetWindowHandle(), &mClearAllButton.area, FALSE);
 }
 
-void NeonInvalidateLockedToggleArea(void)
+void BlokInvalidateLockedToggleArea(void)
 {
-    (void)InvalidateRect(NeonGetWindowHandle(), &mLockedToggle.buttonArea, FALSE);
+    (void)InvalidateRect(BlokGetWindowHandle(), &mLockedToggle.buttonArea, FALSE);
 }
 
-void NeonInvalidateProgressBarArea(void)
+void BlokInvalidateProgressBarArea(void)
 {
-    (void)InvalidateRect(NeonGetWindowHandle(), &mVectorMemory.area, FALSE);
+    (void)InvalidateRect(BlokGetWindowHandle(), &mVectorMemory.area, FALSE);
 }
 
-void NeonInvalidateRandomButtonArea(void)
+void BlokInvalidateRandomButtonArea(void)
 {
-    (void)InvalidateRect(NeonGetWindowHandle(), &mRandomGeneration.area, FALSE);
+    (void)InvalidateRect(BlokGetWindowHandle(), &mRandomGeneration.area, FALSE);
 }
 
-void NeonHandleLockToggleButtonClick(void)
+void BlokHandleLockToggleButtonClick(void)
 {
     mLockedToggle.selected = (mLockedToggle.selected) ? 0 : 1;
-    NeonToggleCanvasLock();
+    BlokToggleCanvasLock();
 }
 
-void NeonFreePanelComponent(void)
+void BlokFreePanelComponent(void)
 {
 }

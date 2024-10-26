@@ -8,8 +8,8 @@
  * obstructables.
  */
 
-#ifndef NEON_WALLS_H
-#define NEON_WALLS_H
+#ifndef BLOK_WALLS_H
+#define BLOK_WALLS_H
 
 #define STRICT 1
 #include "../../model/utility/position.h"
@@ -18,42 +18,42 @@
 /**
  * \brief Initialises the obstructables.
  *
- * \warning The `NeonFreeObstructables` function must be called during resource clean up.
+ * \warning The `BlokFreeObstructables` function must be called during resource clean up.
  */
-void NeonInitObstructables(void);
+void BlokInitObstructables(void);
 
 /**
  * \brief Renders the obstructables.
  *
  * \param displayContext The display context handle.
  */
-void NeonRenderObstructables(HDC displayContext);
+void BlokRenderObstructables(HDC displayContext);
 
 /**
  * \brief Add an obstructable.
  *
  * \param position The position of the obstructable.
  */
-void NeonAddObstrutable(const NeonPosition position);
+void BlokAddObstrutable(const BlokPosition position);
 
 /**
  * \brief Calculates the percentage of vector memory used.
  *
  * \return The percentage of vector memory used.
  */
-float NeonGetVectorMemoryPercentage(void);
+float BlokGetVectorMemoryPercentage(void);
 
 /**
  * \brief Gets the number of obstructables created.
  *
  * \return The number of obstructables.
  */
-int NeonGetObstrutableCount(void);
+int BlokGetObstrutableCount(void);
 
 /**
  * \brief Clears all obstructables.
  */
-void NeonClearObstrutables(void);
+void BlokClearObstrutables(void);
 
 /**
  * \brief Checks if a obstructable exists at a position.
@@ -65,7 +65,7 @@ void NeonClearObstrutables(void);
  * \retval 0: No.
  * \retval 1: Exists.
  */
-int NeonObstrutableExistsAtPosition(const int x, const int y);
+int BlokObstrutableExistsAtPosition(const int x, const int y);
 
 /**
  * \brief Gets an obstructable at specific index.
@@ -76,13 +76,13 @@ int NeonObstrutableExistsAtPosition(const int x, const int y);
  * \retval (-1, -1): Error or No Obstructable Exists at Index.
  * \retval (X, Y) Actual coordinate more than -1: Obstructable position.
  */
-NeonPosition NeonGetObstructableAtIndex(int index);
+BlokPosition BlokGetObstructableAtIndex(int index);
 
 /**
  * \brief Frees memory used by the obstructables.
  *
  * \warning This function must be used in the clean up process.
  */
-void NeonFreeObstructables(void);
+void BlokFreeObstructables(void);
 
 #endif

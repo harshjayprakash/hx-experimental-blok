@@ -7,8 +7,8 @@
  * mouse down window events.
  */
 
-#ifndef NEON_HANDLER_H
-#define NEON_HANDLER_H
+#ifndef BLOK_HANDLER_H
+#define BLOK_HANDLER_H
 
 #define STRICT 1
 #include <Windows.h>
@@ -18,20 +18,20 @@
  *
  * \param displayContext The display context handle.
  */
-void NeonHandleWindowPaintEvent(HDC displayContext);
+void BlokHandleWindowPaintEvent(HDC displayContext);
 
 /**
  * \brief Handles the key down window event.
  *
  * \param wordParam The key pressed.
  */
-void NeonHandleWindowKeyDownEvent(WPARAM wordParam);
+void BlokHandleWindowKeyDownEvent(WPARAM wordParam);
 
 /**
  * \brief Handles the mouse down window event.
  *
  * \param longParam The coordinates of where the mouse was clicked.
  */
-void NeonHandleWindowLeftMouseDown(LPARAM longParam);
+void BlokHandleWindowLeftMouseDown(LPARAM longParam);
 
 #endif

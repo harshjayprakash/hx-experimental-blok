@@ -7,17 +7,17 @@
  * and set positions.
  */
 
-#ifndef NEON_POSITION_H
-#define NEON_POSITION_H
+#ifndef BLOK_POSITION_H
+#define BLOK_POSITION_H
 
 /**
  * \brief Models the position of an object.
  */
-typedef struct __NeonPosition
+typedef struct __BlokPosition
 {
     int x; ///< The X Position
     int y; ///< The Y Position
-} NeonPosition;
+} BlokPosition;
 
 /**
  * \brief Creates a new position object.
@@ -26,7 +26,7 @@ typedef struct __NeonPosition
  * \param y The y position
  * \return A new stack allocated position object.
  */
-NeonPosition NeonCreatePosition(const int x, const int y);
+BlokPosition BlokCreatePosition(const int x, const int y);
 
 /**
  * \brief Creates a new position object from an existing position object.
@@ -34,7 +34,7 @@ NeonPosition NeonCreatePosition(const int x, const int y);
  * \param position The existing position object.
  * \return A new stack allocated position object.
  */
-NeonPosition NeonCreatePositionFromSelf(const NeonPosition position);
+BlokPosition BlokCreatePositionFromSelf(const BlokPosition position);
 
 /**
  * \brief Sets the position.
@@ -43,7 +43,7 @@ NeonPosition NeonCreatePositionFromSelf(const NeonPosition position);
  * \param x The new x position.
  * \param y The new y position.
  */
-void NeonSetPosition(NeonPosition *position, const int x, const int y);
+void BlokSetPosition(BlokPosition *position, const int x, const int y);
 
 /**
  * \brief Sets the x position.
@@ -51,7 +51,7 @@ void NeonSetPosition(NeonPosition *position, const int x, const int y);
  * \param position The position instance to be updated.
  * \param x The new x position.
  */
-void NeonSetXPosition(NeonPosition *position, const int x);
+void BlokSetXPosition(BlokPosition *position, const int x);
 
 /**
  * \brief Sets the y position.
@@ -59,7 +59,7 @@ void NeonSetXPosition(NeonPosition *position, const int x);
  * \param position The position instance to be updated.
  * \param y The new y position.
  */
-void NeonSetYPosition(NeonPosition *position, const int y);
+void BlokSetYPosition(BlokPosition *position, const int y);
 
 /**
  * @brief Copies the positon object.
@@ -67,6 +67,6 @@ void NeonSetYPosition(NeonPosition *position, const int y);
  * @param dest The instance to be copied to.
  * @param src The instance to be copied from.
  */
-void NeonCopyPosition(NeonPosition *dest, const NeonPosition src);
+void BlokCopyPosition(BlokPosition *dest, const BlokPosition src);
 
 #endif
