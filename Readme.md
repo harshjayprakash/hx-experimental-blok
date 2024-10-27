@@ -1,6 +1,6 @@
 ![Banner](./doc/experimental-blok-banner.jpg)
 
-# The Experimental Block Project
+# Experimental Blok
 
 > A Personal Project -- A square that moves, with arrow keys, around a user generated 
 > maze.
