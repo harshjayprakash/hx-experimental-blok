@@ -1,12 +1,9 @@
-# The Experimental Block Project
+![Banner](./doc/experimental-blok-banner.jpg)
 
-![Banner](./doc/blok-banner.png)
+# Experimental Blok
 
-> [!NOTE]
-> As this is an experiment without a clear roadmap, this program will likely always be in
-> the developing stage. There will not be a deployed executable file. However, there will
-> be tagged versions if there is a significant enough change and is stable enough (no
-> guarantee). This program contains absolutely no warranty.
+> A Personal Project -- A square that moves, with arrow keys, around a user generated 
+> maze.
 
 ## Usage
 
@@ -51,7 +48,7 @@ mingw32-make build
 .\bin\blok
 ```
 
-## What's New (24Q3.01)
+## What's New (H2 '24 Rev. 1)
 
 - Re-defined Internal Architecture
 - New Console Logging
