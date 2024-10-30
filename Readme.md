@@ -1,4 +1,4 @@
-![Banner](./doc/experimental-blok-banner.jpg)
+![Banner](./doc/blok-banner.png)
 
 # Experimental Blok
 
