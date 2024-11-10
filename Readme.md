@@ -1,8 +1,8 @@
-![Banner](./doc/blok-banner.png)
-
 # Experimental Blok
 
-> A Personal Project -- A square that moves, with arrow keys, around a user generated 
+![Banner](./doc/blok-banner.png)
+
+> A Personal Project -- A square that moves, with arrow keys, around a user generated
 > maze.
 
 ## Usage
