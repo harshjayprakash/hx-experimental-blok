@@ -1,6 +1,6 @@
 # Experimental Blok
 
-![Banner](./doc/xbk-banner.png)
+![Banner 1](./doc/repo_banner_experimental_blok_var.png)
 
 > A Personal Project -- A square that moves, with arrow keys, around a user generated
 > maze.
