@@ -1,13 +1,13 @@
 # Experimental Blok
 
-![Banner](./doc/blok-banner.png)
+![Banner](./doc/xbk-banner.png)
 
 > A Personal Project -- A square that moves, with arrow keys, around a user generated
 > maze.
 
 ## Usage
 
-![Program Light and Dark Mode](./doc/blok-dual-screenshot.png)
+![Program Light and Dark Mode](./doc/xbk-dual-screenshot.png)
 
 | Ref. | Description |
 |:----------|:------------|
@@ -22,7 +22,7 @@
 | 6 | Shows the number of "Obstructables" and a progress bar relative to the vector size. |
 | 7 | A button to randomly generate "Obstructables" on the canvas. The number of "Obstructables" is based on the window size. |
 
-![Program Logging](./doc/blok-logging.png)
+![Program Logging](./doc/xbk-logging.png)
 
 This program logs messages to the console as seen in the above screenshot. Any internal
 errors are shown in the console.
