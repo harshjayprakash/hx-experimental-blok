@@ -72,7 +72,7 @@ void BlokWindowShow(Window *window, DWORD showFlag)
             (void) TranslateMessage(&message);
             (void) DispatchMessageW(&message);
 
-            if (message.message != WM_QUIT) { break; }
+            if (message.message == WM_QUIT) { break; }
         }
 
         Sleep(1);
