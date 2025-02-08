@@ -1,12 +1,14 @@
 #ifndef __BLOK_CONTEXT_H_
 #define __BLOK_CONTEXT_H_
 
+#include "../presentation/viewport/window.h"
 #include <Windows.h>
 
 typedef struct Context__ {
     HINSTANCE instanceHandle;
     LPCWSTR commandLine;
     DWORD showFlag;
+    Window window;
 } Context;
 
 void BlokContextInit(
