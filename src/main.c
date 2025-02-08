@@ -1,3 +1,5 @@
+#include "core/module.h"
+#include "core/context.h"
 #include <Windows.h>
 
 int WINAPI wWinMain(
@@ -6,7 +8,10 @@ int WINAPI wWinMain(
     LPWSTR lpCmdLine, 
     int nShowCmd)
 {
-    (void) MessageBoxW(0, L"Hello, world!", L"Test", MB_OK | MB_ICONINFORMATION);
+    Context *context = BlokContextGet();
+    BlokContextInit(context, hInstance, lpCmdLine, nShowCmd);
+    BlokContextRun(context);
+    BlokContextTerminate(context);
 
     return 0;
 }
