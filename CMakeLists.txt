@@ -16,7 +16,8 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED True)
 
 set(SOURCES
-    "src/main.c"
+    "src/main.c" "src/core/context.h" "src/core/context.c" "src/core/module.h" 
+    "src/core/module.c"
 )
 
 add_definitions(/DUNICODE /D_UNICODE /DSTRICT)
