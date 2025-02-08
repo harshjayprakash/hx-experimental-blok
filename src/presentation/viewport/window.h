@@ -11,4 +11,10 @@ typedef struct Window__ {
     LPWSTR caption;
 } Window;
 
+void BlokWindowInit(Window *window, HINSTANCE instanceHandle);
+
+void BlokWindowShow(Window *window, DWORD showFlag);
+
+void BlokWindowFree(Window *window, HINSTANCE instanceHandle);
+
 #endif // !__BLOK_WINDOW_H_
