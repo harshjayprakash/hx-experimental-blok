@@ -9,6 +9,8 @@ void BlokContextInit(
     context->instanceHandle = instanceHandle;
     context->commandLine = commandLine;
     context->showFlag = showFlag;
+
+    BlokWindowInit(&context->window, context->instanceHandle);
 }
 
 void BlokContextRun(Context *context)
@@ -16,9 +18,13 @@ void BlokContextRun(Context *context)
     if (!context) { return; }
 
     (void) MessageBoxW(0, L"Test", L"Test", MB_OK);
+
+    BlokWindowShow(&context->window, context->showFlag);
 }
 
 void BlokContextTerminate(Context *context)
 {
     if (!context) { return; }
+
+    BlokWindowFree(&context->window, context->instanceHandle);
 }
