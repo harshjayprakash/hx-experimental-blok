@@ -9,5 +9,11 @@ typedef struct Context__ {
     DWORD showFlag;
 } Context;
 
+void BlokContextInit(
+    Context *context, HINSTANCE instanceHandle, LPCWSTR commandLine, DWORD showFlag);
+
+void BlokContextRun(Context *context);
+
+void BlokContextTerminate(Context *context);
 
 #endif // !__BLOK_CONTEXT_H_
