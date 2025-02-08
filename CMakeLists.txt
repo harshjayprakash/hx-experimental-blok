@@ -6,7 +6,7 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED True)
 
 set(SOURCES
-    "src/main"
+    "src/main.c"
 )
 
 add_definitions(/DUNICODE /D_UNICODE /DSTRICT)
