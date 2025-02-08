@@ -14,6 +14,8 @@ void BlokContextInit(
 void BlokContextRun(Context *context)
 {
     if (!context) { return; }
+
+    (void) MessageBoxW(0, L"Test", L"Test", MB_OK);
 }
 
 void BlokContextTerminate(Context *context)
