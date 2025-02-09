@@ -12,7 +12,7 @@ typedef enum Theme__ {
 #define BLOK_THEME_MIN_BOUND 0
 #define BLOK_THEME_MAX_BOUND 2
 
-typedef enum Colour__: COLORREF {
+typedef enum Colour__ {
     BLOK_COLOUR_WHITE = RGB(0xFF, 0xFF, 0xFF),
     BLOK_COLOUR_BLACK = RGB(0x00, 0x00, 0x00),
     BLOK_COLOUR_AQUA = RGB(0x00, 0xFF, 0xFF),
