@@ -18,5 +18,12 @@ typedef enum Colour__: COLORREF {
     BLOK_COLOUR_ROSE = RGB(0xFF, 0x00, 0x71),
 } Colour;
 
+typedef struct SelectColours__ {
+    COLORREF background;
+    COLORREF foreground;
+    COLORREF accent;
+} SelectColours;
+
+
 
 #endif // !__BLOK_THEME_H_
