@@ -60,6 +60,7 @@ void BlokWindowInit(Window *window, HINSTANCE instanceHandle)
 void BlokWindowShow(Window *window, DWORD showFlag)
 {
     if (!window) { return; }
+    if (!window->handle) { return; }
 
     (void) ShowWindow(window->handle, showFlag);
 
