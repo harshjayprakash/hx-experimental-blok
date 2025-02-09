@@ -86,32 +86,31 @@ void BlokWindowFree(Window *window, HINSTANCE instanceHandle)
 
     if (window->handle != NULL) 
     { 
-        (void) DestroyWindow(window->handle); 
-    
+        (void) DestroyWindow(window->handle);
     }
 
     if (window->klass.hIcon != NULL) 
     { 
-        (void) DestroyIcon(window->klass.hIcon); 
+        (void) DestroyIcon(window->klass.hIcon);
     }
 
     if (window->klass.hIconSm != NULL) 
     { 
-        (void) DestroyIcon(window->klass.hIconSm); 
+        (void) DestroyIcon(window->klass.hIconSm);
     }
 
     if (window->klass.hCursor != NULL) 
     { 
-        (void) DestroyCursor(window->klass.hCursor); 
+        (void) DestroyCursor(window->klass.hCursor);
     }
 
     if (window->klass.hbrBackground != NULL) 
     { 
-        (void) DeleteObject(window->klass.hbrBackground); 
+        (void) DeleteObject(window->klass.hbrBackground);
     }
 
     if (window->klassAtomRef != 0) 
     { 
-        (void) UnregisterClassW(window->klassName, instanceHandle); 
+        (void) UnregisterClassW(window->klassName, instanceHandle);
     }
 }
