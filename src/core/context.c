@@ -10,6 +10,7 @@ void BlokContextInit(
     context->commandLine = commandLine;
     context->showFlag = showFlag;
 
+    BlokRendererInit(&context->renderer, 0);
     BlokWindowInit(&context->window, context->instanceHandle);
 }
 
@@ -27,4 +28,5 @@ void BlokContextTerminate(Context *context)
     if (!context) { return; }
 
     BlokWindowFree(&context->window, context->instanceHandle);
+    BlokRendererFree(&context->renderer);
 }
