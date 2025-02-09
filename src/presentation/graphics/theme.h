@@ -24,6 +24,7 @@ typedef struct SelectColours__ {
     COLORREF accent;
 } SelectColours;
 
+void BlokThemeSet(SelectColours *colours, const Theme theme);
 
 
 #endif // !__BLOK_THEME_H_
