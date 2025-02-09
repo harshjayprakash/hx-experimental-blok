@@ -2,6 +2,7 @@
 #define __BLOK_CONTEXT_H_
 
 #include "../presentation/viewport/window.h"
+#include "../presentation/graphics/renderer.h"
 #include <Windows.h>
 
 typedef struct Context__ {
@@ -9,6 +10,7 @@ typedef struct Context__ {
     LPCWSTR commandLine;
     DWORD showFlag;
     Window window;
+    Renderer renderer;
 } Context;
 
 void BlokContextInit(
