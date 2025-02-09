@@ -76,6 +76,8 @@ void BlokWindowShow(Window *window, DWORD showFlag)
             if (message.message == WM_QUIT) { break; }
         }
 
+        (void) UpdateWindow(window->handle);
+
         Sleep(1);
     }
 }
