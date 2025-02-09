@@ -1,11 +1,11 @@
-#ifndef __BLOK_BOX_H_
-#define __BLOK_BOX_H_
+#ifndef __BLOK_SQUARE_H_
+#define __BLOK_SQUARE_H_
 
 #include "vector2.h"
 
-typedef struct Box__ {
+typedef struct Square__ {
     Vector2 position;
     Vector2 size;
-} Box;
+} Square;
 
-#endif // !__BLOK_BOX_H_
+#endif // !__BLOK_SQUARE_H_
