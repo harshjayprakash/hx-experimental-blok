@@ -10,5 +10,8 @@ typedef struct Renderer {
     Drawing drawing;
 } Renderer;
 
+void BlokRendererInit(Renderer *renderer, const Theme theme);
+
+void BlokRendererFree(Renderer *renderer);
 
 #endif // !__BLOK_RENDERER_H_
