@@ -1,7 +1,7 @@
 #include "theme.h"
 
 #define ___BLOK_LIGHT_DARK(light, dark) \
-    (theme == BLOK_THEME_DARK) ? dark : light
+    (theme == BLOK_THEME_LIGHT) ? light : dark
 
 void BlokThemeSet(SelectColours *colours, const Theme theme)
 {
