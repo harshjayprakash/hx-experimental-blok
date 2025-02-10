@@ -10,10 +10,8 @@ Vector2 BlokVector2MultiplyByScalar(const Vector2 vec, int scalar);
 
 Vector2 BlokVector2Add(const Vector2 veca, const Vector2 vecb);
 
-void BlokVector2AddPtr(Vector2 *dest, const Vector2 change);
-
 Vector2 BlokVector2Subtract(const Vector2 veca, const Vector2 vecb);
 
-void BlokVector2SubtractPtr(Vector2 *dest, const Vector2 change);
+void BlokVector2Copy(Vector2 *dest, const Vector2 src);
 
 #endif // !__BLOK_VECTOR2_H_

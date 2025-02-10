@@ -10,23 +10,15 @@ Vector2 BlokVector2Add(const Vector2 veca, const Vector2 vecb)
     return (Vector2) {veca.x + vecb.x, veca.y + vecb.y};
 }
 
-void BlokVector2AddPtr(Vector2 *dest, const Vector2 change)
-{
-    if (!dest) { return; }
-
-    dest->x += change.x;
-    dest->y += change.y;
-}
-
 Vector2 BlokVector2Subtract(const Vector2 veca, const Vector2 vecb)
 {
     return (Vector2) {veca.x - vecb.x, veca.y - vecb.y};
 }
 
-void BlokVector2SubtractPtr(Vector2 *dest, const Vector2 change)
+void BlokVector2Copy(Vector2 *dest, const Vector2 src)
 {
     if (!dest) { return; }
 
-    dest->x -= change.x;
-    dest->y -= change.y;
+    dest->x = src.x;
+    dest->y = src.y;
 }
