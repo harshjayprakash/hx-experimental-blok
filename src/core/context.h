@@ -14,4 +14,6 @@ typedef struct _Context {
     void *state;
 } Context;
 
+Context *BlokContextGet(void);
+
 #endif // BLOK_CONTEXT_H_
