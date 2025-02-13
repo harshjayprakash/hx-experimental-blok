@@ -1,0 +1,4 @@
+#ifndef _BLOK_LIFECYCLE_H_
+#define _BLOK_LIFECYCLE_H_
+
+#endif // _BLOK_LIFECYCLE_H_
