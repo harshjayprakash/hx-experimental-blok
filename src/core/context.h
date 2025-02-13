@@ -1,5 +1,5 @@
-#ifndef BLOK_CONTEXT_H_
-#define BLOK_CONTEXT_H_
+#ifndef _BLOK_CONTEXT_H_
+#define _BLOK_CONTEXT_H_
 
 #include <Windows.h>
 
@@ -16,4 +16,4 @@ typedef struct _Context {
 
 Context *BlokContextGet(void);
 
-#endif // BLOK_CONTEXT_H_
+#endif // _BLOK_CONTEXT_H_
