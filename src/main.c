@@ -1,3 +1,4 @@
+#include "core/lifecycle.h"
 #include <Windows.h>
 
 int WINAPI wWinMain(
@@ -22,6 +23,12 @@ int WINAPI wWinMain(
         (void) CloseHandle(instanceMutex);
         return 1;
     }
+
+    Context *context = BlokContextGet();
+    
+    BlokInit(context, hInstance, lpCmdLine, nShowCmd);
+    BlokRun(context);
+    BlokFree(context);
 
     (void) CloseHandle(instanceMutex);
     
