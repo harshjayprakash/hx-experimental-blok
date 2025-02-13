@@ -19,13 +19,11 @@ int WINAPI wWinMain(
             NULL, L"An instance of Blok is already running. "
             "Please close the other instance before starting a new one.", L"Blok",
             MB_OK | MB_ICONERROR);
-        CloseHandle(instanceMutex);
+        (void) CloseHandle(instanceMutex);
         return 1;
     }
 
-    (void) MessageBoxW(NULL, L"Test", L"Blok", MB_OK);
-
-    CloseHandle(instanceMutex);
+    (void) CloseHandle(instanceMutex);
     
     return 0;
 }
