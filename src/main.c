@@ -23,6 +23,7 @@ int WINAPI wWinMain(
         return 1;
     }
 
+    (void) MessageBoxW(NULL, L"Test", L"Blok", MB_OK);
 
     CloseHandle(instanceMutex);
     return 0;
