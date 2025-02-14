@@ -23,6 +23,13 @@ set(SOURCES
     "src/core/gfx/theme.c" "src/core/gfx/theme.h"
     "src/core/context.c" "src/core/context.h"
     "src/core/lifecycle.c" "src/core/lifecycle.h"
+    "src/model/maths/direction.c" "src/model/maths/direction.h"
+    "src/model/maths/vector.c" "src/model/maths/vector.h"
+    "src/model/objects/square.h"
+    "src/model/state.c" "src/model/state.h"
+    "src/presentation/components/canvas.c" "src/presentation/components/canvas.h"
+    "src/presentation/components/panel.c" "src/presentation/components/panel.h"
+    "src/presentation/events/process.c" "src/presentation/events/process.h"
     "src/presentation/frame/window.c" "src/presentation/frame/window.h"
     "src/presentation/viewport.c" "src/presentation/viewport.h"
 )
