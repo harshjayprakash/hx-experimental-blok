@@ -14,11 +14,11 @@ void BlokArgsProcess(LPWSTR commandLine, ArgsInfo *result)
 
     for (int argIdx = 0; argIdx < argc; ++argIdx)
     {
-        if (_wcsnicmp(args[argIdx], L"--dark-theme", 13*sizeof(unsigned short)))
+        if (_wcsnicmp(args[argIdx], L"--dark-theme", 13*sizeof(unsigned short)) == 0)
         {
             result->theme = 1;
         }
-        if (_wcsnicmp(args[argIdx], L"--light-theme", 14*sizeof(unsigned short)))
+        if (_wcsnicmp(args[argIdx], L"--light-theme", 14*sizeof(unsigned short)) == 0)
         {
             result->theme = 2;
         }
