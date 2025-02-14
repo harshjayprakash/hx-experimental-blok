@@ -13,10 +13,10 @@ typedef enum _Theme {
 #define BLOK_THEME_MAX 2
 
 typedef enum _Colours {
-    BLOK_COLOUR_WHITE,
-    BLOK_COLOUR_BLACK,
-    BLOK_COLOUR_BLUE,
-    BLOK_COLOUR_AQUA,
+    BLOK_COLOUR_WHITE = RGB(255, 255, 255),
+    BLOK_COLOUR_BLACK = RGB(0, 0, 0),
+    BLOK_COLOUR_BLUE = RGB(0, 0, 255),
+    BLOK_COLOUR_AQUA = RGB(0, 255, 255),
 } Colours;
 
 typedef struct _ColourSpace {
