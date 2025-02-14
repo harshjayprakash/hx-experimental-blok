@@ -25,5 +25,6 @@ typedef struct _ColourSpace {
     COLORREF accent;
 } ColourSpace;
 
+void BlokColoursSet(ColourSpace *colours, const Theme theme);
 
 #endif // _BLOK_THEME_H_
