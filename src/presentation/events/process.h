@@ -9,7 +9,7 @@ void BlokProcessEventOnDestroy();
 
 void BlokProcessEventOnPaint(HWND window);
 
-void BlokProcessEventOnKeyDown();
+void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord);
 
 void BlokProcessEventOnLeftMouseDown();
 

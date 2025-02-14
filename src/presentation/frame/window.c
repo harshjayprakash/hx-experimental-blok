@@ -27,7 +27,7 @@ LRESULT CALLBACK __BlokWindowProcedure(
         return TRUE;
 
     case WM_KEYDOWN:
-        BlokProcessEventOnKeyDown();
+        BlokProcessEventOnKeyDown(window, dataWord);
         return TRUE;
 
     case WM_LBUTTONDOWN:

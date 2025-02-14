@@ -53,7 +53,7 @@ void BlokProcessEventOnPaint(HWND window)
     (void) EndPaint(window, &ps);
 }
 
-void BlokProcessEventOnKeyDown()
+void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
 {
 
 }
