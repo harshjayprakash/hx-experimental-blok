@@ -1,0 +1,4 @@
+#ifndef _BLOK_DIRECTION_H_
+#define _BLOK_DIRECTION_H_
+
+#endif // _BLOK_DIRECTION_H_
