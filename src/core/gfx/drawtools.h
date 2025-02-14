@@ -8,6 +8,15 @@ typedef struct _DrawingTools {
     HBRUSH backgroundBrush;
     HBRUSH foregroundBrush;
     HBRUSH accentBrush;
+
+    HBRUSH surfaceBrush;
+    HBRUSH surfaceVariantBrush;
+    HBRUSH primaryBrush;
+    HBRUSH primaryVariantBrush;
+    HBRUSH secondaryBrush;
+    HBRUSH secondaryVariantBrush;
+    HPEN onSurfacePen;
+    HPEN onSurfaceVariantPen;
 } DrawingTools;
 
 void BlokDrawingToolsInit(DrawingTools *tools, const ColourSpace *colours);
