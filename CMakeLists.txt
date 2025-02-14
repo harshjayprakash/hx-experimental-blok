@@ -16,17 +16,15 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED True)
 
 set(SOURCES
-    "src/main.c" 
-    "src/core/context.h" "src/core/context.c" 
-    "src/core/module.h" "src/core/module.c" 
-    "src/model/direction.h" "src/model/direction.c"
-    "src/model/square.h"
-    "src/model/state.h" "src/model/state.c"
-    "src/model/vector2.h" "src/model/vector2.c"
-    "src/presentation/graphics/drawing.c" "src/presentation/graphics/drawing.h" 
-    "src/presentation/graphics/renderer.c" "src/presentation/graphics/renderer.h" 
-    "src/presentation/graphics/theme.c" "src/presentation/graphics/theme.h"
-    "src/presentation/viewport/window.h" "src/presentation/viewport/window.c" 
+    "src/main.c"
+    "src/core/config/args.c" "src/core/config/args.h"
+    "src/core/gfx/drawtools.c" "src/core/gfx/drawtools.h"
+    "src/core/gfx/graphics.c" "src/core/gfx/graphics.h"
+    "src/core/gfx/theme.c" "src/core/gfx/theme.h"
+    "src/core/context.c" "src/core/context.h"
+    "src/core/lifecycle.c" "src/core/lifecycle.h"
+    "src/presentation/frame/window.c" "src/presentation/frame/window.h"
+    "src/presentation/viewport.c" "src/presentation/viewport.h"
 )
 
 add_definitions(/DUNICODE /D_UNICODE /DSTRICT)
