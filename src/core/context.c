@@ -15,3 +15,8 @@ Viewport *BlokContextGetViewport(void)
 {
     return &BlokContextGet()->viewport;
 }
+
+State *BlokContextGetState(void)
+{
+    return &BlokContextGet()->state;
+}

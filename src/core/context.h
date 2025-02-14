@@ -2,6 +2,7 @@
 #define _BLOK_CONTEXT_H_
 
 #include "../presentation/viewport.h"
+#include "../model/state.h"
 #include "gfx/graphics.h"
 #include <Windows.h>
 
@@ -12,8 +13,8 @@ typedef struct _Context {
     // TODO: Replace LPVOID with actual types.
     Graphics graphics;
     Viewport viewport;
+    State state;
     void *result;
-    void *state;
 } Context;
 
 Context *BlokContextGet(void);
@@ -21,5 +22,7 @@ Context *BlokContextGet(void);
 Graphics *BlokContextGetGraphics(void);
 
 Viewport *BlokContextGetViewport(void);
+
+State *BlokContextGetState(void);
 
 #endif // _BLOK_CONTEXT_H_
