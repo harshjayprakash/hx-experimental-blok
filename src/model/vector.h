@@ -6,4 +6,12 @@ typedef struct _VectorII {
     int y;
 } VectorII;
 
+void BlokVectorIICopy(VectorII *dest, const VectorII src);
+
+VectorII BlokVectorIIAdd(const VectorII veca, const VectorII vecb);
+
+VectorII BloKVectorIISubtract(const VectorII veca, const VectorII vecb);
+
+VectorII BloKVectorIIMultiply(const VectorII veca, const VectorII vecb);
+
 #endif // _BLOK_VECTOR_H_
