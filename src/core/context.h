@@ -20,4 +20,6 @@ Context *BlokContextGet(void);
 
 Graphics *BlokContextGetGraphics(void);
 
+Viewport *BlokContextGetViewport(void);
+
 #endif // _BLOK_CONTEXT_H_
