@@ -17,4 +17,6 @@ typedef struct _Context {
 
 Context *BlokContextGet(void);
 
+Graphics *BlokContextGetGraphics(void);
+
 #endif // _BLOK_CONTEXT_H_
