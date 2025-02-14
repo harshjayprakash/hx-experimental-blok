@@ -55,7 +55,43 @@ void BlokProcessEventOnPaint(HWND window)
 
 void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
 {
+    State *state = BlokContextGetState();
+    Direction moveBoxOperation = 0;
 
+    switch (infoWord)
+    {
+    case 'W': 
+        moveBoxOperation = BLOK_DIRECTION_NORTH; 
+        break;
+    
+    case 'A':
+        moveBoxOperation = BLOK_DIRECTION_WEST;
+        break;
+    
+    case 'S':
+        moveBoxOperation = BLOK_DIRECTION_SOUTH;
+        break;
+    
+    case 'D':
+        moveBoxOperation = BLOK_DIRECTION_EAST;
+        break;
+
+    }
+
+    if (moveBoxOperation)
+    {
+        VectorII shift = BlokDirectionToVector(moveBoxOperation);
+        VectorII offsetMove = BlokVectorIIMultiply(shift, state->box.size);
+        VectorII newpos = BlokVectorIIAdd(offsetMove, state->box.position);
+        BlokVectorIICopy(&state->box.position, newpos);
+        RECT sq = {
+            state->box.position.x - state->box.size.x,
+            state->box.position.y - state->box.size.x,
+            state->box.position.x + (state->box.size.x * 2),
+            state->box.position.y + (state->box.size.y * 2),
+        };
+        InvalidateRect(window, &sq, TRUE);
+    }
 }
 
 void BlokProcessEventOnLeftMouseDown()
