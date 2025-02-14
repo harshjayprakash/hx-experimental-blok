@@ -1,6 +1,6 @@
 #include "context.h"
 
-Context *BlokContextGet()
+Context *BlokContextGet(void)
 {
     static Context context;
     return &context;
