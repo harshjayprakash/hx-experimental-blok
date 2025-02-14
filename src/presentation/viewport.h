@@ -8,8 +8,10 @@ typedef struct _Viewport {
     Window window;
 } Viewport;
 
+void BlokViewportInit(Viewport *viewport, HINSTANCE instance);
+
 void BlokViewportShow(Viewport *viewport, DWORD showFlag);
 
-void BlokViewportFree(Viewport *viewport);
+void BlokViewportFree(Viewport *viewport, HINSTANCE instance);
 
 #endif // _BLOK_VIEWPORT_H_
