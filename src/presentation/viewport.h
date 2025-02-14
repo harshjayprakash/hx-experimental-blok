@@ -8,7 +8,7 @@ typedef struct _Viewport {
     Window window;
 } Viewport;
 
-void BlokViewportInit(Viewport *viewport);
+void BlokViewportShow(Viewport *viewport, DWORD showFlag);
 
 void BlokViewportFree(Viewport *viewport);
 
