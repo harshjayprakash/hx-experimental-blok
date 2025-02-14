@@ -21,7 +21,7 @@ void BlokStateMoveBox(State *state, const Direction direction)
     if (!state) { return; }
 
     VectorII vector = BlokDirectionToVector(direction);
-    VectorII scaled = BloKVectorIIMultiply(vector, state->box.size);
+    VectorII scaled = BlokVectorIIMultiply(vector, state->box.size);
     VectorII newpos = BlokVectorIIAdd(state->box.position, scaled);
     BlokVectorIICopy(&state->box.position, newpos);
 }
