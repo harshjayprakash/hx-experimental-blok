@@ -13,16 +13,20 @@ void BlokInit(Context *context, HINSTANCE instance, LPWSTR commandLine, DWORD sh
     BlokArgsProcess(context->commandLine, &argsResult);
 
     BlokGraphicsInit(&context->graphics, argsResult.theme);
+    BlokViewportInit(&context->viewport, context->instance);
 }
 
 void BlokRun(Context *context)
 {
     if (!context) { return; }
+
+    BlokViewportShow(&context->viewport, context->showFlag);
 }
 
 void BlokFree(Context *context)
 {
     if (!context) { return; }
 
+    BlokViewportFree(&context->viewport, context->instance);
     BlokGraphicsFree(&context->graphics);
 }
