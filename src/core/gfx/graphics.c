@@ -10,7 +10,7 @@ void BlokGraphicsInit(Graphics *gfx, const Theme theme)
 {
     if (!gfx) { return; }
 
-    int disregard = __BLOK_IS_VALID_THEME(theme);
+    int disregard = !__BLOK_IS_VALID_THEME(theme);
     gfx->theme = __BLOK_DISREGARD_THEME(disregard);
 
     BlokColoursSet(&gfx->colours, gfx->theme);
