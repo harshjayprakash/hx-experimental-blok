@@ -9,4 +9,11 @@ typedef enum _Theme {
 #define BLOK_THEME_MIN 0
 #define BLOK_THEME_MAX 2
 
+typedef enum _Colours {
+    BLOK_COLOUR_WHITE,
+    BLOK_COLOUR_BLACK,
+    BLOK_COLOUR_BLUE,
+    BLOK_COLOUR_AQUA,
+} Colours;
+
 #endif // _BLOK_THEME_H_
