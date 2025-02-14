@@ -30,6 +30,10 @@ void BlokProcessEventOnPaint(HWND window)
     HBITMAP offCanvas = CreateCompatibleBitmap(surface, rc.right, rc.bottom);
     (void) SelectObject(offScreen, offCanvas);
 
+    // ? Paint Background.
+    (void) FillRect(offScreen, &rc, graphics->tools.backgroundBrush);
+
+
     // ? Copy off screen buffer to surface.
     (void) BitBlt(surface, 0, 0, rc.right, rc.bottom, offScreen, 0, 0, SRCCOPY);
 
