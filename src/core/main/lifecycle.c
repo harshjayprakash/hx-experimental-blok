@@ -11,6 +11,8 @@ void BlokInit(Context *context, HINSTANCE instance, LPWSTR commandLine, DWORD sh
 
     ArgsInfo argsResult;
     BlokArgsProcess(context->commandLine, &argsResult);
+
+    BlokGraphicsInit(&context->graphics, argsResult.theme);
 }
 
 void BlokRun(Context *context)
@@ -21,4 +23,6 @@ void BlokRun(Context *context)
 void BlokFree(Context *context)
 {
     if (!context) { return; }
+
+    BlokGraphicsFree(&context->graphics);
 }
