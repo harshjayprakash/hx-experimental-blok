@@ -13,12 +13,12 @@ VectorII BlokVectorIIAdd(const VectorII veca, const VectorII vecb)
     return (VectorII) {veca.x+vecb.x, veca.y+vecb.y};
 }
 
-VectorII BloKVectorIISubtract(const VectorII veca, const VectorII vecb)
+VectorII BlokVectorIISubtract(const VectorII veca, const VectorII vecb)
 {
     return (VectorII) {veca.x-vecb.x, veca.y-vecb.y};
 }
 
-VectorII BloKVectorIIMultiply(const VectorII veca, const VectorII vecb)
+VectorII BlokVectorIIMultiply(const VectorII veca, const VectorII vecb)
 {
     return (VectorII) {veca.x*vecb.x, veca.y*vecb.y};
 }
