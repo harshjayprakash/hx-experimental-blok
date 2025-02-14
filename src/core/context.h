@@ -1,6 +1,7 @@
 #ifndef _BLOK_CONTEXT_H_
 #define _BLOK_CONTEXT_H_
 
+#include "../presentation/viewport.h"
 #include "gfx/graphics.h"
 #include <Windows.h>
 
@@ -10,8 +11,8 @@ typedef struct _Context {
     DWORD showFlag;
     // TODO: Replace LPVOID with actual types.
     Graphics graphics;
+    Viewport viewport;
     void *result;
-    void *uiviewport;
     void *state;
 } Context;
 
