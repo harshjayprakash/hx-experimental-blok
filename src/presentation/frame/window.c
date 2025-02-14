@@ -1,4 +1,5 @@
 #include "window.h"
+#include "../events/process.h"
 
 #define __BLOK_CLEANUP_RESOURCE(object, cleanFn) \
     if (object != NULL) { (void) cleanFn(object); }
@@ -8,9 +9,31 @@ LRESULT CALLBACK __BlokWindowProcedure(
 {
     switch (messageId)
     {
+    case WM_CREATE:
+        BlokProcessEventOnCreate();
+        return TRUE;
+        
     case WM_DESTROY:
+        BlokProcessEventOnDestroy();
         PostQuitMessage(0);
         return TRUE;
+
+    case WM_PAINT:
+        BlokProcessEventOnPaint(window);
+        return TRUE;
+
+    case WM_SIZE:
+        BlokProcessEventOnResize();
+        return TRUE;
+
+    case WM_KEYDOWN:
+        BlokProcessEventOnKeyDown();
+        return TRUE;
+
+    case WM_LBUTTONDOWN:
+        BlokProcessEventOnLeftMouseDown();
+        return TRUE;
+
     default:
         return DefWindowProcW(window, messageId, dataWord, dataLong);
     }
