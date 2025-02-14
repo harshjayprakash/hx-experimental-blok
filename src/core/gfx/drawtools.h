@@ -1,0 +1,4 @@
+#ifndef _BLOK_DRAWTOOLS_H_
+#define _BLOK_DRAWTOOLS_H_
+
+#endif // _BLOK_DRAWTOOLS_H_
