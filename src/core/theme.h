@@ -1,5 +1,8 @@
 #ifndef _BLOK_THEME_H_
 #define _BLOK_THEME_H_
+
+#include <Windows.h>
+
 typedef enum _Theme {
     BLOK_THEME_UNSET = 0,
     BLOK_THEME_DARK = 1,
@@ -15,5 +18,12 @@ typedef enum _Colours {
     BLOK_COLOUR_BLUE,
     BLOK_COLOUR_AQUA,
 } Colours;
+
+typedef struct _ColourSpace {
+    COLORREF background;
+    COLORREF foreground;
+    COLORREF accent;
+} ColourSpace;
+
 
 #endif // _BLOK_THEME_H_
