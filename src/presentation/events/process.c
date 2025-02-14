@@ -33,6 +33,15 @@ void BlokProcessEventOnPaint(HWND window)
     // ? Paint Background.
     (void) FillRect(offScreen, &rc, graphics->tools.backgroundBrush);
 
+    // ? Paint Square.
+    RECT sq = {
+        state->box.position.x,
+        state->box.position.y,
+        state->box.position.x + state->box.size.x,
+        state->box.position.y + state->box.size.y,
+    };
+
+    (void) FillRect(offScreen, &sq, graphics->tools.accentBrush);
 
     // ? Copy off screen buffer to surface.
     (void) BitBlt(surface, 0, 0, rc.right, rc.bottom, offScreen, 0, 0, SRCCOPY);
@@ -56,5 +65,4 @@ void BlokProcessEventOnLeftMouseDown()
 
 void BlokProcessEventOnResize()
 {
-    
 }
