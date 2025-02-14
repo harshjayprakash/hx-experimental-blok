@@ -6,5 +6,7 @@ typedef enum _Theme {
     BLOK_THEME_LIGHT = 2,
 } Theme;
 
+#define BLOK_THEME_MIN 0
+#define BLOK_THEME_MAX 2
 
 #endif // _BLOK_THEME_H_
