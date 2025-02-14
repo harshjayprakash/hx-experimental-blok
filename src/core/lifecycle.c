@@ -1,4 +1,5 @@
 #include "lifecycle.h"
+#include "args.h"
 
 void BlokInit(Context *context, HINSTANCE instance, LPWSTR commandLine, DWORD showFlag)
 {
@@ -7,6 +8,9 @@ void BlokInit(Context *context, HINSTANCE instance, LPWSTR commandLine, DWORD sh
     context->instance = instance;
     context->commandLine = commandLine;
     context->showFlag = showFlag;
+
+    ArgsInfo argsResult;
+    BlokArgsProcess(context->commandLine, &argsResult);
 }
 
 void BlokRun(Context *context)
