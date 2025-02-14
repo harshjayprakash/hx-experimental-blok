@@ -1,5 +1,8 @@
 #ifndef _BLOK_DIRECTION_H_
 #define _BLOK_DIRECTION_H_
+
+#include "vector.h"
+
 typedef enum _Direction {
     BLOK_DIRECTION_UNSET = 0,
     BLOK_DIRECTION_NORTH = 12,
@@ -8,5 +11,6 @@ typedef enum _Direction {
     BLOK_DIRECTION_WEST = 9,
 } Direction;
 
+VectorII BlokDirectionToVector(const Direction direction);
 
 #endif // _BLOK_DIRECTION_H_
