@@ -5,7 +5,7 @@ void BlokArgsProcess(LPWSTR commandLine, ArgsInfo *result)
     if (!commandLine) { return; }
     if (!result) { return; }
 
-    result->theme = 0;
+    result->theme = 2;
 
     int argc = 0;
     LPWSTR *args = CommandLineToArgvW(commandLine, &argc);
