@@ -1,5 +1,5 @@
 #include "lifecycle.h"
-#include "args.h"
+#include "../config/args.h"
 
 void BlokInit(Context *context, HINSTANCE instance, LPWSTR commandLine, DWORD showFlag)
 {

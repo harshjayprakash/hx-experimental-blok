@@ -1,4 +1,4 @@
-#include "core/lifecycle.h"
+#include "core/main/lifecycle.h"
 #include <Windows.h>
 
 int WINAPI wWinMain(
