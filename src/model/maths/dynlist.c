@@ -20,7 +20,7 @@ int BlokDynListIsFull(const DynList *list)
     if (!list) { return -1; }
     if (!list->arr) { return -1; }
 
-    return (list->head == list->max);
+    return (list->size == list->max);
 }
 
 int BlokDynListIsEmpty(const DynList *list)
