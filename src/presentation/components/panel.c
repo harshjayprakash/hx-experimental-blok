@@ -18,7 +18,7 @@ void BlokPanelUpdateEx(
 
     panel->region.left = windowRegion->left + panel->margin.x;
     panel->region.top = (windowRegion->bottom - panel->size.y) - panel->margin.y;
-    panel->region.right = windowRegion->right - panel->margin.x;
+    panel->region.right = (windowRegion->left + panel->size.x) - panel->margin.x;
     panel->region.bottom = windowRegion->bottom - panel->margin.y;
 }
 
