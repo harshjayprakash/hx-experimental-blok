@@ -4,6 +4,7 @@
 #include "../presentation/viewport.h"
 #include "../model/state.h"
 #include "gfx/graphics.h"
+#include "debug/console.h"
 #include <Windows.h>
 
 typedef struct _Context {
@@ -11,6 +12,7 @@ typedef struct _Context {
     LPWSTR commandLine;
     DWORD showFlag;
     // TODO: Replace LPVOID with actual types.
+    DebugConsole console;
     Graphics graphics;
     Viewport viewport;
     State state;
