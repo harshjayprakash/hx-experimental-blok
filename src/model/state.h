@@ -3,9 +3,11 @@
 
 #include "maths/direction.h"
 #include "objects/square.h"
+#include "maths/dynlist.h"
 
 typedef struct _State {
     Square box;
+    DynList obstructives;
 } State;
 
 void BlokStateInit(State *state);

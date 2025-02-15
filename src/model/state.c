@@ -9,11 +9,15 @@ void BlokStateInit(State *state)
     VectorII defaultBoxSize = {15, 15};
     BlokVectorIICopy(&state->box.size, defaultBoxSize);
     BlokVectorIICopy(&state->box.position, defaultBoxState);
+
+    BlokDynListInit(&state->obstructives, 10);
 }
 
 void BlokStateFree(State *state)
 {
     if (!state) { return; }
+
+    BlokDynListFree(&state->obstructives);
 }
 
 void BlokStateMoveBox(State *state, const Direction direction)
