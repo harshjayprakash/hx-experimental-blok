@@ -21,6 +21,8 @@ void BlokConsoleInit(DebugConsole *con)
         (void) MessageBoxW(
             0, L"Opening StdOut Failed.", L"Blok", MB_OK | MB_ICONERROR);
     }
+
+    SetConsoleTitleW(L"Blok Console");
 }
 
 void BlokConsoleFree(DebugConsole *con)
