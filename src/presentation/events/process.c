@@ -19,6 +19,7 @@ void BlokProcessEventOnPaint(HWND window)
     HDC surface = BeginPaint(window, &ps);
     RECT rc = {0};
 
+    Viewport *viewport = BlokContextGetViewport();
     Graphics *graphics = BlokContextGetGraphics();
     State *state = BlokContextGetState();
 
@@ -42,6 +43,12 @@ void BlokProcessEventOnPaint(HWND window)
     };
 
     (void) FillRect(offScreen, &sq, graphics->tools.accentBrush);
+
+    // ? Paint Panel
+    BlokPanelUpdate(&viewport->panel, &rc);
+    BlokCanvasUpdate(&viewport->canvas, &rc);
+
+    (void) FillRect(offScreen, &viewport->panel.region, graphics->tools.foregroundBrush);
 
     // ? Copy off screen buffer to surface.
     (void) BitBlt(surface, 0, 0, rc.right, rc.bottom, offScreen, 0, 0, SRCCOPY);
