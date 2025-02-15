@@ -10,6 +10,7 @@ typedef struct _Viewport {
     Window window;
     Canvas canvas;
     Panel panel;
+    RECT surface;
     int isCanvasLocked;
     int isGridVisible;
 } Viewport;
