@@ -1,5 +1,6 @@
 #include "process.h"
 #include "../../core/context.h"
+#include <strsafe.h>
 
 void BlokProcessEventOnCreate()
 {
@@ -18,6 +19,7 @@ void BlokProcessEventOnPaint(HWND window)
     PAINTSTRUCT ps;
     HDC surface = BeginPaint(window, &ps);
     RECT rc = {0};
+
 
     Viewport *viewport = BlokContextGetViewport();
     Graphics *graphics = BlokContextGetGraphics();
@@ -39,7 +41,7 @@ void BlokProcessEventOnPaint(HWND window)
     HGDIOBJ oldFont = SelectObject(offScreen, font);
 
     // ? Paint Background.
-    (void) FillRect(offScreen, &rc, graphics->tools.backgroundBrush);
+    (void) FillRect(offScreen, &rc, graphics->tools.surfaceBrush);
 
     // ? Paint Square.
     RECT sq = {
@@ -49,13 +51,26 @@ void BlokProcessEventOnPaint(HWND window)
         state->box.position.y + state->box.size.y,
     };
 
-    (void) FillRect(offScreen, &sq, graphics->tools.accentBrush);
+    (void) FillRect(offScreen, &sq, graphics->tools.primaryBrush);
 
     // ? Paint Panel
     BlokPanelUpdate(&viewport->panel, &rc);
     BlokCanvasUpdate(&viewport->canvas, &rc);
 
-    (void) FillRect(offScreen, &viewport->panel.region, graphics->tools.foregroundBrush);
+    (void) FillRect(offScreen, &viewport->panel.region, graphics->tools.surfaceVariantBrush);
+
+    // ? Draw Coordinates Text
+    wchar_t text[60];
+    SetTextColor(offScreen, graphics->colours.onSurface);
+    SetBkColor(offScreen, graphics->colours.surfaceVariant);
+    StringCbPrintfW(text, 60*sizeof(wchar_t), L"(%d, %d)", sq.left, sq.top);
+    RECT textC = {
+        viewport->panel.region.left + 10,
+        viewport->panel.region.top + 10,
+        viewport->panel.region.left + 150,
+        viewport->panel.region.top + 30
+    };
+    DrawTextW(offScreen, text, -1, &textC, DT_LEFT | DT_TOP);
 
     // ? Copy off screen buffer to surface.
     (void) BitBlt(surface, 0, 0, rc.right, rc.bottom, offScreen, 0, 0, SRCCOPY);
@@ -106,6 +121,7 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
             state->box.position.y + (state->box.size.y * 2),
         };
         InvalidateRect(window, &sq, TRUE);
+        InvalidateRect(window, 0, 1);
     }
 }
 
