@@ -87,10 +87,7 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
 
     if (moveBoxOperation)
     {
-        VectorII shift = BlokDirectionToVector(moveBoxOperation);
-        VectorII offsetMove = BlokVectorIIMultiply(shift, state->box.size);
-        VectorII newpos = BlokVectorIIAdd(offsetMove, state->box.position);
-        BlokVectorIICopy(&state->box.position, newpos);
+        BlokStateMoveBox(state, moveBoxOperation);
         RECT sq = {
             state->box.position.x - state->box.size.x,
             state->box.position.y - state->box.size.x,
