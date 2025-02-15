@@ -6,6 +6,9 @@
 
 typedef struct _Viewport {
     Window window;
+
+    int isCanvasLocked;
+    int isGridVisible;
 } Viewport;
 
 void BlokViewportInit(Viewport *viewport, HINSTANCE instance);
