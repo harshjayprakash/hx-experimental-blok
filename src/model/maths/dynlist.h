@@ -22,7 +22,7 @@ int BlokDynListIsFull(const DynList *list);
 
 int BlokDynListIsEmpty(const DynList *list);
 
-int BlokDynListAdd(DynList *list, const Node *node);
+long long BlokDynListAdd(DynList *list, const Node *node);
 
 void BlokDynListFree(DynList *list);
 

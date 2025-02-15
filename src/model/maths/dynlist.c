@@ -31,7 +31,7 @@ int BlokDynListIsEmpty(const DynList *list)
     return (list->head == -1);
 }
 
-int BlokDynListAdd(DynList *list, const Node *node)
+long long BlokDynListAdd(DynList *list, const Node *node)
 {
     if (!list) { return -1; }
     if (!node) { return -1; }
