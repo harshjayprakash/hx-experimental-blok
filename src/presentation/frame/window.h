@@ -9,6 +9,7 @@ typedef struct _Window {
     LPWSTR klassName;
     LPWSTR caption;
     ATOM klassAtomIdx;
+    RECT region;
 } Window;
 
 void BlokWindowInit(Window *window, HINSTANCE instance);

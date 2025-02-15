@@ -6,11 +6,11 @@ void BlokViewportInit(Viewport *viewport, HINSTANCE instance)
 
     BlokWindowInit(&viewport->window, instance);
 
-    (void) GetClientRect(viewport->window.handle, &viewport->surface);
+    (void) GetClientRect(viewport->window.handle, &viewport->window.region);
 
     VectorII panelSize = {0, 40}, panelMargin = {0, 0};
-    BlokPanelUpdateEx(&viewport->panel, &viewport->surface, &panelSize, &panelMargin);
-    BlokCanvasUpdate(&viewport->canvas, &viewport->surface);
+    BlokPanelUpdateEx(&viewport->panel, &viewport->window.region, &panelSize, &panelMargin);
+    BlokCanvasUpdate(&viewport->canvas, &viewport->window.region);
 }
 
 void BlokViewportShow(Viewport *viewport, DWORD showFlag)
