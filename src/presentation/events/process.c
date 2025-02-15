@@ -31,6 +31,13 @@ void BlokProcessEventOnPaint(HWND window)
     HBITMAP offCanvas = CreateCompatibleBitmap(surface, rc.right, rc.bottom);
     (void) SelectObject(offScreen, offCanvas);
 
+    HFONT font = CreateFontW(
+        18, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, OUT_OUTLINE_PRECIS, 
+        DEFAULT_CHARSET, CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, VARIABLE_PITCH, 
+        L"Segoe UI");
+    
+    HGDIOBJ oldFont = SelectObject(offScreen, font);
+
     // ? Paint Background.
     (void) FillRect(offScreen, &rc, graphics->tools.backgroundBrush);
 
@@ -53,9 +60,13 @@ void BlokProcessEventOnPaint(HWND window)
     // ? Copy off screen buffer to surface.
     (void) BitBlt(surface, 0, 0, rc.right, rc.bottom, offScreen, 0, 0, SRCCOPY);
 
+    (void) SelectObject(offScreen, oldFont);
+
     // ? Cleanup double buffering.
     (void) DeleteObject(offCanvas);
     (void) DeleteDC(offScreen);
+
+    (void) DeleteObject(font);
 
     (void) EndPaint(window, &ps);
 }
