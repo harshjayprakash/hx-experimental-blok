@@ -1,25 +1,27 @@
 #include "panel.h"
 
 void BlokPanelUpdateEx(
-    Panel *panel, const RECT *windowRegion, const VectorII *size, const VectorII *margin)
+    Panel *panel, const RECT *windowRegion, const COORD *size, const COORD *margin)
 {
     if (!panel) { return; }
     if (!windowRegion) { return; }
 
-    if (size != (VectorII *) 0)
+    if (size != (COORD *) 0)
     {
-        BlokVectorIICopy(&panel->size, *size);
+        panel->size.X = size->X;
+        panel->size.Y = size->Y;
     }
 
-    if (margin != (VectorII *) 0)
+    if (margin != (COORD *) 0)
     {
-        BlokVectorIICopy(&panel->margin, *margin);
+        panel->margin.X = margin->X;
+        panel->margin.Y = margin->Y;
     }
 
-    panel->region.left = windowRegion->left + panel->margin.x;
-    panel->region.top = (windowRegion->bottom - panel->size.y) - panel->margin.y;
-    panel->region.right = (windowRegion->left + panel->size.x) - panel->margin.x;
-    panel->region.bottom = windowRegion->bottom - panel->margin.y;
+    panel->region.left = windowRegion->left + panel->margin.X;
+    panel->region.top = (windowRegion->bottom - panel->size.Y) - panel->margin.Y;
+    panel->region.right = (windowRegion->left + panel->size.X) - panel->margin.X;
+    panel->region.bottom = windowRegion->bottom - panel->margin.Y;
 }
 
 void BlokPanelUpdate(Panel *panel, const RECT *windowRegion)
