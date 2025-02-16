@@ -17,7 +17,7 @@ void BlokProcessEventOnPaint(HWND window)
     PAINTSTRUCT ps;
     HDC surface = BeginPaint(window, &ps);
     RECT rc = {0};
-    RECT *area = &viewport->window.region;
+    RECT *area = &viewport->region;
 
     VectorII scaling = state->box.size;
 
@@ -39,16 +39,16 @@ void BlokProcessEventOnPaint(HWND window)
         // ? Paint Grid.
         HGDIOBJ oldPen = SelectObject(offScreen, graphics->tools.onSurfaceVariantPen);
     
-        for (int gIdx = 0; gIdx < viewport->window.region.right; gIdx += 15)
+        for (int gIdx = 0; gIdx < viewport->region.right; gIdx += 15)
         {
             MoveToEx(offScreen, gIdx, 0, NULL);
-            LineTo(offScreen, gIdx, viewport->window.region.bottom);
+            LineTo(offScreen, gIdx, viewport->region.bottom);
         }
     
-        for (int gIdx = 0; gIdx < viewport->window.region.bottom; gIdx += 15)
+        for (int gIdx = 0; gIdx < viewport->region.bottom; gIdx += 15)
         {
             MoveToEx(offScreen, 0, gIdx, NULL);
-            LineTo(offScreen, viewport->window.region.right, gIdx);
+            LineTo(offScreen, viewport->region.right, gIdx);
         }
     
         (void) SelectObject(offScreen, oldPen);
@@ -261,15 +261,15 @@ void BlokProcessEventOnResize(HWND window)
 {
     Viewport *viewport = BlokContextGetViewport();
 
-    (void) GetClientRect(window, &viewport->window.region);
+    (void) GetClientRect(window, &viewport->region);
 }
 
 void BlokProcessEventOnMouseHover(HWND window, LPARAM dataLong)
 {
     Viewport *viewport = BlokContextGetViewport();
 
-    viewport->window.mouse.X = GET_X_LPARAM(dataLong);
-    viewport->window.mouse.Y = GET_Y_LPARAM(dataLong);
+    viewport->mousePos.X = GET_X_LPARAM(dataLong);
+    viewport->mousePos.Y = GET_Y_LPARAM(dataLong);
 
     InvalidateRect(window, NULL, FALSE);
 }
