@@ -23,7 +23,7 @@ LRESULT CALLBACK __BlokWindowProcedure(
         return TRUE;
 
     case WM_SIZE:
-        BlokProcessEventOnResize();
+        BlokProcessEventOnResize(window);
         return TRUE;
 
     case WM_KEYDOWN:
@@ -31,7 +31,11 @@ LRESULT CALLBACK __BlokWindowProcedure(
         return TRUE;
 
     case WM_LBUTTONDOWN:
-        BlokProcessEventOnLeftMouseDown();
+        BlokProcessEventOnLeftMouseDown(window, dataLong);
+        return TRUE;
+
+    case WM_MOUSEMOVE:
+        BlokProcessEventOnMouseHover(window, dataLong);
         return TRUE;
 
     default:
