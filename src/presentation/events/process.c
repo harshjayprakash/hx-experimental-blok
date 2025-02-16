@@ -6,31 +6,6 @@
 #define __BLOK_TOGGLE(v) \
     v = !v
 
-void BlokProcessEventOnCreate(HWND window)
-{
-    Viewport *viewport = BlokContextGetViewport();
-    
-    viewport->window.font = CreateFontW(
-        18, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, OUT_OUTLINE_PRECIS, 
-        DEFAULT_CHARSET, CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, VARIABLE_PITCH, 
-        L"Segoe UI");
-
-    (void) GetClientRect(window, &viewport->window.region);
-
-    VectorII panelSize = {300, 40};
-    VectorII panelMargin = {0, 0};
-    BlokPanelUpdateEx(
-        &viewport->panel, &viewport->window.region, &panelSize, &panelMargin);
-    BlokCanvasUpdate(&viewport->canvas, &viewport->window.region);
-}
-
-void BlokProcessEventOnDestroy()
-{
-    Viewport *viewport = BlokContextGetViewport();
-
-    (void) DeleteObject(viewport->window.font);
-}
-
 void BlokProcessEventOnPaint(HWND window)
 {
     // TODO: Function to be modularised. (?) Potential functions

@@ -8,13 +8,8 @@ LRESULT CALLBACK __BlokWindowProcedure(
     HWND window, UINT messageId, WPARAM dataWord, LPARAM dataLong)
 {
     switch (messageId)
-    {
-    case WM_CREATE:
-        BlokProcessEventOnCreate();
-        return TRUE;
-        
+    {   
     case WM_DESTROY:
-        BlokProcessEventOnDestroy();
         PostQuitMessage(0);
         return TRUE;
 

@@ -3,10 +3,6 @@
 
 #include <Windows.h>
 
-void BlokProcessEventOnCreate();
-
-void BlokProcessEventOnDestroy();
-
 void BlokProcessEventOnPaint(HWND window);
 
 void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord);
