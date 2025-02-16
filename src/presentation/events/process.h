@@ -11,8 +11,10 @@ void BlokProcessEventOnPaint(HWND window);
 
 void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord);
 
-void BlokProcessEventOnLeftMouseDown();
+void BlokProcessEventOnLeftMouseDown(HWND window, LPARAM dataLong);
 
-void BlokProcessEventOnResize();
+void BlokProcessEventOnResize(HWND window);
+
+void BlokProcessEventOnMouseHover(HWND window, LPARAM dataLong);
 
 #endif // _BLOK_PROCESS_H_
