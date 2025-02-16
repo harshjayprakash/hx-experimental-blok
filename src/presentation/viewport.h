@@ -12,6 +12,8 @@ typedef struct _Viewport {
     Panel panel;
     int isCanvasLocked;
     int isGridVisible;
+    int isInterfaceVisible;
+    int x, y;
 } Viewport;
 
 void BlokViewportInit(Viewport *viewport, HINSTANCE instance);
