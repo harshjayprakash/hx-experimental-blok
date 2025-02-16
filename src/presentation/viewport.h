@@ -10,7 +10,7 @@ typedef struct _Viewport {
     Window window;
     Canvas canvas;
     Panel panel;
-    RECT surface;
+    RECT region;
     COORD mousePos;
     HFONT font;
     int isCanvasLocked;
