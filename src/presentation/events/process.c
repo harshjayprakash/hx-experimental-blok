@@ -1,173 +1,128 @@
 #include "process.h"
 #include "../../core/context.h"
+#include "../../service/convert.h"
 #include <strsafe.h>
 #include <Windowsx.h>
 
-#define __BLOK_TOGGLE(v) \
-    v = !v
-
 void BlokProcessEventOnPaint(HWND window)
 {
-    // TODO: Function to be modularised. (?) Potential functions
-
-    Viewport *viewport = BlokContextGetViewport();
+    /// Contextual Information.
     Graphics *graphics = BlokContextGetGraphics();
+    Viewport *viewport = BlokContextGetViewport();
     State *state = BlokContextGetState();
-
-    PAINTSTRUCT ps;
-    HDC surface = BeginPaint(window, &ps);
-    RECT rc = {0};
-    RECT *area = &viewport->region;
-
     VectorII scaling = state->box.size;
 
-    // ? 
-    (void) GetClientRect(window, &rc);
+    /// Prepare Painting, Create Buffer to Draw to.
+    PAINTSTRUCT paintstruct;
+    HDC surface = BeginPaint(window, &paintstruct);
+    HDC offSurface = CreateCompatibleDC(surface);
+    HBITMAP offSurfaceBitmap = CreateCompatibleBitmap(
+        surface, viewport->region.right, viewport->region.bottom);
+    (void) SelectObject(offSurface, offSurfaceBitmap);
 
-    // ? Double Buffering
-    HDC offScreen = CreateCompatibleDC(surface);
-    HBITMAP offCanvas = CreateCompatibleBitmap(surface, rc.right, rc.bottom);
-    (void) SelectObject(offScreen, offCanvas);
-    
-    HGDIOBJ oldFont = SelectObject(offScreen, viewport->font);
+    /// Set Tools, Save Defaults.
+    HFONT oldFont = (HFONT) SelectObject(offSurface, viewport->font);
+    HBRUSH oldBrush = (HBRUSH) SelectObject(offSurface, graphics->tools.backgroundBrush);
+    HPEN oldPen = (HPEN) SelectObject(offSurface, graphics->tools.onSurfacePen);
+    INT oldBkMode = SetBkMode(offSurface, TRANSPARENT);
+    COLORREF oldBkColour = SetBkColor(offSurface, graphics->colours.surface);
+    COLORREF oldTextColour = SetTextColor(offSurface, graphics->colours.onSurface);
 
-    // ? Paint Background.
-    (void) FillRect(offScreen, &rc, graphics->tools.surfaceBrush);
+    /// Paint Background.
+    (void) FillRect(offSurface, &viewport->region, graphics->tools.surfaceBrush);
 
+    /// Paint Grid If Visible.
     if (viewport->isGridVisible)
     {
-        // ? Paint Grid.
-        HGDIOBJ oldPen = SelectObject(offScreen, graphics->tools.onSurfaceVariantPen);
-    
-        for (int gIdx = 0; gIdx < viewport->region.right; gIdx += 15)
+        (void) SelectObject(offSurface, graphics->tools.onSurfaceVariantPen);
+
+        for (long xAxisIdx = 0; 
+            xAxisIdx < viewport->canvas.region.right; 
+            xAxisIdx += scaling.x)
         {
-            MoveToEx(offScreen, gIdx, 0, NULL);
-            LineTo(offScreen, gIdx, viewport->region.bottom);
+            (void) MoveToEx(offSurface, xAxisIdx, 0, NULL);
+            (void) LineTo(offSurface, xAxisIdx, viewport->canvas.region.bottom);
         }
-    
-        for (int gIdx = 0; gIdx < viewport->region.bottom; gIdx += 15)
+
+        for (long yAxisIdx = 0; 
+            yAxisIdx < viewport->canvas.region.bottom; 
+            yAxisIdx += scaling.y)
         {
-            MoveToEx(offScreen, 0, gIdx, NULL);
-            LineTo(offScreen, viewport->region.right, gIdx);
+            (void) MoveToEx(offSurface, 0, yAxisIdx, NULL);
+            (void) LineTo(offSurface, viewport->canvas.region.right, yAxisIdx);
         }
-    
-        (void) SelectObject(offScreen, oldPen);
     }
 
-
-    // ? Paint Square.
-    RECT sq = {
-        state->box.position.x,
-        state->box.position.y,
-        state->box.position.x + state->box.size.x,
-        state->box.position.y + state->box.size.y,
+    /// Paint Box.
+    RECT box = BlokConvertVectorRect(state->box.position, state->box.size);
+    INT innerBoxSF = 3;
+    RECT innerBox = {
+        box.left + (scaling.x / innerBoxSF),
+        box.top + (scaling.y / innerBoxSF),
+        box.right - (scaling.x / innerBoxSF),
+        box.bottom - (scaling.y / innerBoxSF)
     };
+    (void) FillRect(offSurface, &box, graphics->tools.primaryBrush);
+    (void) FillRect(offSurface, &innerBox, graphics->tools.surfaceBrush);
 
-    RECT isq = { 
-        sq.left + 5, 
-        sq.top + 5, 
-        sq.right - 5, 
-        sq.bottom - 5 
-    };
-
-    (void) FillRect(offScreen, &sq, graphics->tools.primaryBrush);
-    (void) FillRect(offScreen, &isq, graphics->tools.surfaceBrush);
-
-    // ? Paint Obstructives
-    for (long long obsIdx = 0; obsIdx < state->obstructives.size; obsIdx++)
+    /// Paint Obstructives.
+    for (long obstructIdx = 0; obstructIdx < state->obstructives.size; obstructIdx++)
     {
-        VectorII pos = state->obstructives.arr[obsIdx].data;
-        RECT obrc = {pos.x, pos.y, pos.x + scaling.x, pos.y + scaling.y};
-        (void) FillRect(offScreen, &obrc, graphics->tools.secondaryBrush);
+        RECT obstructiveRc = BlokConvertVectorRect(
+            state->obstructives.arr[obstructIdx].data, scaling);
+        (void) FillRect(offSurface, &obstructiveRc, graphics->tools.secondaryBrush);
     }
 
+    /// Paint Interface.
     if (viewport->isInterfaceVisible)
     {
-        // ? Paint Panel
-        BlokPanelUpdate(&viewport->panel, &rc);
-        BlokCanvasUpdate(&viewport->canvas, &rc);
-    
-        (void) FillRect(offScreen, &viewport->panel.region, graphics->tools.surfaceVariantBrush);
-    
-        SetTextColor(offScreen, graphics->colours.onSurface);
-        SetBkColor(offScreen, graphics->colours.surfaceVariant);
-
-        // ? Draw Coordinates Text
-        wchar_t text[60];
-        StringCbPrintfW(text, 60*sizeof(wchar_t), L"(%d, %d)", sq.left, sq.top);
-        RECT textC = {
-            viewport->panel.region.left + 10,
-            viewport->panel.region.top + 10,
-            viewport->panel.region.left + 150,
-            viewport->panel.region.top + 30
-        };
-        DrawTextW(offScreen, text, -1, &textC, DT_LEFT | DT_TOP);
+        /// Paint Panel Area.
+        (void) FillRect(
+            offSurface, &viewport->panel.region, graphics->tools.surfaceVariantBrush);
         
-        // ? Clear All Button
-        HGDIOBJ _oldPen =  SelectObject(offScreen, graphics->tools.onSurfaceVariantPen);
-        HGDIOBJ _oldBrush = SelectObject(offScreen, graphics->tools.surfaceVariantBrush);
-        wchar_t clearAlltext[60];
-        StringCbPrintfW(clearAlltext, 60*sizeof(wchar_t), L"%s", L"&Clear All");
-        RECT clearAllC = {0};
-        CopyRect(&clearAllC, &textC);
-        clearAllC.left += 100;
-        clearAllC.right += 30;
-        (void) SetBkMode(offScreen, TRANSPARENT);
+        /// Draw Coordinates Text.
+        (void) DrawTextW(
+            offSurface, viewport->coordinatesText.data, -1, 
+            &viewport->coordinatesText.region, 
+            DT_LEFT |DT_VCENTER | DT_SINGLELINE | DT_TOP);
 
-        if (viewport->x > clearAllC.left && viewport->x < clearAllC.right
-            && viewport->y > clearAllC.top && viewport->y < clearAllC.bottom)
-        {
-            (void) SelectObject(offScreen, graphics->tools.surfaceBrush);
-            (void) SelectObject(offScreen, graphics->tools.onSurfacePen);
-            (void) SetBkColor(offScreen, graphics->colours.surface);
-        }
-        (void) Rectangle(offScreen, clearAllC.left, clearAllC.top, clearAllC.right, clearAllC.bottom);
-        (void) DrawTextW(offScreen, clearAlltext, -1, &clearAllC, DT_CENTER | DT_VCENTER | DT_NOCLIP );
+        /// Draw Clear All Button.
+        (void) Rectangle(
+            offSurface, viewport->clearAllButton.region.left, 
+            viewport->clearAllButton.region.top, viewport->clearAllButton.region.right, 
+            viewport->clearAllButton.region.bottom);
+        (void) DrawTextW(
+            offSurface, viewport->clearAllButton.text, -1, 
+            &viewport->clearAllButton.region, 
+            DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOCLIP);
 
-        SetTextColor(offScreen, graphics->colours.onSurface);
-        SetBkColor(offScreen, graphics->colours.surfaceVariant);
-        SelectObject(offScreen, graphics->tools.onSurfaceVariantPen);
-        SelectObject(offScreen, graphics->tools.surfaceVariantBrush);
-        // ? Generate Button
-        wchar_t generateButtonText[60];
-        StringCbPrintfW(generateButtonText, 60*sizeof(wchar_t), L"%s", L"&Generate");
-        RECT generateButtonRc = {0};
-        CopyRect(&generateButtonRc, &clearAllC);
-        generateButtonRc.left += 180;
-        generateButtonRc.right += 30;
-        (void) SetBkMode(offScreen, TRANSPARENT);
-
-        if (viewport->x > generateButtonRc.left && viewport->x < generateButtonRc.right
-            && viewport->y > generateButtonRc.top && viewport->y < generateButtonRc.bottom)
-        {
-            (void) SelectObject(offScreen, graphics->tools.surfaceBrush);
-            (void) SelectObject(offScreen, graphics->tools.onSurfacePen);
-            (void) SetBkColor(offScreen, graphics->colours.surface);
-        }
-        (void) Rectangle(offScreen, generateButtonRc.left, generateButtonRc.top, generateButtonRc.right, generateButtonRc.bottom);
-        (void) DrawTextW(offScreen, generateButtonText, -1, &generateButtonRc, DT_CENTER | DT_VCENTER | DT_NOCLIP );
-
-        (void) SelectObject(offScreen, _oldPen);
-        (void) SelectObject(offScreen, _oldBrush);
-
-
-        // ? Reset Button
-
-        // ? Lock Toggle
-
-        // ? List Memory Bar
+        /// Draw Generate Button.
+        (void) Rectangle(
+            offSurface, viewport->generateButton.region.left, 
+            viewport->generateButton.region.top, viewport->generateButton.region.right, 
+            viewport->generateButton.region.bottom);
+        (void) DrawTextW(
+            offSurface, viewport->generateButton.text, -1, 
+            &viewport->generateButton.region, 
+            DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOCLIP);
+        
     }
 
-    // ? Copy off screen buffer to surface.
-    (void) BitBlt(surface, 0, 0, rc.right, rc.bottom, offScreen, 0, 0, SRCCOPY);
-
-    (void) SelectObject(offScreen, oldFont);
-
-    // ? Cleanup double buffering.
-    (void) DeleteObject(offCanvas);
-    (void) DeleteDC(offScreen);
-
-    (void) EndPaint(window, &ps);
+    /// Copy DC.
+    (void) BitBlt(
+        surface, 0, 0, viewport->region.right, viewport->region.bottom, 
+        offSurface, 0, 0, SRCCOPY);
+    
+    /// Reset To Defaults.
+    (void) SetTextColor(offSurface, oldTextColour);
+    (void) SetBkColor(offSurface, oldBkColour);
+    (void) SetBkMode(offSurface, oldBkMode);
+    (void) SelectObject(offSurface, oldPen);
+    (void) SelectObject(offSurface, oldBrush);
+    (void) SelectObject(offSurface, oldFont);
+    (void) DeleteObject(offSurfaceBitmap);
+    (void) DeleteDC(offSurface);
+    (void) EndPaint(window, &paintstruct);
 }
 
 void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
@@ -177,6 +132,8 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
     Direction moveBoxOperation = 0;
     int changeGridVisibility = 0;
     int changeInterfaceVisibility = 0;
+    int generateObstructive = 0;
+    int changeTheme = 0;
 
     switch (infoWord)
     {
@@ -199,22 +156,33 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
     case 'G':
         changeGridVisibility = 1;
         break;
+    
+    case 'O':
+        generateObstructive = 1;
+        break;
 
     case 'I':
         changeInterfaceVisibility = 1;
         break;
+    
+    case 'T':
+        changeTheme = 1;
     }
 
     if (moveBoxOperation)
     {
         BlokStateMoveBox(state, moveBoxOperation);
-        RECT sq = {
+        StringCbPrintfW(
+            viewport->coordinatesText.data, 60,
+            L"(%d, %d)", state->box.position.x, state->box.position.y);
+        
+        RECT boxUpdateRegion = {
             state->box.position.x - state->box.size.x,
             state->box.position.y - state->box.size.x,
             state->box.position.x + (state->box.size.x * 2),
             state->box.position.y + (state->box.size.y * 2),
         };
-        InvalidateRect(window, &sq, FALSE);
+        InvalidateRect(window, &boxUpdateRegion, FALSE);
         InvalidateRect(window, &viewport->panel.region, FALSE);
     }
 
@@ -228,6 +196,35 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
     {
         viewport->isInterfaceVisible = !viewport->isInterfaceVisible;
         InvalidateRect(window, &viewport->panel.region, FALSE);
+    }
+
+    if (generateObstructive)
+    {
+        VectorII scale = state->box.size;
+
+        VectorII obstruct = {
+            ((rand() % viewport->canvas.size.cx) / scale.x) * scale.x,
+            ((rand() % viewport->canvas.size.cy) / scale.y) * scale.y
+        };
+
+        Node node = {obstruct};
+        BlokDynListAdd(&state->obstructives, &node);
+
+        RECT updateRegion = BlokConvertVectorRect(obstruct, state->box.size);
+        InvalidateRect(window, &updateRegion, FALSE);
+    }
+
+    if (changeTheme)
+    {
+        Graphics *graphics = BlokContextGetGraphics();
+        int currentTheme = graphics->theme;
+        BlokGraphicsFree(graphics);
+        BlokGraphicsInit(
+            graphics, 
+            (currentTheme == 1 || currentTheme == 0) 
+            ? BLOK_THEME_LIGHT : BLOK_THEME_DARK
+        );
+        InvalidateRect(window, NULL, FALSE);
     }
 }
 
@@ -262,6 +259,23 @@ void BlokProcessEventOnResize(HWND window)
     Viewport *viewport = BlokContextGetViewport();
 
     (void) GetClientRect(window, &viewport->region);
+    BlokPanelUpdate(&viewport->panel, &viewport->region);
+    BlokCanvasUpdate(&viewport->canvas, &viewport->region);
+    BlokTextUpdate(
+        &viewport->coordinatesText, 
+        &((POINT){viewport->panel.region.left+10, viewport->panel.region.top+10}));
+    BlokButtonUpdate(
+        &viewport->clearAllButton, 
+        &((POINT){
+            viewport->coordinatesText.region.right+10, 
+            viewport->coordinatesText.region.top}
+        ));
+    BlokButtonUpdate(
+        &viewport->generateButton, 
+        &((POINT){
+            viewport->clearAllButton.region.right+10, 
+            viewport->clearAllButton.region.top}
+        ));
 }
 
 void BlokProcessEventOnMouseHover(HWND window, LPARAM dataLong)
