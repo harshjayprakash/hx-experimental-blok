@@ -6,7 +6,7 @@
 
 typedef struct _Canvas {
     RECT region;
-    VectorII size;
+    SIZE size;
 } Canvas;
 
 void BlokCanvasUpdate(Canvas *canvas, const RECT *windowRegion);

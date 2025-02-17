@@ -7,10 +7,6 @@ void BlokCanvasUpdate(Canvas *canvas, const RECT *windowRegion)
 
     (void) CopyRect(&canvas->region, windowRegion);
 
-    VectorII size = {
-        canvas->region.right - canvas->region.left, 
-        canvas->region.bottom - canvas->region.top
-    };
-
-    BlokVectorIICopy(&canvas->size, size);
+    canvas->size.cx = canvas->region.right - canvas->region.left;
+    canvas->size.cy = canvas->region.bottom - canvas->region.top;
 }
