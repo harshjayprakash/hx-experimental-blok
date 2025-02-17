@@ -11,7 +11,6 @@ typedef struct _Context {
     HINSTANCE instance;
     LPWSTR commandLine;
     DWORD showFlag;
-    // TODO: Replace LPVOID with actual types.
     DebugConsole console;
     Graphics graphics;
     Viewport viewport;
