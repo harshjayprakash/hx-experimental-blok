@@ -23,6 +23,14 @@ typedef enum _Colours {
     BLOK_COLOUR_AZUREISH_WHITE = RGB(221, 221, 236),
     BLOK_COLOUR_ALICE_BLUE = RGB(243, 245, 255),
     BLOK_COLOUR_LAVENDER_GREY = RGB(196, 195, 203),
+
+    BLOK_COLOUR_CULTERED = RGB(0xf4, 0xf4, 0xf5), // Zinc 100
+    BLOK_COLOUR_LIGHT_GREY = RGB(0xd4, 0xd4, 0xd8), // Zinc 300
+    BLOK_COLOUR_SONIC_SILVER = RGB(0x71, 0x71, 0x7a), // Zinc 500
+    BLOK_COLOUR_ARSENIC = RGB(0x3f, 0x3f, 0x46), // Zinc 700
+    BLOK_COLOUR_EERIE_BLACK = RGB(0x18, 0x18, 0x1b), // Zinc 900
+    BLOK_COLOUR_ROSE = RGB(0xe1, 0x1d, 0x48), // Rose 600
+    BLOK_COLOUR_TEAL = RGB(0x25, 0x63, 0xeb), // Blue 700
 } Colours;
 
 typedef struct _ColourSpace {
