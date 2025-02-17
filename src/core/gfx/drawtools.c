@@ -4,6 +4,7 @@
     if (winGdiObject)                           \
     {                                           \
         (void) DeleteObject(winGdiObject);      \
+        winGdiObject = (void *) 0;              \
     }                                           
 
 void BlokDrawingToolsInit(DrawingTools *tools, const ColourSpace *colours)
