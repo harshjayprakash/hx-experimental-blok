@@ -8,6 +8,16 @@ void BlokVectorIICopy(VectorII *dest, const VectorII src)
     dest->y = src.y;
 }
 
+void BlokVectorIVCopy(VectorIV *dest, const VectorIV src)
+{
+    if (!dest) { return; }
+
+    dest->x = src.x;
+    dest->y = src.y;
+    dest->z = src.z;
+    dest->w = src.w;
+}
+
 VectorII BlokVectorIIAdd(const VectorII veca, const VectorII vecb)
 {
     return (VectorII) {veca.x+vecb.x, veca.y+vecb.y};

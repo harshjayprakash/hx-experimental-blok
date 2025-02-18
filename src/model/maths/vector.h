@@ -15,6 +15,8 @@ typedef struct _VectorIV {
 
 void BlokVectorIICopy(VectorII *dest, const VectorII src);
 
+void BlokVectorIVCopy(VectorIV *dest, const VectorIV src);
+
 VectorII BlokVectorIIAdd(const VectorII veca, const VectorII vecb);
 
 VectorII BlokVectorIISubtract(const VectorII veca, const VectorII vecb);
