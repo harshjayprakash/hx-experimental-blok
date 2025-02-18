@@ -6,6 +6,13 @@ typedef struct _VectorII {
     int y;
 } VectorII;
 
+typedef struct _VectorVI {
+    int x;
+    int y;
+    int z;
+    int w;
+} VectorIV;
+
 void BlokVectorIICopy(VectorII *dest, const VectorII src);
 
 VectorII BlokVectorIIAdd(const VectorII veca, const VectorII vecb);
