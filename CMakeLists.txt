@@ -30,6 +30,7 @@ set(SOURCES
     "src/model/objects/square.h"
     "src/model/state.c" "src/model/state.h"
     "src/presentation/controls/button.c" "src/presentation/controls/button.h"
+    "src/presentation/controls/progressbar.c" "src/presentation/controls/progressbar.h"
     "src/presentation/controls/text.c" "src/presentation/controls/text.h"
     "src/presentation/components/canvas.c" "src/presentation/components/canvas.h"
     "src/presentation/components/panel.c" "src/presentation/components/panel.h"
