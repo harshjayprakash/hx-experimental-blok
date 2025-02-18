@@ -167,6 +167,7 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
     
     case 'T':
         changeTheme = 1;
+        break;
     }
 
     if (moveBoxOperation)
