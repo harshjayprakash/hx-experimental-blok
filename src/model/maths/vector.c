@@ -18,6 +18,11 @@ void BlokVectorIVCopy(VectorIV *dest, const VectorIV src)
     dest->w = src.w;
 }
 
+int BlokVectorIIEquals(const VectorII veca, const VectorII vecb)
+{
+    return (veca.x == vecb.x && veca.y == vecb.y);
+}
+
 VectorII BlokVectorIIAdd(const VectorII veca, const VectorII vecb)
 {
     return (VectorII) {veca.x+vecb.x, veca.y+vecb.y};
