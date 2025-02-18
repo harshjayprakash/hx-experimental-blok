@@ -48,7 +48,7 @@ void BlokViewportInit(Viewport *viewport, HINSTANCE instance)
         &viewport->generateButton, &((POINT){
             viewport->clearAllButton.region.right+10, 
             viewport->clearAllButton.region.top}), 
-        &((SIZE){130, 20}), &((SIZE){0, 0}));
+        &((SIZE){70, 20}), &((SIZE){0, 0}));
     (void) StringCbPrintfW(viewport->generateButton.text, 60, L"Generate");
 }
 
