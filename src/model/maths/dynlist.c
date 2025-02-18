@@ -2,6 +2,27 @@
 #include <stdlib.h>
 #include <memory.h>
 
+static long __BlokDynListGenerateNewSize(const long currentSize)
+{
+    return (long) (currentSize + (currentSize / 2));
+}
+
+static int __BlokDynListResize(DynList *list, const long newSize)
+{
+    if (!list) { return 0; }
+    if (!list->arr) { return 0; }
+    if (newSize+1 < list->max) { return 0; }
+
+    Node *newMemory = realloc(list->arr, newSize*sizeof(Node));
+
+    if (!newMemory) { return 0; }
+
+    list->arr = newMemory;
+    list->max = newSize;
+
+    return 1;
+}
+
 void BlokDynListInit(DynList *list, const long size)
 {
     if (!list) { return; }
@@ -35,7 +56,12 @@ long BlokDynListAdd(DynList *list, const Node *node)
 {
     if (!list) { return -1; }
     if (!node) { return -1; }
-    if (BlokDynListIsFull(list)) { return -1; }
+
+    if (BlokDynListIsFull(list)) 
+    { 
+        int success = __BlokDynListResize(list, __BlokDynListGenerateNewSize(list->max));
+        if (!success) { return -1; }
+    }
 
     ++list->head;
     ++list->size;
