@@ -26,35 +26,30 @@ void BlokViewportInit(Viewport *viewport, HINSTANCE instance)
 
     (void) GetClientRect(viewport->window.handle, &viewport->region);
 
-    COORD panelSize = {500, 40};
-    COORD panelMargin = {0, 0};
-    BlokPanelUpdateEx(&viewport->panel, &viewport->region, &panelSize, &panelMargin);
+    BlokPanelUpdateEx(
+        &viewport->panel, &viewport->region, &((COORD){500, 40}), &((COORD){0, 0}));
     BlokCanvasUpdate(&viewport->canvas, &viewport->region);
-
-    POINT coordTextPos = {viewport->panel.region.left +10, viewport->panel.region.top +10};
-    SIZE coordTextMgn = {0, 0};
-    SIZE coordTextSize = {100, 20};
+    
     BlokTextUpdateEx(
-        &viewport->coordinatesText, &coordTextPos, &coordTextSize, &coordTextMgn);
+        &viewport->coordinatesText, 
+        &((POINT){viewport->panel.region.left +10, viewport->panel.region.top +10}), 
+        &((SIZE){100, 20}), &((SIZE){0, 0}));
     (void) StringCbPrintfW(viewport->coordinatesText.data, 60, L"(0, 0)");
 
-    POINT clearBtnPos = {
-        viewport->coordinatesText.region.right+10, 
-        viewport->coordinatesText.region.top
-    };
-    SIZE clearBtnMgn = {0, 0};
-    SIZE clearBtnSz = {60, 20};
     BlokButtonUpdateEx(
-        &viewport->clearAllButton, &clearBtnPos, &clearBtnSz, &clearBtnMgn);
-    (void) StringCbPrintfW(viewport->clearAllButton.text, 60, L"&Clear All");
+        &viewport->clearAllButton, 
+        &((POINT){
+            viewport->coordinatesText.region.right+10, 
+            viewport->coordinatesText.region.top}), 
+        &((SIZE){60, 20}), &((SIZE){0, 0}));
+    (void) StringCbPrintfW(viewport->clearAllButton.text, 60, L"Clear All");
 
-    POINT genBtnPos = {
-        viewport->clearAllButton.region.right+10, 
-        viewport->clearAllButton.region.top
-    };
-    SIZE genBtnSz = {130, 20};
-    BlokButtonUpdateEx(&viewport->generateButton, &genBtnPos, &genBtnSz, &clearBtnMgn);
-    (void) StringCbPrintfW(viewport->generateButton.text, 60, L"Generate &Obstructive");
+    BlokButtonUpdateEx(
+        &viewport->generateButton, &((POINT){
+            viewport->clearAllButton.region.right+10, 
+            viewport->clearAllButton.region.top}), 
+        &((SIZE){130, 20}), &((SIZE){0, 0}));
+    (void) StringCbPrintfW(viewport->generateButton.text, 60, L"Generate");
 }
 
 void BlokViewportShow(Viewport *viewport, DWORD showFlag)
