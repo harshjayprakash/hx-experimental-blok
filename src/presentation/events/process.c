@@ -172,7 +172,11 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
 
     if (moveBoxOperation)
     {
-        BlokStateMoveBox(state, moveBoxOperation);
+        if (BlokStateBoxMovableInDirection(state, moveBoxOperation))
+        {
+            BlokStateMoveBox(&state->box, moveBoxOperation);
+        }
+
         StringCbPrintfW(
             viewport->coordinatesText.data, 60,
             L"(%d, %d)", state->box.position.x, state->box.position.y);

@@ -20,12 +20,28 @@ void BlokStateFree(State *state)
     BlokDynListFree(&state->obstructives);
 }
 
-void BlokStateMoveBox(State *state, const Direction direction)
+void BlokStateMoveBox(Square *box, const Direction direction)
 {
-    if (!state) { return; }
+    if (!box) { return; }
 
     VectorII vector = BlokDirectionToVector(direction);
-    VectorII scaled = BlokVectorIIMultiply(vector, state->box.size);
-    VectorII newpos = BlokVectorIIAdd(state->box.position, scaled);
-    BlokVectorIICopy(&state->box.position, newpos);
+    VectorII scaled = BlokVectorIIMultiply(vector, box->size);
+    VectorII newpos = BlokVectorIIAdd(box->position, scaled);
+    BlokVectorIICopy(&box->position, newpos);
+}
+
+int BlokStateBoxMovableInDirection(State *state, const Direction direction)
+{
+    if (!state) { return -1; }
+
+    state->boxProjected = state->box;
+    BlokStateMoveBox(&state->boxProjected, direction);
+
+    int checkIdx = BlokDynListGetIndex(
+        &state->obstructives, 
+        &((Node){state->boxProjected.position}));
+    
+    if (checkIdx == -1) { return 1; }
+
+    return 0;
 }
