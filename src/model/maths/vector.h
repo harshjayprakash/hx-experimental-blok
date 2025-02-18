@@ -6,7 +6,7 @@ typedef struct _VectorII {
     int y;
 } VectorII;
 
-typedef struct _VectorVI {
+typedef struct _VectorIV {
     int x;
     int y;
     int z;
