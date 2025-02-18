@@ -105,7 +105,22 @@ void BlokProcessEventOnPaint(HWND window)
             offSurface, viewport->generateButton.text, -1, 
             &viewport->generateButton.region, 
             DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOCLIP);
+
+        /// Draw Obstructives Count Text.
+        (void) DrawTextW(
+            offSurface, viewport->obstructCountText.data, -1, 
+            &viewport->obstructCountText.region, 
+            DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOCLIP);
         
+        /// Draw Obstructives Memory Bar.
+        (void) Rectangle(
+            offSurface, viewport->obstructMemoryBar.region.left, 
+            viewport->obstructMemoryBar.region.top, 
+            viewport->obstructMemoryBar.region.right, 
+            viewport->obstructMemoryBar.region.bottom);
+        (void) FillRect(
+            offSurface, &viewport->obstructMemoryBar.barRegion, 
+            graphics->tools.secondaryBrush);
     }
 
     /// Copy DC.
@@ -216,7 +231,18 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
         BlokDynListAdd(&state->obstructives, &node);
 
         RECT updateRegion = BlokConvertVectorRect(obstruct, state->box.size);
+
+        StringCbPrintfW(
+            viewport->obstructCountText.data, 60, L"%ld", state->obstructives.size);
+
+        BlokProgressBarUpdateMinMax(
+            &viewport->obstructMemoryBar, 0, state->obstructives.max);
+        BlokProgressBarUpdateValue(
+            &viewport->obstructMemoryBar, state->obstructives.size);
+
         InvalidateRect(window, &updateRegion, FALSE);
+        InvalidateRect(window, &viewport->obstructCountText.region, FALSE);
+        InvalidateRect(window, &viewport->obstructMemoryBar.region, FALSE);
     }
 
     if (changeTheme)
@@ -256,6 +282,14 @@ void BlokProcessEventOnLeftMouseDown(HWND window, LPARAM dataLong)
     long long r = BlokDynListAdd(&state->obstructives, &node);
     (void) wprintf(L"pushed to list at idx %lld (%d, %d)\n",r, mpos.x, mpos.y);
 
+    StringCbPrintfW(
+        viewport->obstructCountText.data, 60, L"%ld", state->obstructives.size);
+
+    BlokProgressBarUpdateMinMax(
+        &viewport->obstructMemoryBar, 0, state->obstructives.max);
+    BlokProgressBarUpdateValue(
+        &viewport->obstructMemoryBar, state->obstructives.size);
+
     RECT refreshRegion = {
         mpos.x,
         mpos.y,
@@ -263,7 +297,10 @@ void BlokProcessEventOnLeftMouseDown(HWND window, LPARAM dataLong)
         mpos.y + span.y
     };
 
-    (void) InvalidateRect(window, &refreshRegion, TRUE);
+    (void) InvalidateRect(window, &refreshRegion, FALSE);
+    (void) InvalidateRect(window, &viewport->obstructCountText.region, FALSE);
+    InvalidateRect(window, &viewport->obstructMemoryBar.barRegion, FALSE);
+
 }
 
 void BlokProcessEventOnResize(HWND window)
@@ -288,6 +325,17 @@ void BlokProcessEventOnResize(HWND window)
             viewport->clearAllButton.region.right+10, 
             viewport->clearAllButton.region.top}
         ));
+    BlokTextUpdate(
+        &viewport->obstructCountText,
+        &((POINT){
+            viewport->generateButton.region.right+10, 
+            viewport->generateButton.region.top}
+        ));
+    BlokProgressBarUpdate(
+        &viewport->obstructMemoryBar, 
+        &((POINT){
+            viewport->obstructCountText.region.right+10, 
+            viewport->obstructCountText.region.top}));
 }
 
 void BlokProcessEventOnMouseHover(HWND window, LPARAM dataLong)

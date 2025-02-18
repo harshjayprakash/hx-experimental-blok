@@ -51,6 +51,24 @@ void BlokViewportInit(Viewport *viewport, HINSTANCE instance)
             viewport->clearAllButton.region.top}), 
         &((SIZE){70, 20}), &((SIZE){0, 0}));
     (void) StringCbPrintfW(viewport->generateButton.text, 60, L"Generate");
+
+    BlokTextUpdateEx(
+        &viewport->obstructCountText, 
+        &((POINT){
+            viewport->generateButton.region.right+10, 
+            viewport->generateButton.region.top}),
+        &((SIZE){25, 20}),
+        &((SIZE){0, 0}));
+    (void) StringCbPrintfW(viewport->obstructCountText.data, 60, L"0");
+
+    BlokProgressBarUpdateEx(
+        &viewport->obstructMemoryBar, 
+        &((POINT){
+            viewport->obstructCountText.region.right+10, 
+            viewport->obstructCountText.region.top}),
+        &((SIZE){70, 20}),
+        &((SIZE){0, 0}),
+        &((SIZE){3, 3}));
 }
 
 void BlokViewportShow(Viewport *viewport, DWORD showFlag)

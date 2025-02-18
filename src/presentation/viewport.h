@@ -3,6 +3,7 @@
 
 #include "controls/button.h"
 #include "controls/text.h"
+#include "controls/progressbar.h"
 #include "components/canvas.h"
 #include "components/panel.h"
 #include "frame/window.h"
@@ -23,6 +24,8 @@ typedef struct _Viewport {
     Text coordinatesText;
     Button clearAllButton;
     Button generateButton;
+    Text obstructCountText;
+    ProgressBar obstructMemoryBar;
 
     int x, y;
 } Viewport;
