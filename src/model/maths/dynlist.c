@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <memory.h>
 
-void BlokDynListInit(DynList *list, const long long size)
+void BlokDynListInit(DynList *list, const long size)
 {
     if (!list) { return; }
 
@@ -31,7 +31,7 @@ int BlokDynListIsEmpty(const DynList *list)
     return (list->head == -1);
 }
 
-long long BlokDynListAdd(DynList *list, const Node *node)
+long BlokDynListAdd(DynList *list, const Node *node)
 {
     if (!list) { return -1; }
     if (!node) { return -1; }

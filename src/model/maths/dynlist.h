@@ -11,18 +11,18 @@ typedef struct _Node {
 
 typedef struct _DynList {
     Node *arr;
-    long long head;
-    long long size;
-    long long max;
+    long head;
+    long size;
+    long max;
 } DynList;
 
-void BlokDynListInit(DynList *list, const long long size);
+void BlokDynListInit(DynList *list, const long size);
 
 int BlokDynListIsFull(const DynList *list);
 
 int BlokDynListIsEmpty(const DynList *list);
 
-long long BlokDynListAdd(DynList *list, const Node *node);
+long BlokDynListAdd(DynList *list, const Node *node);
 
 void BlokDynListFree(DynList *list);
 
