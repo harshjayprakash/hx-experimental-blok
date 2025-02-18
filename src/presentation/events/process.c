@@ -149,6 +149,7 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
     int changeInterfaceVisibility = 0;
     int generateObstructive = 0;
     int changeTheme = 0;
+    int clearObstructs = 0;
 
     switch (infoWord)
     {
@@ -182,6 +183,10 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
     
     case 'T':
         changeTheme = 1;
+        break;
+    
+    case 'C':
+        clearObstructs = 1;
         break;
     }
 
@@ -256,6 +261,18 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
             ? BLOK_THEME_LIGHT : BLOK_THEME_DARK
         );
         InvalidateRect(window, NULL, FALSE);
+    }
+
+    if (clearObstructs)
+    {
+        BlokDynListClear(&state->obstructives);
+        BlokProgressBarUpdateValue(
+            &viewport->obstructMemoryBar, state->obstructives.size);
+        StringCbPrintfW(
+            viewport->obstructCountText.data, 60, L"%ld", state->obstructives.size);
+        InvalidateRect(window, &viewport->obstructCountText.region, FALSE);
+        InvalidateRect(window, &viewport->obstructMemoryBar.region, FALSE);
+        InvalidateRect(window, &viewport->canvas.region, FALSE);
     }
 }
 
