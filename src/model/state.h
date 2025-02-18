@@ -10,7 +10,7 @@ typedef struct _State {
     DynList obstructives;
 } State;
 
-void BlokStateInit(State *state);
+void BlokStateInit(State *state, const VectorII scale);
 
 void BlokStateFree(State *state);
 

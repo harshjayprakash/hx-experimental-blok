@@ -1,4 +1,10 @@
 #include "args.h"
+#include <strsafe.h>
+
+#define __BLOK_ARGS_MODE_UNSET 0x0
+#define __BLOK_ARGS_MODE_CUSTOM_SCALE_X 0x10
+#define __BLOK_ARGS_MODE_CUSTOM_SCALE_Y 0x20
+#define __BLOK_DEFAULT_SCALE 15
 
 void BlokArgsProcess(LPWSTR commandLine, ArgsInfo *result)
 {
@@ -6,11 +12,15 @@ void BlokArgsProcess(LPWSTR commandLine, ArgsInfo *result)
     if (!result) { return; }
 
     result->theme = 0;
+    result->scaleX = __BLOK_DEFAULT_SCALE;
+    result->scaleY = __BLOK_DEFAULT_SCALE;
 
     int argc = 0;
     LPWSTR *args = CommandLineToArgvW(commandLine, &argc);
 
     if (!args) { return; }
+
+    int mode = 0;
 
     for (int argIdx = 0; argIdx < argc; ++argIdx)
     {
@@ -22,6 +32,30 @@ void BlokArgsProcess(LPWSTR commandLine, ArgsInfo *result)
         {
             result->theme = 2;
         }
+
+        if (mode == __BLOK_ARGS_MODE_CUSTOM_SCALE_X)
+        {
+            int val = _wtoi(args[argIdx]);
+            result->scaleX = (val != 0) ? val : __BLOK_DEFAULT_SCALE;
+            mode = __BLOK_ARGS_MODE_UNSET;
+        }
+        if (mode == __BLOK_ARGS_MODE_CUSTOM_SCALE_Y)
+        {
+            int val = _wtoi(args[argIdx]);
+            result->scaleY = (val != 0) ? val : __BLOK_DEFAULT_SCALE;
+            mode = __BLOK_ARGS_MODE_UNSET;
+        }
+
+        if (_wcsnicmp(args[argIdx], L"--scale-x", 10*sizeof(unsigned short)) == 0)
+        {
+            mode = __BLOK_ARGS_MODE_CUSTOM_SCALE_X;
+        }
+        if (_wcsnicmp(args[argIdx], L"--scale-y", 10*sizeof(unsigned short)) == 0)
+        {
+            mode = __BLOK_ARGS_MODE_CUSTOM_SCALE_Y;
+        }
+
+
     }
 
     (void) LocalFree(args);

@@ -5,6 +5,8 @@
 
 typedef struct _ArgsInfo {
     int theme;
+    int scaleX;
+    int scaleY;
 } ArgsInfo;
 
 void BlokArgsProcess(LPWSTR commandLine, ArgsInfo *result);

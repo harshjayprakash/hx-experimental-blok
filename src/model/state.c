@@ -1,12 +1,12 @@
 #include "state.h"
 #include "maths/vector.h"
 
-void BlokStateInit(State *state)
+void BlokStateInit(State *state, const VectorII scale)
 {
     if (!state) { return; }
 
     VectorII defaultBoxState = {0, 0};
-    VectorII defaultBoxSize = {15, 15};
+    VectorII defaultBoxSize = scale;
     BlokVectorIICopy(&state->box.size, defaultBoxSize);
     BlokVectorIICopy(&state->box.position, defaultBoxState);
 
