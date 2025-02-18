@@ -71,6 +71,15 @@ long BlokDynListAdd(DynList *list, const Node *node)
     return list->head;
 }
 
+void BlokDynListClear(DynList *list)
+{
+    if (!list) { return; }
+    if (!list->arr) { return; }
+
+    list->head = -1;
+    list->size = 0;
+}
+
 int BlokDynListGetIndex(const DynList *list, const Node *node)
 {
     if (!list) { return -2; }

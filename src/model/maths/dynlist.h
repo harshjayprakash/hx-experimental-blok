@@ -24,6 +24,8 @@ int BlokDynListIsEmpty(const DynList *list);
 
 long BlokDynListAdd(DynList *list, const Node *node);
 
+void BlokDynListClear(DynList *list);
+
 int BlokDynListGetIndex(const DynList *list, const Node *node);
 
 void BlokDynListFree(DynList *list);
