@@ -232,6 +232,7 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
 void BlokProcessEventOnLeftMouseDown(HWND window, LPARAM dataLong)
 {
     State *state = BlokContextGetState();
+    Viewport *viewport = BlokContextGetViewport();
     
     VectorII span = state->box.size;
 
@@ -239,6 +240,12 @@ void BlokProcessEventOnLeftMouseDown(HWND window, LPARAM dataLong)
         (GET_X_LPARAM(dataLong) / span.x) * span.x,
         (GET_Y_LPARAM(dataLong) / span.y) * span.y
     };
+
+    if (mpos.x > viewport->panel.region.left && mpos.x < viewport->region.right 
+        && mpos.y > viewport->panel.region.top && mpos.y < viewport->region.bottom)
+    {
+        return;
+    }
 
     Node node = {mpos};
     
