@@ -45,7 +45,8 @@ void BlokViewportInit(Viewport *viewport, HINSTANCE instance)
     (void) StringCbPrintfW(viewport->clearAllButton.text, 60, L"Clear All");
 
     BlokButtonUpdateEx(
-        &viewport->generateButton, &((POINT){
+        &viewport->generateButton, 
+        &((POINT){
             viewport->clearAllButton.region.right+10, 
             viewport->clearAllButton.region.top}), 
         &((SIZE){70, 20}), &((SIZE){0, 0}));
