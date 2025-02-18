@@ -84,7 +84,7 @@ void BlokProcessEventOnPaint(HWND window)
         (void) DrawTextW(
             offSurface, viewport->coordinatesText.data, -1, 
             &viewport->coordinatesText.region, 
-            DT_LEFT |DT_VCENTER | DT_SINGLELINE | DT_TOP);
+            DT_LEFT | DT_VCENTER | DT_SINGLELINE | DT_TOP);
 
         /// Draw Clear All Button.
         (void) Rectangle(
