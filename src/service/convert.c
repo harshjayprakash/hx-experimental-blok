@@ -24,3 +24,8 @@ VectorII BlokConvertRectSizeV(const RECT rc)
 {
     return (VectorII) {rc.right-rc.left, rc.bottom-rc.top};
 }
+
+VectorIV BlokConvertRectV(const RECT rc)
+{
+    return (VectorIV) {rc.left, rc.top, rc.right, rc.bottom};
+}
