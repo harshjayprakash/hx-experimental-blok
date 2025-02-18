@@ -299,7 +299,7 @@ void BlokProcessEventOnLeftMouseDown(HWND window, LPARAM dataLong)
 
     (void) InvalidateRect(window, &refreshRegion, FALSE);
     (void) InvalidateRect(window, &viewport->obstructCountText.region, FALSE);
-    InvalidateRect(window, &viewport->obstructMemoryBar.barRegion, FALSE);
+    InvalidateRect(window, &viewport->obstructMemoryBar.region, FALSE);
 
 }
 
