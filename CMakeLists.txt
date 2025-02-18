@@ -15,6 +15,8 @@ project(blok C)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED True)
 
+enable_language(RC)
+
 set(SOURCES
     "src/main.c"
     "src/core/config/args.c" "src/core/config/args.h"
@@ -38,6 +40,7 @@ set(SOURCES
     "src/presentation/frame/window.c" "src/presentation/frame/window.h"
     "src/presentation/viewport.c" "src/presentation/viewport.h"
     "src/service/convert.c" "src/service/convert.h"
+    "res/resource.rc"
 )
 
 add_definitions(/DUNICODE /D_UNICODE /DSTRICT)
