@@ -4,6 +4,9 @@
 #include <strsafe.h>
 #include <Windowsx.h>
 
+#define __BLOK_MOUSE_AT_(rect, pos) \
+    (pos.X > rect.left && pos.X < rect.right && pos.Y > rect.top && pos.Y < rect.bottom)
+
 void BlokProcessEventOnPaint(HWND window)
 {
     Graphics *graphics = BlokContextGetGraphics();
@@ -81,6 +84,10 @@ void BlokProcessEventOnPaint(HWND window)
             &viewport->coordinatesText.region, 
             DT_LEFT | DT_VCENTER | DT_SINGLELINE | DT_TOP);
 
+        (void) SelectObject(offSurface, 
+            __BLOK_MOUSE_AT_(viewport->clearAllButton.region, viewport->mousePos) ?
+            graphics->tools.onSurfacePen : graphics->tools.onSurfaceVariantPen);
+
         (void) Rectangle(
             offSurface, viewport->clearAllButton.region.left, 
             viewport->clearAllButton.region.top, viewport->clearAllButton.region.right, 
@@ -90,6 +97,10 @@ void BlokProcessEventOnPaint(HWND window)
             &viewport->clearAllButton.region, 
             DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOCLIP);
 
+        (void) SelectObject(offSurface, 
+            __BLOK_MOUSE_AT_(viewport->generateButton.region, viewport->mousePos) ?
+            graphics->tools.onSurfacePen : graphics->tools.onSurfaceVariantPen);
+
         (void) Rectangle(
             offSurface, viewport->generateButton.region.left, 
             viewport->generateButton.region.top, viewport->generateButton.region.right, 
@@ -98,6 +109,8 @@ void BlokProcessEventOnPaint(HWND window)
             offSurface, viewport->generateButton.text, -1, 
             &viewport->generateButton.region, 
             DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOCLIP);
+
+        (void) SelectObject(offSurface, graphics->tools.onSurfaceVariantPen);
 
         (void) DrawTextW(
             offSurface, viewport->obstructCountText.data, -1, 
@@ -113,11 +126,17 @@ void BlokProcessEventOnPaint(HWND window)
             offSurface, &viewport->obstructMemoryBar.barRegion, 
             graphics->tools.secondaryBrush);
         
+        (void) SelectObject(offSurface, 
+            __BLOK_MOUSE_AT_(viewport->lockedToggle.region, viewport->mousePos) ?
+            graphics->tools.onSurfacePen : graphics->tools.onSurfaceVariantPen);
+    
         (void) Rectangle(
             offSurface, viewport->lockedToggle.region.left, 
             viewport->lockedToggle.region.top, 
             viewport->lockedToggle.region.right, 
             viewport->lockedToggle.region.bottom);
+
+        (void) SelectObject(offSurface, graphics->tools.onSurfaceVariantPen);
 
         if (viewport->lockedToggle.selected)
         {
@@ -140,7 +159,7 @@ void BlokProcessEventOnPaint(HWND window)
     { 
         (void) SelectObject(offSurface, oldFont); 
     }
-    
+
     (void) SetTextColor(offSurface, oldTextColour);
     (void) SetBkColor(offSurface, oldBkColour);
     (void) SetBkMode(offSurface, oldBkMode);
