@@ -332,9 +332,25 @@ void BlokProcessEventOnLeftMouseDown(HWND window, LPARAM dataLong)
         (GET_Y_LPARAM(dataLong) / span.y) * span.y
     };
 
-    if (mpos.x > viewport->panel.region.left && mpos.x < viewport->region.right 
-        && mpos.y > viewport->panel.region.top && mpos.y < viewport->region.bottom)
+    if (mpos.x > viewport->panel.region.left && mpos.x < viewport->panel.region.right 
+        && mpos.y > viewport->panel.region.top && mpos.y < viewport->panel.region.bottom)
     {
+        if (__BLOK_MOUSE_AT_(viewport->generateButton.region, viewport->mousePos))
+        {
+            (void) SendMessageW(window, WM_KEYDOWN, (WPARAM)'O', 0);
+        }
+
+        if (__BLOK_MOUSE_AT_(viewport->clearAllButton.region, viewport->mousePos))
+        {
+            (void) SendMessageW(window, WM_KEYDOWN, (WPARAM)'C', 0);
+        }
+
+        if (__BLOK_MOUSE_AT_(viewport->lockedToggle.region, viewport->mousePos))
+        {
+            (void) SendMessageW(window, WM_KEYDOWN, (WPARAM)'L', 0);
+        }
+
+        (void) InvalidateRect(window, &viewport->panel.region, FALSE);
         return;
     }
 
@@ -438,6 +454,7 @@ void BlokProcessEventOnMouseHover(HWND window, LPARAM dataLong)
 
     if (viewport->isCanvasLocked)
     {
+        (void) InvalidateRect(window, NULL, FALSE);
         return;
     }
 
