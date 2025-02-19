@@ -97,6 +97,31 @@ int BlokDynListGetIndex(const DynList *list, const Node *node)
     return -1;
 }  
 
+int BlokDynListExists(const DynList *list, const Node *node)
+{
+    if (!list) { return -1; }
+    if (!node) { return -1; }
+
+    int result = BlokDynListGetIndex(list, node);
+    if (result == -2) { return -1; }
+    if (result == -1) { return 0; }
+    return 1;
+}
+
+void BlokDynListCombine(DynList *dest, const DynList *src)
+{
+    if (!dest) { return; }
+    if (!dest->arr) { return; }
+    if (!src) { return; }
+    if (!src->arr) { return; }
+
+    for (long arrIdx = 0; arrIdx < src->size; arrIdx++)
+    {
+        int exists = BlokDynListExists(dest, src->arr+arrIdx);
+        if (exists == 1) { BlokDynListAdd(dest, src->arr+arrIdx); }
+    }
+}
+
 void BlokDynListFree(DynList *list)
 {
     if (!list) { return; }

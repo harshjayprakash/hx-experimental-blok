@@ -28,6 +28,10 @@ void BlokDynListClear(DynList *list);
 
 int BlokDynListGetIndex(const DynList *list, const Node *node);
 
+int BlokDynListExists(const DynList *list, const Node *node);
+
+void BlokDynListCombine(DynList *dest, const DynList *src);
+
 void BlokDynListFree(DynList *list);
 
 #endif // _BLOK_DYNLIST_H_
