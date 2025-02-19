@@ -315,7 +315,7 @@ void BlokProcessEventOnLeftMouseDown(HWND window, LPARAM dataLong)
 
     Node node = {mpos};
     
-    long long r = BlokDynListAdd(&state->obstructives, &node);
+    long r = BlokDynListAdd(&state->obstructives, &node);
     (void) wprintf(L"pushed to list at idx %lld (%d, %d)\n",r, mpos.x, mpos.y);
 
     (void) StringCbPrintfW(
