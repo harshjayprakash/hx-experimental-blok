@@ -22,7 +22,7 @@ void BlokProcessEventOnPaint(HWND window)
 
     /// Set Tools, Save Defaults.
     HFONT oldFont = (HFONT) SelectObject(offSurface, viewport->font);
-    HBRUSH oldBrush = (HBRUSH) SelectObject(offSurface, graphics->tools.backgroundBrush);
+    HBRUSH oldBrush = (HBRUSH) SelectObject(offSurface, graphics->tools.surfaceBrush);
     HPEN oldPen = (HPEN) SelectObject(offSurface, graphics->tools.onSurfacePen);
     INT oldBkMode = SetBkMode(offSurface, TRANSPARENT);
     COLORREF oldBkColour = SetBkColor(offSurface, graphics->colours.surface);
