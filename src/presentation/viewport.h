@@ -29,8 +29,6 @@ typedef struct _Viewport {
     ProgressBar obstructMemoryBar;
     Text lockedToggleText;
     Toggle lockedToggle;
-
-    int x, y;
 } Viewport;
 
 void BlokViewportInit(Viewport *viewport, HINSTANCE instance);
