@@ -1,7 +1,7 @@
 #include "console.h"
 #include <Windows.h>
 
-void BlokConsoleInit(DebugConsole *con)
+void BlokConsoleInit(Console *con)
 {
     if (!con) { return; }
 
@@ -25,7 +25,7 @@ void BlokConsoleInit(DebugConsole *con)
     (void) SetConsoleTitleW(L"Blok Console");
 }
 
-void BlokConsoleFree(DebugConsole *con)
+void BlokConsoleFree(Console *con)
 {
     if (!con) { return; }
 

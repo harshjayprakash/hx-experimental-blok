@@ -11,7 +11,7 @@ typedef struct _Context {
     HINSTANCE instance;
     LPWSTR commandLine;
     DWORD showFlag;
-    DebugConsole console;
+    Console console;
     Graphics graphics;
     Viewport viewport;
     State state;

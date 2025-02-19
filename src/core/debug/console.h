@@ -3,14 +3,14 @@
 
 #include <stdio.h>
 
-typedef struct _DebugConsole {
+typedef struct _Console {
     int conResult;
     int fileResult;
     FILE *output;
-} DebugConsole;
+} Console;
 
-void BlokConsoleInit(DebugConsole *con);
+void BlokConsoleInit(Console *con);
 
-void BlokConsoleFree(DebugConsole *con);
+void BlokConsoleFree(Console *con);
 
 #endif // _BLOK_CONSOLE_H_
