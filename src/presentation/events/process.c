@@ -121,6 +121,26 @@ void BlokProcessEventOnPaint(HWND window)
         (void) FillRect(
             offSurface, &viewport->obstructMemoryBar.barRegion, 
             graphics->tools.secondaryBrush);
+        
+        /// Draw Locked Toggle.
+        (void) Rectangle(
+            offSurface, viewport->lockedToggle.region.left, 
+            viewport->lockedToggle.region.top, 
+            viewport->lockedToggle.region.right, 
+            viewport->lockedToggle.region.bottom);
+
+        if (viewport->lockedToggle.selected)
+        {
+            (void) FillRect(
+                offSurface, &viewport->lockedToggle.selectRegion, 
+                graphics->tools.secondaryBrush);
+        }
+
+        /// Draw Locked Text.
+        (void) DrawTextW(
+            offSurface, viewport->lockedToggleText.data, -1, 
+            &viewport->lockedToggleText.region, 
+            DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOCLIP);
     }
 
     /// Copy DC.
@@ -150,6 +170,7 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
     int generateObstructive = 0;
     int changeTheme = 0;
     int clearObstructs = 0;
+    int toggleLock = 0;
 
     switch (infoWord)
     {
@@ -187,6 +208,10 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
     
     case 'C':
         clearObstructs = 1;
+        break;
+    
+    case 'L':
+        toggleLock = 1;
         break;
     }
 
@@ -274,6 +299,13 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
         (void) InvalidateRect(window, &viewport->obstructMemoryBar.region, FALSE);
         (void) InvalidateRect(window, &viewport->canvas.region, FALSE);
     }
+
+    if (toggleLock)
+    {
+        viewport->isCanvasLocked = !viewport->isCanvasLocked;
+        BlokToggleUpdateSelected(&viewport->lockedToggle, viewport->isCanvasLocked);
+        (void) InvalidateRect(window, &viewport->lockedToggle.region, FALSE);
+    }
 }
 
 void BlokProcessEventOnLeftMouseDown(HWND window, LPARAM dataLong)
@@ -290,6 +322,11 @@ void BlokProcessEventOnLeftMouseDown(HWND window, LPARAM dataLong)
 
     if (mpos.x > viewport->panel.region.left && mpos.x < viewport->region.right 
         && mpos.y > viewport->panel.region.top && mpos.y < viewport->region.bottom)
+    {
+        return;
+    }
+
+    if (viewport->isCanvasLocked)
     {
         return;
     }
@@ -353,6 +390,16 @@ void BlokProcessEventOnResize(HWND window)
         &((POINT){
             viewport->obstructCountText.region.right+10, 
             viewport->obstructCountText.region.top}));
+    BlokToggleUpdate(
+        &viewport->lockedToggle,
+        &((POINT){
+            viewport->obstructMemoryBar.region.right+10,
+            viewport->obstructMemoryBar.region.top}));
+    BlokTextUpdate(
+        &viewport->lockedToggleText, 
+        &((POINT){
+            viewport->lockedToggle.region.right+10, 
+            viewport->lockedToggle.region.top}));
 }
 
 void BlokProcessEventOnMouseHover(HWND window, LPARAM dataLong)

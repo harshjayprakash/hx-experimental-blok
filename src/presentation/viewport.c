@@ -69,6 +69,23 @@ void BlokViewportInit(Viewport *viewport, HINSTANCE instance)
         &((SIZE){70, 20}),
         &((SIZE){0, 0}),
         &((SIZE){3, 3}));
+    
+    BlokToggleUpdateEx(
+        &viewport->lockedToggle,
+        &((POINT){
+            viewport->obstructMemoryBar.region.right+10,
+            viewport->obstructMemoryBar.region.top}),
+        &((SIZE){20, 20}), &((SIZE){0, 0}), &((SIZE){5, 5}));
+    BlokToggleUpdateSelected(&viewport->lockedToggle, FALSE);
+
+    BlokTextUpdateEx(
+        &viewport->lockedToggleText, 
+        &((POINT){
+            viewport->lockedToggle.region.right+10, 
+            viewport->lockedToggle.region.top}),
+        &((SIZE){30, 20}),
+        &((SIZE){0, 0}));
+    (void) StringCbPrintfW(viewport->lockedToggleText.data, 60, L"Locked");
 }
 
 void BlokViewportShow(Viewport *viewport, DWORD showFlag)

@@ -4,6 +4,7 @@
 #include "controls/button.h"
 #include "controls/text.h"
 #include "controls/progressbar.h"
+#include "controls/toggle.h"
 #include "components/canvas.h"
 #include "components/panel.h"
 #include "frame/window.h"
@@ -26,6 +27,8 @@ typedef struct _Viewport {
     Button generateButton;
     Text obstructCountText;
     ProgressBar obstructMemoryBar;
+    Text lockedToggleText;
+    Toggle lockedToggle;
 
     int x, y;
 } Viewport;
