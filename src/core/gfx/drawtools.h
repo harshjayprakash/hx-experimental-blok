@@ -5,10 +5,6 @@
 #include <Windows.h>
 
 typedef struct _DrawingTools {
-    HBRUSH backgroundBrush;
-    HBRUSH foregroundBrush;
-    HBRUSH accentBrush;
-
     HBRUSH surfaceBrush;
     HBRUSH surfaceVariantBrush;
     HBRUSH primaryBrush;

@@ -13,31 +13,22 @@ typedef enum _Theme {
 #define BLOK_THEME_MAX 2
 
 typedef enum _Colours {
-    BLOK_COLOUR_WHITE = RGB(255, 255, 255),
-    BLOK_COLOUR_BLACK = RGB(0, 0, 0),
-    BLOK_COLOUR_BLUE = RGB(0, 0, 255),
-    BLOK_COLOUR_AQUA = RGB(0, 255, 255),
-
-    BLOK_COLOUR_PASTEL_BROWN = RGB(127, 103, 86),
-    BLOK_COLOUR_PALE_SLIVER = RGB(201, 196, 184),
-    BLOK_COLOUR_AZUREISH_WHITE = RGB(221, 221, 236),
-    BLOK_COLOUR_ALICE_BLUE = RGB(243, 245, 255),
-    BLOK_COLOUR_LAVENDER_GREY = RGB(196, 195, 203),
-
-    BLOK_COLOUR_CULTERED = RGB(0xf4, 0xf4, 0xf5), // Zinc 100
-    BLOK_COLOUR_LIGHT_GREY = RGB(0xd4, 0xd4, 0xd8), // Zinc 300
-    BLOK_COLOUR_SONIC_SILVER = RGB(0x71, 0x71, 0x7a), // Zinc 500
-    BLOK_COLOUR_ARSENIC = RGB(0x3f, 0x3f, 0x46), // Zinc 700
-    BLOK_COLOUR_EERIE_BLACK = RGB(0x18, 0x18, 0x1b), // Zinc 900
-    BLOK_COLOUR_ROSE = RGB(0xe1, 0x1d, 0x48), // Rose 600
-    BLOK_COLOUR_TEAL = RGB(0x25, 0x63, 0xeb), // Blue 700
+    BLOK_COLOUR_050S = RGB(0xfa, 0xfa, 0xfa),
+    BLOK_COLOUR_100S = RGB(0xf4, 0xf4, 0xf5),
+    BLOK_COLOUR_200S = RGB(0xe4, 0xe4, 0xe7),
+    BLOK_COLOUR_300S = RGB(0xd4, 0xd4, 0xd8),
+    BLOK_COLOUR_400S = RGB(0xa1, 0xa1, 0xaa),
+    BLOK_COLOUR_500S = RGB(0x71, 0x71, 0x7a),
+    BLOK_COLOUR_600S = RGB(0x52, 0x52, 0x5b),
+    BLOK_COLOUR_700S = RGB(0x3f, 0x3f, 0x46),
+    BLOK_COLOUR_800S = RGB(0x27, 0x27, 0x2a),
+    BLOK_COLOUR_900S = RGB(0x18, 0x18, 0x1b),
+    BLOK_COLOUR_950S = RGB(0x09, 0x09, 0x0b),
+    BLOK_COLOUR_000A = RGB(0xff, 0x00, 0x66),
+    BLOK_COLOUR_100A = RGB(0xbe, 0x12, 0x3c),
 } Colours;
 
 typedef struct _ColourSpace {
-    COLORREF background;
-    COLORREF foreground;
-    COLORREF accent;
-
     COLORREF surface;
     COLORREF surfaceVariant;
     COLORREF onSurface;
