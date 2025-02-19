@@ -441,6 +441,12 @@ void BlokProcessEventOnMouseHover(HWND window, LPARAM dataLong)
         return;
     }
 
+    if (__BLOK_MOUSE_AT_(viewport->panel.region, viewport->mousePos))
+    {
+        (void) InvalidateRect(window, NULL, FALSE);
+        return;
+    }
+
     if (viewport->mouseDown)
     {
         Node pos = {{
