@@ -6,13 +6,11 @@
 
 void BlokProcessEventOnPaint(HWND window)
 {
-    /// Contextual Information.
     Graphics *graphics = BlokContextGetGraphics();
     Viewport *viewport = BlokContextGetViewport();
     State *state = BlokContextGetState();
     VectorII scaling = state->box.size;
 
-    /// Prepare Painting, Create Buffer to Draw to.
     PAINTSTRUCT paintstruct;
     HDC surface = BeginPaint(window, &paintstruct);
     HDC offSurface = CreateCompatibleDC(surface);
@@ -20,7 +18,6 @@ void BlokProcessEventOnPaint(HWND window)
         surface, viewport->region.right, viewport->region.bottom);
     (void) SelectObject(offSurface, offSurfaceBitmap);
 
-    /// Set Tools, Save Defaults.
     HFONT oldFont = (HFONT) SelectObject(offSurface, viewport->font);
     HBRUSH oldBrush = (HBRUSH) SelectObject(offSurface, graphics->tools.surfaceBrush);
     HPEN oldPen = (HPEN) SelectObject(offSurface, graphics->tools.onSurfacePen);
@@ -28,14 +25,12 @@ void BlokProcessEventOnPaint(HWND window)
     COLORREF oldBkColour = SetBkColor(offSurface, graphics->colours.surface);
     COLORREF oldTextColour = SetTextColor(offSurface, graphics->colours.onSurface);
 
-    /// Paint Background.
     (void) FillRect(offSurface, &viewport->region, graphics->tools.surfaceBrush);
 
-    /// Paint Grid If Visible.
+    (void) SelectObject(offSurface, graphics->tools.onSurfaceVariantPen);
+
     if (viewport->isGridVisible)
     {
-        (void) SelectObject(offSurface, graphics->tools.onSurfaceVariantPen);
-
         for (long xAxisIdx = 0; 
             xAxisIdx < viewport->canvas.region.right; 
             xAxisIdx += scaling.x)
@@ -53,7 +48,6 @@ void BlokProcessEventOnPaint(HWND window)
         }
     }
 
-    /// Paint Box.
     RECT box = BlokConvertVectorRect(state->box.position, state->box.size);
     INT innerBoxSF = 3;
     RECT innerBox = {
@@ -65,7 +59,6 @@ void BlokProcessEventOnPaint(HWND window)
     (void) FillRect(offSurface, &box, graphics->tools.primaryBrush);
     (void) FillRect(offSurface, &innerBox, graphics->tools.surfaceBrush);
 
-    /// Paint Obstructives.
     for (long obstructIdx = 0; obstructIdx < state->obstructives.size; obstructIdx++)
     {
         RECT obstructiveRc = BlokConvertVectorRect(
@@ -73,20 +66,16 @@ void BlokProcessEventOnPaint(HWND window)
         (void) FillRect(offSurface, &obstructiveRc, graphics->tools.secondaryBrush);
     }
 
-    /// Paint Interface.
     if (viewport->isInterfaceVisible)
     {
-        /// Paint Panel Area.
         (void) FillRect(
             offSurface, &viewport->panel.region, graphics->tools.surfaceVariantBrush);
         
-        /// Draw Coordinates Text.
         (void) DrawTextW(
             offSurface, viewport->coordinatesText.data, -1, 
             &viewport->coordinatesText.region, 
             DT_LEFT | DT_VCENTER | DT_SINGLELINE | DT_TOP);
 
-        /// Draw Clear All Button.
         (void) Rectangle(
             offSurface, viewport->clearAllButton.region.left, 
             viewport->clearAllButton.region.top, viewport->clearAllButton.region.right, 
@@ -96,7 +85,6 @@ void BlokProcessEventOnPaint(HWND window)
             &viewport->clearAllButton.region, 
             DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOCLIP);
 
-        /// Draw Generate Button.
         (void) Rectangle(
             offSurface, viewport->generateButton.region.left, 
             viewport->generateButton.region.top, viewport->generateButton.region.right, 
@@ -106,13 +94,11 @@ void BlokProcessEventOnPaint(HWND window)
             &viewport->generateButton.region, 
             DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOCLIP);
 
-        /// Draw Obstructives Count Text.
         (void) DrawTextW(
             offSurface, viewport->obstructCountText.data, -1, 
             &viewport->obstructCountText.region, 
             DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOCLIP);
         
-        /// Draw Obstructives Memory Bar.
         (void) Rectangle(
             offSurface, viewport->obstructMemoryBar.region.left, 
             viewport->obstructMemoryBar.region.top, 
@@ -122,7 +108,6 @@ void BlokProcessEventOnPaint(HWND window)
             offSurface, &viewport->obstructMemoryBar.barRegion, 
             graphics->tools.secondaryBrush);
         
-        /// Draw Locked Toggle.
         (void) Rectangle(
             offSurface, viewport->lockedToggle.region.left, 
             viewport->lockedToggle.region.top, 
@@ -136,19 +121,16 @@ void BlokProcessEventOnPaint(HWND window)
                 graphics->tools.secondaryBrush);
         }
 
-        /// Draw Locked Text.
         (void) DrawTextW(
             offSurface, viewport->lockedToggleText.data, -1, 
             &viewport->lockedToggleText.region, 
             DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOCLIP);
     }
 
-    /// Copy DC.
     (void) BitBlt(
         surface, 0, 0, viewport->region.right, viewport->region.bottom, 
         offSurface, 0, 0, SRCCOPY);
     
-    /// Reset To Defaults.
     (void) SetTextColor(offSurface, oldTextColour);
     (void) SetBkColor(offSurface, oldBkColour);
     (void) SetBkMode(offSurface, oldBkMode);
