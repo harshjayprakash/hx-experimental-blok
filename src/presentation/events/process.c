@@ -342,6 +342,7 @@ void BlokProcessEventOnLeftMouseDown(HWND window, LPARAM dataLong)
 void BlokProcessEventOnResize(HWND window)
 {
     Viewport *viewport = BlokContextGetViewport();
+    State *state = BlokContextGetState();
 
     (void) GetClientRect(window, &viewport->region);
     BlokPanelUpdate(&viewport->panel, &viewport->region);
@@ -372,6 +373,10 @@ void BlokProcessEventOnResize(HWND window)
         &((POINT){
             viewport->obstructCountText.region.right+10, 
             viewport->obstructCountText.region.top}));
+    BlokProgressBarUpdateMinMax(
+        &viewport->obstructMemoryBar, 0, state->obstructives.max);
+    BlokProgressBarUpdateValue(
+        &viewport->obstructMemoryBar, state->obstructives.size);
     BlokToggleUpdate(
         &viewport->lockedToggle,
         &((POINT){
