@@ -197,7 +197,7 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
             BlokStateMoveBox(&state->box, moveBoxOperation);
         }
 
-        StringCbPrintfW(
+        (void) StringCbPrintfW(
             viewport->coordinatesText.data, 60,
             L"(%d, %d)", state->box.position.x, state->box.position.y);
         
@@ -207,20 +207,20 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
             state->box.position.x + (state->box.size.x * 2),
             state->box.position.y + (state->box.size.y * 2),
         };
-        InvalidateRect(window, &boxUpdateRegion, FALSE);
-        InvalidateRect(window, &viewport->panel.region, FALSE);
+        (void) InvalidateRect(window, &boxUpdateRegion, FALSE);
+        (void) InvalidateRect(window, &viewport->panel.region, FALSE);
     }
 
     if (changeGridVisibility)
     {
         viewport->isGridVisible = !viewport->isGridVisible;
-        InvalidateRect(window, &viewport->canvas.region, FALSE);
+        (void) InvalidateRect(window, &viewport->canvas.region, FALSE);
     }
 
     if (changeInterfaceVisibility)
     {
         viewport->isInterfaceVisible = !viewport->isInterfaceVisible;
-        InvalidateRect(window, &viewport->panel.region, FALSE);
+        (void) InvalidateRect(window, &viewport->panel.region, FALSE);
     }
 
     if (generateObstructive)
@@ -233,11 +233,11 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
         };
 
         Node node = {obstruct};
-        BlokDynListAdd(&state->obstructives, &node);
+        (void) BlokDynListAdd(&state->obstructives, &node);
 
         RECT updateRegion = BlokConvertVectorRect(obstruct, state->box.size);
 
-        StringCbPrintfW(
+        (void) StringCbPrintfW(
             viewport->obstructCountText.data, 60, L"%ld", state->obstructives.size);
 
         BlokProgressBarUpdateMinMax(
@@ -245,9 +245,9 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
         BlokProgressBarUpdateValue(
             &viewport->obstructMemoryBar, state->obstructives.size);
 
-        InvalidateRect(window, &updateRegion, FALSE);
-        InvalidateRect(window, &viewport->obstructCountText.region, FALSE);
-        InvalidateRect(window, &viewport->obstructMemoryBar.region, FALSE);
+        (void) InvalidateRect(window, &updateRegion, FALSE);
+        (void) InvalidateRect(window, &viewport->obstructCountText.region, FALSE);
+        (void) InvalidateRect(window, &viewport->obstructMemoryBar.region, FALSE);
     }
 
     if (changeTheme)
@@ -260,7 +260,7 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
             (currentTheme == 1 || currentTheme == 0) 
             ? BLOK_THEME_LIGHT : BLOK_THEME_DARK
         );
-        InvalidateRect(window, NULL, FALSE);
+        (void) InvalidateRect(window, NULL, FALSE);
     }
 
     if (clearObstructs)
@@ -268,11 +268,11 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
         BlokDynListClear(&state->obstructives);
         BlokProgressBarUpdateValue(
             &viewport->obstructMemoryBar, state->obstructives.size);
-        StringCbPrintfW(
+        (void) StringCbPrintfW(
             viewport->obstructCountText.data, 60, L"%ld", state->obstructives.size);
-        InvalidateRect(window, &viewport->obstructCountText.region, FALSE);
-        InvalidateRect(window, &viewport->obstructMemoryBar.region, FALSE);
-        InvalidateRect(window, &viewport->canvas.region, FALSE);
+        (void) InvalidateRect(window, &viewport->obstructCountText.region, FALSE);
+        (void) InvalidateRect(window, &viewport->obstructMemoryBar.region, FALSE);
+        (void) InvalidateRect(window, &viewport->canvas.region, FALSE);
     }
 }
 
@@ -299,7 +299,7 @@ void BlokProcessEventOnLeftMouseDown(HWND window, LPARAM dataLong)
     long long r = BlokDynListAdd(&state->obstructives, &node);
     (void) wprintf(L"pushed to list at idx %lld (%d, %d)\n",r, mpos.x, mpos.y);
 
-    StringCbPrintfW(
+    (void) StringCbPrintfW(
         viewport->obstructCountText.data, 60, L"%ld", state->obstructives.size);
 
     BlokProgressBarUpdateMinMax(
@@ -316,7 +316,7 @@ void BlokProcessEventOnLeftMouseDown(HWND window, LPARAM dataLong)
 
     (void) InvalidateRect(window, &refreshRegion, FALSE);
     (void) InvalidateRect(window, &viewport->obstructCountText.region, FALSE);
-    InvalidateRect(window, &viewport->obstructMemoryBar.region, FALSE);
+    (void) InvalidateRect(window, &viewport->obstructMemoryBar.region, FALSE);
 
 }
 
@@ -362,5 +362,5 @@ void BlokProcessEventOnMouseHover(HWND window, LPARAM dataLong)
     viewport->mousePos.X = GET_X_LPARAM(dataLong);
     viewport->mousePos.Y = GET_Y_LPARAM(dataLong);
 
-    InvalidateRect(window, NULL, FALSE);
+    (void) InvalidateRect(window, NULL, FALSE);
 }
