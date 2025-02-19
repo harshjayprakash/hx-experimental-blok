@@ -29,6 +29,9 @@ LRESULT CALLBACK __BlokWindowProcedure(
         BlokProcessEventOnLeftMouseDown(window, dataLong);
         return TRUE;
 
+    case WM_LBUTTONUP:
+        BlokProcessEventOnLeftMouseUp(window, dataLong);
+
     case WM_MOUSEMOVE:
         BlokProcessEventOnMouseHover(window, dataLong);
         return TRUE;

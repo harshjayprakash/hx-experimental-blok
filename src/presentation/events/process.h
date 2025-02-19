@@ -9,6 +9,8 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM virtualKey);
 
 void BlokProcessEventOnLeftMouseDown(HWND window, LPARAM mousepos);
 
+void BlokProcessEventOnLeftMouseUp(HWND window, LPARAM mousepos);
+
 void BlokProcessEventOnResize(HWND window);
 
 void BlokProcessEventOnMouseHover(HWND window, LPARAM mousepos);

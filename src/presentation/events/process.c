@@ -295,6 +295,8 @@ void BlokProcessEventOnLeftMouseDown(HWND window, LPARAM dataLong)
     State *state = BlokContextGetState();
     Viewport *viewport = BlokContextGetViewport();
     
+    viewport->mouseDown = TRUE;
+
     VectorII span = state->box.size;
 
     VectorII mpos = {
@@ -337,6 +339,14 @@ void BlokProcessEventOnLeftMouseDown(HWND window, LPARAM dataLong)
     (void) InvalidateRect(window, &viewport->obstructCountText.region, FALSE);
     (void) InvalidateRect(window, &viewport->obstructMemoryBar.region, FALSE);
 
+}
+
+void BlokProcessEventOnLeftMouseUp(HWND window, LPARAM mousepos)
+{
+    State *state = BlokContextGetState();
+    Viewport *viewport = BlokContextGetViewport();
+
+    viewport->mouseDown = FALSE;
 }
 
 void BlokProcessEventOnResize(HWND window)
@@ -392,9 +402,36 @@ void BlokProcessEventOnResize(HWND window)
 void BlokProcessEventOnMouseHover(HWND window, LPARAM dataLong)
 {
     Viewport *viewport = BlokContextGetViewport();
+    State *state = BlokContextGetState();
+    VectorII scale = state->box.size;
 
     viewport->mousePos.X = GET_X_LPARAM(dataLong);
     viewport->mousePos.Y = GET_Y_LPARAM(dataLong);
+
+    if (viewport->isCanvasLocked)
+    {
+        return;
+    }
+
+    if (viewport->mouseDown)
+    {
+        Node pos = {{
+            (viewport->mousePos.X / scale.x) * scale.x,
+            (viewport->mousePos.Y / scale.y) * scale.y
+        }};
+        if (BlokDynListExists(&state->obstructives, &pos)) { return; }
+        BlokDynListAdd(&state->obstructives, &pos);
+        RECT updateRegion = BlokConvertVectorRect(pos.data, scale);
+        BlokProgressBarUpdateMinMax(
+            &viewport->obstructMemoryBar, 0, state->obstructives.max);
+        BlokProgressBarUpdateValue(
+            &viewport->obstructMemoryBar, state->obstructives.size);
+        (void) StringCbPrintfW(
+            viewport->obstructCountText.data, 60, L"%ld", state->obstructives.size);
+        (void) InvalidateRect(window, &updateRegion, FALSE);
+        (void) InvalidateRect(window, &viewport->obstructCountText.region, FALSE);
+        (void) InvalidateRect(window, &viewport->obstructMemoryBar.region, FALSE);
+    }
 
     (void) InvalidateRect(window, NULL, FALSE);
 }
