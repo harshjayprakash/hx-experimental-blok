@@ -34,6 +34,7 @@ set(SOURCES
     "src/presentation/controls/button.c" "src/presentation/controls/button.h"
     "src/presentation/controls/progressbar.c" "src/presentation/controls/progressbar.h"
     "src/presentation/controls/text.c" "src/presentation/controls/text.h"
+    "src/presentation/controls/toggle.c" "src/presentation/controls/toggle.h"
     "src/presentation/components/canvas.c" "src/presentation/components/canvas.h"
     "src/presentation/components/panel.c" "src/presentation/components/panel.h"
     "src/presentation/events/process.c" "src/presentation/events/process.h"
