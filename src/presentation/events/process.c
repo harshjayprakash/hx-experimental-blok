@@ -170,7 +170,7 @@ void BlokProcessEventOnPaint(HWND window)
     (void) EndPaint(window, &paintstruct);
 }
 
-void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
+void BlokProcessEventOnKeyDown(HWND window, WPARAM virtualKey)
 {
     State *state = BlokContextGetState();
     Viewport *viewport = BlokContextGetViewport();
@@ -182,7 +182,7 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
     int clearObstructs = 0;
     int toggleLock = 0;
 
-    switch (infoWord)
+    switch (virtualKey)
     {
     case 'W': 
         moveBoxOperation = BLOK_DIRECTION_NORTH; 
@@ -318,7 +318,7 @@ void BlokProcessEventOnKeyDown(HWND window, WPARAM infoWord)
     }
 }
 
-void BlokProcessEventOnLeftMouseDown(HWND window, LPARAM dataLong)
+void BlokProcessEventOnLeftMouseDown(HWND window, LPARAM mousepos)
 {
     State *state = BlokContextGetState();
     Viewport *viewport = BlokContextGetViewport();
@@ -328,8 +328,8 @@ void BlokProcessEventOnLeftMouseDown(HWND window, LPARAM dataLong)
     VectorII span = state->box.size;
 
     VectorII mpos = {
-        (GET_X_LPARAM(dataLong) / span.x) * span.x,
-        (GET_Y_LPARAM(dataLong) / span.y) * span.y
+        (GET_X_LPARAM(mousepos) / span.x) * span.x,
+        (GET_Y_LPARAM(mousepos) / span.y) * span.y
     };
 
     if (mpos.x > viewport->panel.region.left && mpos.x < viewport->panel.region.right 
@@ -443,14 +443,14 @@ void BlokProcessEventOnResize(HWND window)
             viewport->lockedToggle.region.top}));
 }
 
-void BlokProcessEventOnMouseHover(HWND window, LPARAM dataLong)
+void BlokProcessEventOnMouseHover(HWND window, LPARAM mousepos)
 {
     Viewport *viewport = BlokContextGetViewport();
     State *state = BlokContextGetState();
     VectorII scale = state->box.size;
 
-    viewport->mousePos.X = GET_X_LPARAM(dataLong);
-    viewport->mousePos.Y = GET_Y_LPARAM(dataLong);
+    viewport->mousePos.X = GET_X_LPARAM(mousepos);
+    viewport->mousePos.Y = GET_Y_LPARAM(mousepos);
 
     if (viewport->isCanvasLocked)
     {
