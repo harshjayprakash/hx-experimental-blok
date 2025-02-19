@@ -15,6 +15,7 @@ void BlokArgsProcess(LPWSTR commandLine, ArgsInfo *result)
     result->theme = 0;
     result->scaleX = __BLOK_DEFAULT_SCALE;
     result->scaleY = __BLOK_DEFAULT_SCALE;
+    result->showConsole = 0;
 
     int argc = 0;
     LPWSTR *args = CommandLineToArgvW(commandLine, &argc);
@@ -32,6 +33,10 @@ void BlokArgsProcess(LPWSTR commandLine, ArgsInfo *result)
         if (_wcsnicmp(args[argIdx], L"--light-theme", 14*sizeof(unsigned short)) == 0)
         {
             result->theme = 2;
+        }
+        if (_wcsnicmp(args[argIdx], L"--show-console", 15*sizeof(unsigned short)) == 0)
+        {
+            result->showConsole = 1;
         }
 
         if (mode == __BLOK_ARGS_MODE_CUSTOM_SCALE_X)

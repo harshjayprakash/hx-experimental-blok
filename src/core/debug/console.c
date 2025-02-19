@@ -5,6 +5,7 @@ void BlokConsoleInit(Console *con)
 {
     if (!con) { return; }
 
+    con->initialised = 1;
     con->conResult = AllocConsole();
 
     if (con->conResult == 0)
@@ -28,6 +29,7 @@ void BlokConsoleInit(Console *con)
 void BlokConsoleFree(Console *con)
 {
     if (!con) { return; }
+    if (!con->initialised) { return; }
 
     if (con->fileResult == 0)
     {

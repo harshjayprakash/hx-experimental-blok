@@ -12,7 +12,10 @@ void BlokInit(Context *context, HINSTANCE instance, LPWSTR commandLine, DWORD sh
     ArgsInfo argsResult;
     BlokArgsProcess(context->commandLine, &argsResult);
 
-    BlokConsoleInit(&context->console);
+    if (argsResult.showConsole)
+    {
+        BlokConsoleInit(&context->console);
+    }
 
     BlokStateInit(&context->state, (VectorII){argsResult.scaleX, argsResult.scaleY});
     BlokGraphicsInit(&context->graphics, argsResult.theme);

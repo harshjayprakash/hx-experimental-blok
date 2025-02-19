@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 typedef struct _Console {
+    int initialised;
     int conResult;
     int fileResult;
     FILE *output;
