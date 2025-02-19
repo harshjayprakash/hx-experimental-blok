@@ -18,12 +18,17 @@ void BlokProcessEventOnPaint(HWND window)
         surface, viewport->region.right, viewport->region.bottom);
     (void) SelectObject(offSurface, offSurfaceBitmap);
 
-    HFONT oldFont = (HFONT) SelectObject(offSurface, viewport->font);
+    HFONT oldFont = (HFONT) 0;
     HBRUSH oldBrush = (HBRUSH) SelectObject(offSurface, graphics->tools.surfaceBrush);
     HPEN oldPen = (HPEN) SelectObject(offSurface, graphics->tools.onSurfacePen);
     INT oldBkMode = SetBkMode(offSurface, TRANSPARENT);
     COLORREF oldBkColour = SetBkColor(offSurface, graphics->colours.surface);
     COLORREF oldTextColour = SetTextColor(offSurface, graphics->colours.onSurface);
+
+    if (viewport->font != (HFONT) 0)
+    {
+        HFONT oldFont = (HFONT) SelectObject(offSurface, viewport->font);
+    }
 
     (void) FillRect(offSurface, &viewport->region, graphics->tools.surfaceBrush);
 
@@ -131,12 +136,16 @@ void BlokProcessEventOnPaint(HWND window)
         surface, 0, 0, viewport->region.right, viewport->region.bottom, 
         offSurface, 0, 0, SRCCOPY);
     
+    if (viewport->font != (HFONT) 0) 
+    { 
+        (void) SelectObject(offSurface, oldFont); 
+    }
+    
     (void) SetTextColor(offSurface, oldTextColour);
     (void) SetBkColor(offSurface, oldBkColour);
     (void) SetBkMode(offSurface, oldBkMode);
     (void) SelectObject(offSurface, oldPen);
     (void) SelectObject(offSurface, oldBrush);
-    (void) SelectObject(offSurface, oldFont);
     (void) DeleteObject(offSurfaceBitmap);
     (void) DeleteDC(offSurface);
     (void) EndPaint(window, &paintstruct);
